@@ -1,5 +1,5 @@
 #!/usr/bin/env groovy
-package cwl2nf
+package cwl2nxf
 
 /*
 @Grab(group='org.yaml', module='snakeyaml', version='1.18')

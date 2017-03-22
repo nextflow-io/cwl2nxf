@@ -1,5 +1,5 @@
 #!/usr/bin/env groovy
-package cwl2nf 
+package cwl2nxf
 
 class Step{
 	String cmd_string
