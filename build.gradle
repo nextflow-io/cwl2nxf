@@ -1,0 +1,23 @@
+apply plugin: 'groovy'
+apply plugin: 'application'
+version = '0.1'
+mainClassName='cwl2nf.Cwl2nf'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.codehaus.groovy:groovy-all:2.0.0'
+    compile 'org.yaml:snakeyaml:1.18'
+}
+
+task uberjar(type: Jar,dependsOn:[':compileJava',':compileGroovy']) {
+    from files(sourceSets.main.output.classesDir)
+    from configurations.runtime.asFileTree.files.collect { zipTree(it) }
+
+    manifest {
+        attributes 'Main-Class': mainClassName
+    }
+}
+

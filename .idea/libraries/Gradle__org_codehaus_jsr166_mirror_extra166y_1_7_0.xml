@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.codehaus.jsr166-mirror:extra166y:1.7.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.codehaus.jsr166-mirror/extra166y/1.7.0/c8ca938286e7a9cca58671ca3029574a35660fc/extra166y-1.7.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.codehaus.jsr166-mirror/extra166y/1.7.0/5ef7033b8f84b72819d3e04fb96ab00e818fda8b/extra166y-1.7.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
