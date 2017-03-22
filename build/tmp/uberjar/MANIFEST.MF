@@ -1,3 +1,3 @@
 Manifest-Version: 1.0
-Main-Class: cwl2nf.Cwl2nf
+Main-Class: cwl2nxf.Cwl2nxf
 
