@@ -20,4 +20,3 @@ task uberjar(type: Jar,dependsOn:[':compileJava',':compileGroovy']) {
         attributes 'Main-Class': mainClassName
     }
 }
-

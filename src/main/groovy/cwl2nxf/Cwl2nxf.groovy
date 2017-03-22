@@ -8,7 +8,7 @@ package cwl2nf
 import org.yaml.snakeyaml.Yaml
 
 
-class Cwl2nf{
+class Cwl2nxf{
     static void main(String[] args) {
 		String workingDir = System.getProperty("user.dir")
 		String infile = ''
