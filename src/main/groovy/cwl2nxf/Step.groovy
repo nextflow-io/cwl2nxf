@@ -2,7 +2,7 @@
 package cwl2nxf
 
 class Step{
-	String cmd_string
+	String cmdString
 	String id
 	def inputs
 	def outputs
@@ -10,15 +10,15 @@ class Step{
 
 
 	Step(stepdata, id, wfdata, stepins, ymldata){
-		this.cmd_string = extract_command_string(stepdata)
+		this.cmdString = extractCommandString(stepdata)
 		this.id = id
-		this.inputs = extract_inputs(stepdata, wfdata, stepins)
-		this.outputs = extract_outputs(stepdata,wfdata, stepins, ymldata)
-		this.wfouts = extract_wfouts(wfdata)
+		this.inputs = extractInputs(stepdata, wfdata, stepins)
+		this.outputs = extractOutputs(stepdata,wfdata, stepins, ymldata)
+		this.wfouts = extractWfouts(wfdata)
 
 
 	}
-	def extract_command_string(cwldata){
+	def extractCommandString(cwldata){
 		def counter = 0 
 		def cmdstr = ''
 		//Deal with if the base command is a string or a list of commands
@@ -29,7 +29,7 @@ class Step{
 			cmdstr += cwldata['baseCommand'].join(" ")
 
 		}
-		cmdstr = cmdstr + extract_arguments(cwldata)
+		cmdstr = cmdstr + extractArguments(cwldata)
 
 		cwldata['inputs'].keySet().each{
 			if('prefix' in cwldata['inputs'][it]['inputBinding']){
@@ -43,7 +43,7 @@ class Step{
 		return cmdstr
 
 	}
-	def extract_arguments(cwldata){
+	def extractArguments(cwldata){
 		Map cwl_vals = ['$(runtime.outdir)':'./']
 		def tmplist = ['',]
 		if ('arguments' in cwldata.keySet()){
@@ -63,7 +63,7 @@ class Step{
 			return ''
 		}
 	}
-	def extract_inputs(cwldata, wfdata, stepins){
+	def extractInputs(cwldata, wfdata, stepins){
 		def typemap = ['File':'file', 'string':'val']
 		def inputsreturn = []
 		int counter = 0
@@ -87,7 +87,7 @@ class Step{
 		return inputsreturn
 
 	}
-	def extract_outputs(cwldata, wfdata, stepins, ymldata){
+	def extractOutputs(cwldata, wfdata, stepins, ymldata){
 		def typemap = ['File':'file', 'string':'val']
 		def outputs = []
 		def glob = ''
@@ -122,9 +122,9 @@ class Step{
 
 				//This covers a specific case where no file is output as named
 				//normally this would cause nextflow to crash.
-				if(this.cmd_string.contains('gunzip -c')){
-					if(!this.cmd_string.contains('>')){
-						this.cmd_string += ' > ' + glob
+				if(this.cmdString.contains('gunzip -c')){
+					if(!this.cmdString.contains('>')){
+						this.cmdString += ' > ' + glob
 					}
 				}
 			}
@@ -134,7 +134,7 @@ class Step{
 
 		return outputs
 	}
-	def extract_wfouts(cwldata){
+	def extractWfouts(cwldata){
 		//efficiency of this step could be improved it currently parses
 		//the same thing for each step. 
 		def outs = []
@@ -148,19 +148,19 @@ class Step{
 
 		return outs
 	}
-	def get_cmd_string(){
-		return this.cmd_string
+	def getCmdString(){
+		return this.cmdString
 	}
-	def get_id(){
+	def getId(){
 		return this.id
 	}
-	def get_inputs(){
+	def getInputs(){
 		return this.inputs
 	}
-	def get_outputs(){
+	def getOutputs(){
 		return this.outputs
 	}
-	def get_process_block(){
+	def getProcessBlock(){
 		String processString = ''
 		processString += '\n'
 		processString += 'process ' + this.id + '{ \n'
@@ -184,7 +184,7 @@ class Step{
 		}
 
 		processString += '\t"""\n'
-		processString += '\t' + this.cmd_string + '\n'
+		processString += '\t' + this.cmdString + '\n'
 		processString += '\t"""\n'
 		processString += '}'
 

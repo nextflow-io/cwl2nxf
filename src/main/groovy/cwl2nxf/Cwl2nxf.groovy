@@ -8,69 +8,68 @@ package cwl2nxf
 import org.yaml.snakeyaml.Yaml
 
 
-class Cwl2nxf{
+class Cwl2nxf {
     static void main(String[] args) {
-		String workingDir = System.getProperty("user.dir")
-		String infile = ''
-		String ymlfile = ''
-		String inpath = args[0]
-		String ymlpath = args[1]
-		Yaml parser = new Yaml()
-		infile = new File(inpath).text
-		ymlfile = new File(ymlpath).text
+        String workingDir = System.getProperty("user.dir")
+        String infile = ''
+        String ymlfile = ''
+        String inpath = args[0]
+        String ymlpath = args[1]
+        Yaml parser = new Yaml()
+        infile = new File(inpath).text
+        ymlfile = new File(ymlpath).text
 
-		def data = parser.load(infile)
-		def ymldata = parser.load(ymlfile)
-
-
-
-		def stepList = []
-		Map ymlmapping = [:]
-		def channelList = []
-		Map wfinputs = [:]
+        def data = parser.load(infile)
+        def ymldata = parser.load(ymlfile)
 
 
-		ymldata.keySet().each{
-			if (ymldata[it].getClass() == String){
-				ymlmapping.put(it, ymldata[it])
-				channelList.add(new String(it + ' = Channel.from("' + ymldata[it]) + '")')
-			}
-			if (ymldata[it].getClass() == LinkedHashMap){
-				ymlmapping.put(it, ymldata[it]['path'])
-				channelList.add(new String(it + ' = Channel.fromPath("' +ymldata[it]['path'] + '")' ))
-			}
 
-		}
+        def stepList = []
+        Map ymlmapping = [:]
+        def channelList = []
+        Map wfinputs = [:]
 
 
-		data['steps'].keySet().each{
-			def stepins = data['steps'][it]['in']
-			def stepFilename = data['steps'][it]['run']
-			def stepID = stepFilename.replace('.cwl','')
-			stepFilename = inpath.replace(inpath.split('/')[-1], stepFilename)
+        ymldata.keySet().each {
+            if (ymldata[it].getClass() == String) {
+                ymlmapping.put(it, ymldata[it])
+                channelList.add(new String(it + ' = Channel.from("' + ymldata[it]) + '")')
+            }
+            if (ymldata[it].getClass() == LinkedHashMap) {
+                ymlmapping.put(it, ymldata[it]['path'])
+                channelList.add("${it} = Channel.fromPath('${ymldata[it]['path']}')")
+            }
 
-			if(stepID.contains('-')){
-				stepID = stepID.replace('-','_')
-			}
-			def stepFile = new File(stepFilename).text
-			def stepcwl = parser.load(stepFile)
-			stepList.add(new Step(stepcwl, stepID, data, stepins, ymlmapping))
-		}
+        }
 
 
-		String fileName = new Date().getTime() + '.nf'
-		def outfile = new File(fileName)
-		channelList.each{
-			println(it)
-			outfile.append(it + '\n')
-		}
-		stepList.each{
-			println(it.get_process_block())
-			outfile.append(it.get_process_block() + '\n')
-		}
 
-		//println(new String("nextflow run " + fileName).execute().text)
+        data['steps'].keySet().each {
+            def stepins = data['steps'][it]['in']
+            def stepFilename = data['steps'][it]['run']
+            def stepID = stepFilename.replace('.cwl', '')
+            stepFilename = inpath.replace(inpath.split('/')[-1], stepFilename)
 
+            if (stepID.contains('-')) {
+                stepID = stepID.replace('-', '_')
+            }
+            def stepFile = new File(stepFilename).text
+            def stepcwl = parser.load(stepFile)
+            stepList.add(new Step(stepcwl, stepID, data, stepins, ymlmapping))
+        }
+
+
+        String fileName = new Date().getTime() + '.nf'
+        fileName = inpath.replace(inpath.split('/')[-1], fileName)
+        println(fileName)
+        def outfile = new File(fileName)
+        channelList.each {
+            println(it)
+            outfile.append(it + '\n')
+        }
+        stepList.each {
+            println(it.getProcessBlock())
+            outfile.append(it.getProcessBlock() + '\n')
+        }
     }
 }
-

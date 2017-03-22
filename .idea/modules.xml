@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cwl2nf.iml" filepath="$PROJECT_DIR$/.idea/modules/cwl2nf.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cwl2nf_main.iml" filepath="$PROJECT_DIR$/.idea/modules/cwl2nf_main.iml" group="cwl2nf" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cwl2nf_test.iml" filepath="$PROJECT_DIR$/.idea/modules/cwl2nf_test.iml" group="cwl2nf" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cwl2nxf.iml" filepath="$PROJECT_DIR$/.idea/modules/cwl2nxf.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cwl2nxf_main.iml" filepath="$PROJECT_DIR$/.idea/modules/cwl2nxf_main.iml" group="cwl2nxf" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cwl2nxf_test.iml" filepath="$PROJECT_DIR$/.idea/modules/cwl2nxf_test.iml" group="cwl2nxf" />
     </modules>
   </component>
 </project>
