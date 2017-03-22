@@ -12,4 +12,4 @@ Then the below command will execute the newly created jar and process the provid
 ```
 java -jar build/libs/cwl2nxf-0.1.jar sample_data/wf.cwl sample_data/wf.yml
 ```
-Upon execution a *.nf file will be created in the base folder. The file is currently just naemd with a timestamp. This file should be then runnable in nextflow. 
+Upon execution a *.nf file will be created in the base folder. The file is currently just named with a timestamp. This file should be then runnable in nextflow. 
