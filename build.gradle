@@ -10,6 +10,7 @@ repositories {
 dependencies {
     compile 'org.codehaus.groovy:groovy-all:2.4.10'
     compile 'org.yaml:snakeyaml:1.18'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.0.pr1'
 }
 
 task uberjar(type: Jar,dependsOn:[':compileJava',':compileGroovy']) {

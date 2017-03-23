@@ -1,1 +1,5 @@
 2017-03-22 15:55:11	2.1s	fervent_bartik	OK	2bda69c0cda0f19db6569adbae037af1	756bc12a-5af1-4f38-9f78-ace07e94cb1f	nextflow run 1490194497864.nf
+2017-03-24 00:39:21	1.3s	peaceful_curran	ERR	a035b8e61268280f30fe044d7958edab	95782472-ad66-4648-b683-cf40b4b275c6	nextflow run test.nf
+2017-03-24 00:40:10	1.5s	cocky_chandrasekhar	OK	3fd1271db6730c86e7eca53c64dd0a63	a0d43906-af55-4908-a81b-ca0c776c1dcb	nextflow run test.nf
+2017-03-24 00:41:31	3.4s	small_euclid	OK	2bda69c0cda0f19db6569adbae037af1	1558c7fb-ca6b-4311-803d-34d70b8b3ac3	nextflow run test.nf
+2017-03-24 00:41:49	2.5s	berserk_shaw	ERR	2bda69c0cda0f19db6569adbae037af1	c23996b5-f338-4503-aad5-f38494bd364c	nextflow run test.nf
