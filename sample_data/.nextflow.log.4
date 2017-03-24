@@ -1,0 +1,56 @@
+Mar-24 00:41:31.354 [main] DEBUG nextflow.cli.Launcher - $> /home/kevin/bin/nextflow run test.nf
+Mar-24 00:41:31.430 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 0.23.3
+Mar-24 00:41:31.438 [main] INFO  nextflow.cli.CmdRun - Launching `test.nf` [small_euclid] - revision: 2bda69c0cd
+Mar-24 00:41:31.447 [main] DEBUG nextflow.config.ConfigBuilder - Found config local: nextflow.config
+Mar-24 00:41:31.449 [main] DEBUG nextflow.config.ConfigBuilder - Parsing config file: /home/kevin/cwl2nxf/sample_data/nextflow.config
+Mar-24 00:41:31.713 [main] DEBUG nextflow.config.ConfigBuilder - Setting config profile: 'standard'
+Mar-24 00:41:31.777 [main] DEBUG nextflow.Session - Session uuid: 1558c7fb-ca6b-4311-803d-34d70b8b3ac3
+Mar-24 00:41:31.777 [main] DEBUG nextflow.Session - Run name: small_euclid
+Mar-24 00:41:31.779 [main] DEBUG nextflow.Session - Executor pool size: 8
+Mar-24 00:41:31.792 [main] DEBUG nextflow.cli.CmdRun - 
+  Version: 0.23.3 build 4168
+  Modified: 09-02-2017 16:46 UTC (17:46 CEST)
+  System: Linux 4.4.0-66-generic
+  Runtime: Groovy 2.4.7 on Java HotSpot(TM) 64-Bit Server VM 1.8.0_121-b13
+  Encoding: UTF-8 (UTF-8)
+  Process: 11469@kevin-XPS-15-9550 [127.0.1.1]
+  CPUs: 8 - Mem: 15.5 GB (9.1 GB) - Swap: 14.6 GB (14.6 GB)
+Mar-24 00:41:31.815 [main] DEBUG nextflow.Session - Work-dir: /home/kevin/cwl2nxf/sample_data/work [ext2/ext3]
+Mar-24 00:41:31.815 [main] DEBUG nextflow.Session - Script base path does not exist or is not a directory: /home/kevin/cwl2nxf/sample_data/bin
+Mar-24 00:41:31.897 [main] DEBUG nextflow.Session - Session start invoked
+Mar-24 00:41:31.899 [main] DEBUG nextflow.processor.TaskDispatcher - Dispatcher > start
+Mar-24 00:41:31.900 [main] DEBUG nextflow.script.ScriptRunner - > Script parsing
+Mar-24 00:41:32.013 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
+Mar-24 00:41:32.134 [main] DEBUG nextflow.processor.ProcessFactory - << taskConfig executor: null
+Mar-24 00:41:32.134 [main] DEBUG nextflow.processor.ProcessFactory - >> processorType: 'local'
+Mar-24 00:41:32.139 [main] DEBUG nextflow.executor.Executor - Initializing executor: local
+Mar-24 00:41:32.141 [main] INFO  nextflow.executor.Executor - [warm up] executor > local
+Mar-24 00:41:32.145 [main] DEBUG n.processor.LocalPollingMonitor - Creating local task monitor for executor 'local' > cpus=8; memory=15.5 GB; capacity=8; pollInterval=100ms; dumpInterval=5m
+Mar-24 00:41:32.148 [main] DEBUG nextflow.processor.TaskDispatcher - Starting monitor: LocalPollingMonitor
+Mar-24 00:41:32.148 [main] DEBUG n.processor.TaskPollingMonitor - >>> barrier register (monitor: local)
+Mar-24 00:41:32.173 [main] DEBUG nextflow.executor.Executor - Invoke register for executor: local
+Mar-24 00:41:32.203 [main] DEBUG nextflow.Session - >>> barrier register (process: tar_param)
+Mar-24 00:41:32.214 [main] DEBUG nextflow.processor.TaskProcessor - Creating operator > tar_param -- maxForks: 8
+Mar-24 00:41:32.235 [main] DEBUG nextflow.processor.ProcessFactory - << taskConfig executor: null
+Mar-24 00:41:32.236 [main] DEBUG nextflow.processor.ProcessFactory - >> processorType: 'local'
+Mar-24 00:41:32.236 [main] DEBUG nextflow.executor.Executor - Initializing executor: local
+Mar-24 00:41:32.237 [main] DEBUG nextflow.Session - >>> barrier register (process: arguments)
+Mar-24 00:41:32.244 [main] DEBUG nextflow.processor.TaskProcessor - Creating operator > arguments -- maxForks: 8
+Mar-24 00:41:32.246 [main] DEBUG nextflow.script.ScriptRunner - > Await termination 
+Mar-24 00:41:32.246 [main] DEBUG nextflow.Session - Session await
+Mar-24 00:41:32.247 [Actor Thread 1] DEBUG nextflow.processor.TaskProcessor - <tar_param> Poison pill arrived
+Mar-24 00:41:32.252 [Actor Thread 3] DEBUG nextflow.processor.StateObj - <tar_param> State before poison: StateObj[submitted: 1; completed: 0; poisoned: false ]
+Mar-24 00:41:32.457 [Actor Thread 2] INFO  nextflow.Session - [6e/b2eb4d] Submitted process > tar_param (1)
+Mar-24 00:41:32.458 [Actor Thread 1] DEBUG nextflow.processor.TaskProcessor - <tar_param> After stop
+Mar-24 00:41:33.108 [Actor Thread 3] DEBUG nextflow.processor.TaskProcessor - <tar_param> Sending poison pills and terminating process
+Mar-24 00:41:33.114 [Actor Thread 1] DEBUG nextflow.processor.TaskProcessor - <arguments> Poison pill arrived
+Mar-24 00:41:33.115 [Actor Thread 3] DEBUG nextflow.Session - <<< barrier arrive (process: tar_param)
+Mar-24 00:41:33.120 [Actor Thread 2] INFO  nextflow.Session - [5b/d94882] Submitted process > arguments (1)
+Mar-24 00:41:33.120 [Actor Thread 5] DEBUG nextflow.processor.StateObj - <arguments> State before poison: StateObj[submitted: 1; completed: 0; poisoned: false ]
+Mar-24 00:41:33.121 [Actor Thread 1] DEBUG nextflow.processor.TaskProcessor - <arguments> After stop
+Mar-24 00:41:34.281 [Actor Thread 4] DEBUG nextflow.processor.TaskProcessor - <arguments> Sending poison pills and terminating process
+Mar-24 00:41:34.281 [Actor Thread 4] DEBUG nextflow.Session - <<< barrier arrive (process: arguments)
+Mar-24 00:41:34.283 [main] DEBUG nextflow.Session - Session await > all process finished
+Mar-24 00:41:34.352 [Thread-1] DEBUG n.processor.TaskPollingMonitor - <<< barrier arrives (monitor: local)
+Mar-24 00:41:34.352 [main] DEBUG nextflow.Session - Session await > all barriers passed
+Mar-24 00:41:34.391 [main] DEBUG nextflow.script.ScriptRunner - > Execution complete -- Goodbye

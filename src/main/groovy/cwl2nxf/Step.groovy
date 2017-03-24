@@ -107,6 +107,7 @@ class Step{
 			def keycheck = cwldata['outputs'][it].keySet()
 			if(keycheck.contains('outputBinding')){
 				glob =cwldata['outputs'][it]['outputBinding']['glob']
+
 				if (glob.contains('$(inputs')){
 					glob = glob.replace("\$(inputs.",'')
 					glob = glob.replace(")",'')

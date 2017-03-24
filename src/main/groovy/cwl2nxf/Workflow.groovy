@@ -14,6 +14,7 @@ class Workflow{
     private String workingDir
     private List<Step> stepList
     private String docker = null
+    public Map ymlmapping = [:]
 
     //refactor these
     private String cwl
@@ -26,6 +27,7 @@ class Workflow{
         //refactor
         this.cwl = cwl
         this.yml = yml
+        this.ymlmapping = extractYmlMapping()
 
         this.cwlJson = parseYml(cwl)
         this.ymlJson = parseYml(yml)
@@ -55,17 +57,35 @@ class Workflow{
 
         ymldata.keySet().each {
             if (ymldata[it].getClass() == String) {
-                ymlmapping.put(it, ymldata[it])
+                this.ymlmapping.put(it, ymldata[it])
                 channelList.add(new String(it + ' = Channel.from("' + ymldata[it]) + '")')
             }
             if (ymldata[it].getClass() == LinkedHashMap) {
-                ymlmapping.put(it, ymldata[it]['path'])
+                this.ymlmapping.put(it, ymldata[it]['path'])
                 channelList.add("${it} = Channel.fromPath('${ymldata[it]['path']}')")
             }
 
         }
         return channelList
 
+    }
+
+    private Map extractYmlMapping(){
+        Yaml parser = new Yaml()
+        def data = parser.load(this.cwl)
+        def ymldata = parser.load(this.yml)
+        Map ymlmapping = [:]
+
+        ymldata.keySet().each {
+            if (ymldata[it].getClass() == String) {
+                ymlmapping.put(it, ymldata[it])
+            }
+            if (ymldata[it].getClass() == LinkedHashMap) {
+                ymlmapping.put(it, ymldata[it]['path'])
+            }
+
+        }
+        return ymlmapping
     }
     public JsonNode getCwlJson(){
         return this.cwlJson
@@ -85,6 +105,9 @@ class Workflow{
     public String getWorkingDir(){
         return this.workingDir
     }
+    public String getDocker(){
+        return this.docker
+    }
     private List<Step> buildSteps(){
         List<Step> stepList = []
 
@@ -92,7 +115,6 @@ class Workflow{
         Yaml parser = new Yaml()
         def data = parser.load(this.cwl)
         def ymldata = parser.load(this.yml)
-        Map ymlmapping = [:]
         def channelList = []
         Map wfinputs = [:]
 
@@ -106,8 +128,9 @@ class Workflow{
             }
             def stepFile = new File(this.workingDir,stepFilename).text
             def stepcwl = parser.load(stepFile)
-            stepList.add(new Step(stepcwl, stepID, data, stepins, ymlmapping))
+            stepList.add(new Step(stepcwl, stepID, data, stepins, this.ymlmapping))
         }
+
 
 
 /*        getSteps().each{
@@ -118,7 +141,14 @@ class Workflow{
 
     }
     private String extractDocker(){
-        return this.cwlJson.hints."DockerRequirement"."dockerPull".asText()
+        if(this.cwlJson.hints != null){
+            if(this.cwlJson.hints."DockerRequirement" != null){
+                return this.cwlJson.hints."DockerRequirement"."dockerPull".asText()
+            }
+        }
+        else{
+            return null
+        }
 
     }
 

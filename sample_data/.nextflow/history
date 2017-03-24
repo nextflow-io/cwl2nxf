@@ -3,3 +3,7 @@
 2017-03-24 00:40:10	1.5s	cocky_chandrasekhar	OK	3fd1271db6730c86e7eca53c64dd0a63	a0d43906-af55-4908-a81b-ca0c776c1dcb	nextflow run test.nf
 2017-03-24 00:41:31	3.4s	small_euclid	OK	2bda69c0cda0f19db6569adbae037af1	1558c7fb-ca6b-4311-803d-34d70b8b3ac3	nextflow run test.nf
 2017-03-24 00:41:49	2.5s	berserk_shaw	ERR	2bda69c0cda0f19db6569adbae037af1	c23996b5-f338-4503-aad5-f38494bd364c	nextflow run test.nf
+2017-03-24 11:18:00	1.4s	cocky_wiles	ERR	360a2d2833adb537f30db0a05fe2dec4	d14dc111-acf8-4f58-852a-a750d3deada2	nextflow run 1490350668490.nf
+2017-03-24 11:18:12	1.8s	mad_boyd	OK	2bda69c0cda0f19db6569adbae037af1	0472a52d-6018-444d-adf2-65714716cdfa	nextflow run 1490350668490.nf
+2017-03-24 13:01:49	1.8s	lonely_allen	OK	2bda69c0cda0f19db6569adbae037af1	ef73c2ed-11eb-4621-9b3d-95ac8ed64e95	nextflow run 1490356823858.nf
+2017-03-24 14:56:56	2.4s	silly_hamilton	OK	2bda69c0cda0f19db6569adbae037af1	af7c0884-6971-4a83-af3b-0e3de87e9f06	nextflow run 1490363799065.nf
