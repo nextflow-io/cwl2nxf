@@ -1,10 +1,6 @@
 cwlVersion: v1.0
 class: Workflow
 
-hints:
-  DockerRequirement:
-    dockerPull: java:7-jdk
-
     
 inputs:
   inp: File

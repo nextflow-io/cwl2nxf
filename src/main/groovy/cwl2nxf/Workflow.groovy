@@ -58,11 +58,11 @@ class Workflow{
         ymldata.keySet().each {
             if (ymldata[it].getClass() == String) {
                 this.ymlmapping.put(it, ymldata[it])
-                channelList.add(new String(it + ' = Channel.from("' + ymldata[it]) + '")')
+                channelList.add(new String(it + ' = "' + ymldata[it]) + '"')
             }
             if (ymldata[it].getClass() == LinkedHashMap) {
                 this.ymlmapping.put(it, ymldata[it]['path'])
-                channelList.add("${it} = Channel.fromPath('${ymldata[it]['path']}')")
+                channelList.add("${it} = file('${ymldata[it]['path']}')")
             }
 
         }

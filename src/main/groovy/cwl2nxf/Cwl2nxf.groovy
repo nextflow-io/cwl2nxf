@@ -16,11 +16,11 @@ class Cwl2nxf {
         String fileName = new Date().getTime() + '.nf'
         def outfile = new File(workingDir,fileName)
         wf.getChannels().each {
-            //println(it)
+            println(it)
             outfile.append(it + '\n')
         }
         wf.getSteplist().each {
-            //println(it.getProcessBlock())
+            println(it.getProcessBlock())
             outfile.append(it.getProcessBlock() + '\n')
         }
         if(wf.getDocker() != null){

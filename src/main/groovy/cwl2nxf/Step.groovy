@@ -92,8 +92,6 @@ class Step{
 		def outputs = []
 		def glob = ''
 		def outType = ''
-/*		println(cwldata.keySet())
-*/		
 
 		if(cwldata.keySet().contains('stdout')){
 			if(cwldata['stdout'].contains('.')){
@@ -102,9 +100,17 @@ class Step{
 		}
 
 		cwldata['outputs'].keySet().each{
-			outType = typemap[cwldata['outputs'][it]['type']]
+            //This checks for the outputs being an array
+            if(cwldata['outputs'][it]['type'].getClass() == String){
+                outType = typemap[cwldata['outputs'][it]['type']]
+            }
+            else{
+                outType = typemap[cwldata['outputs'][it]['type']['items']]
+            }
+
 			def into = it
 			def keycheck = cwldata['outputs'][it].keySet()
+
 			if(keycheck.contains('outputBinding')){
 				glob =cwldata['outputs'][it]['outputBinding']['glob']
 
