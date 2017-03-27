@@ -25,3 +25,5 @@ hs_err_pid*
 /.idea
 /.nextflow
 .nextflow.log
+work
+.nextflow
