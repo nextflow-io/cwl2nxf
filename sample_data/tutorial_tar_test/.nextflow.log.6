@@ -1,0 +1,70 @@
+Mar-29 17:55:14.364 [main] DEBUG nextflow.cli.Launcher - $> /usr/bin/nextflow run test.nf
+Mar-29 17:55:14.455 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 0.24.1
+Mar-29 17:55:14.465 [main] INFO  nextflow.cli.CmdRun - Launching `test.nf` [gloomy_williams] - revision: eac51ccebe
+Mar-29 17:55:14.802 [main] DEBUG nextflow.Session - Session uuid: 5b68884d-7790-48b3-a956-5a1bf87c2de8
+Mar-29 17:55:14.802 [main] DEBUG nextflow.Session - Run name: gloomy_williams
+Mar-29 17:55:14.805 [main] DEBUG nextflow.Session - Executor pool size: 12
+Mar-29 17:55:14.819 [main] DEBUG nextflow.cli.CmdRun - 
+  Version: 0.24.1 build 4245
+  Modified: 24-03-2017 19:41 UTC (20:41 CEST)
+  System: Linux 4.4.0-66-generic
+  Runtime: Groovy 2.4.10 on Java HotSpot(TM) 64-Bit Server VM 1.8.0_121-b13
+  Encoding: UTF-8 (UTF-8)
+  Process: 20154@CUBA [127.0.1.1]
+  CPUs: 12 - Mem: 47.2 GB (32.5 GB) - Swap: 48 GB (48 GB)
+Mar-29 17:55:14.849 [main] DEBUG nextflow.Session - Work-dir: /home/ksayers/cwlconversion_work/cwl2nxf/sample_data/tutorial_tar_test/work [ext2/ext3]
+Mar-29 17:55:14.849 [main] DEBUG nextflow.Session - Script base path does not exist or is not a directory: /home/ksayers/cwlconversion_work/cwl2nxf/sample_data/tutorial_tar_test/bin
+Mar-29 17:55:14.986 [main] DEBUG nextflow.Session - Session start invoked
+Mar-29 17:55:14.994 [main] DEBUG nextflow.processor.TaskDispatcher - Dispatcher > start
+Mar-29 17:55:14.995 [main] DEBUG nextflow.script.ScriptRunner - > Script parsing
+Mar-29 17:55:15.113 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
+Mar-29 17:55:15.221 [main] DEBUG nextflow.processor.ProcessFactory - << taskConfig executor: null
+Mar-29 17:55:15.222 [main] DEBUG nextflow.processor.ProcessFactory - >> processorType: 'local'
+Mar-29 17:55:15.228 [main] DEBUG nextflow.executor.Executor - Initializing executor: local
+Mar-29 17:55:15.230 [main] INFO  nextflow.executor.Executor - [warm up] executor > local
+Mar-29 17:55:15.235 [main] DEBUG n.processor.LocalPollingMonitor - Creating local task monitor for executor 'local' > cpus=12; memory=47.2 GB; capacity=12; pollInterval=100ms; dumpInterval=5m
+Mar-29 17:55:15.239 [main] DEBUG nextflow.processor.TaskDispatcher - Starting monitor: LocalPollingMonitor
+Mar-29 17:55:15.240 [main] DEBUG n.processor.TaskPollingMonitor - >>> barrier register (monitor: local)
+Mar-29 17:55:15.242 [main] DEBUG nextflow.executor.Executor - Invoke register for executor: local
+Mar-29 17:55:15.285 [main] DEBUG nextflow.Session - >>> barrier register (process: mytest)
+Mar-29 17:55:15.298 [main] DEBUG nextflow.processor.TaskProcessor - Creating operator > mytest -- maxForks: 12
+Mar-29 17:55:15.321 [main] DEBUG nextflow.script.ScriptRunner - > Await termination 
+Mar-29 17:55:15.321 [main] DEBUG nextflow.Session - Session await
+Mar-29 17:55:15.337 [Actor Thread 1] DEBUG nextflow.processor.TaskProcessor - <mytest> Poison pill arrived
+Mar-29 17:55:15.339 [Actor Thread 2] DEBUG nextflow.processor.StateObj - <mytest> State before poison: StateObj[submitted: 1; completed: 0; poisoned: false ]
+Mar-29 17:55:15.578 [Actor Thread 3] INFO  nextflow.Session - [6e/c49bb1] Submitted process > mytest (1)
+Mar-29 17:55:15.579 [Actor Thread 1] DEBUG nextflow.processor.TaskProcessor - <mytest> After stop
+Mar-29 17:55:16.563 [Thread-1] ERROR nextflow.processor.TaskProcessor - Error executing process > 'mytest (1)'
+
+Caused by:
+  Process `mytest (1)` terminated with an error exit status (1)
+
+Command executed:
+
+  cwltool wf.cwl wf.yml
+
+Command exit status:
+  1
+
+Command output:
+  (empty)
+
+Command error:
+  /home/ksayers/.local/bin/cwltool 1.0.20161114152756
+  Resolved 'wf.cwl' to 'file://wf.cwl'
+  Exception on step 'untar'
+  Workflow error, try again with --debug for more information:
+    Missing input file [Errno 2] No such file or directory: 'hello.tar'
+
+Work dir:
+  /home/ksayers/cwlconversion_work/cwl2nxf/sample_data/tutorial_tar_test/work/6e/c49bb1934b50b8bb0030f5bdffaf37
+
+Tip: view the complete command output by changing to the process work dir and entering the command `cat .command.out`
+Mar-29 17:55:16.567 [Actor Thread 2] DEBUG nextflow.processor.TaskProcessor - <mytest> Sending poison pills and terminating process
+Mar-29 17:55:16.567 [Thread-1] DEBUG nextflow.Session - Session aborted -- Cause: Process `mytest (1)` terminated with an error exit status (1)
+Mar-29 17:55:16.569 [Actor Thread 2] DEBUG nextflow.Session - <<< barrier arrive (process: mytest)
+Mar-29 17:55:16.570 [main] DEBUG nextflow.Session - Session await > all process finished
+Mar-29 17:55:16.570 [main] DEBUG nextflow.Session - Session await > all barriers passed
+Mar-29 17:55:16.570 [Thread-1] DEBUG n.processor.TaskPollingMonitor - <<< barrier arrives (monitor: local)
+Mar-29 17:55:16.643 [main] DEBUG nextflow.CacheDB - Closing CacheDB done
+Mar-29 17:55:16.653 [main] DEBUG nextflow.script.ScriptRunner - > Execution complete -- Goodbye

@@ -68,7 +68,9 @@ class Step{
 		def inputsreturn = []
 		int counter = 0
 
+
 		cwldata['inputs'].keySet().each{
+
 			def intype = typemap[cwldata['inputs'][it]['type']]
 			def from = stepins[it]
 			if(from.getClass() == String){
@@ -84,6 +86,11 @@ class Step{
 			counter += 1
 
 		}
+
+        //Add in inputs that come directly from another step
+/*        println(cwldata['inputs'])
+        println(stepins)*/
+
 		return inputsreturn
 
 	}
