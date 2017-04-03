@@ -1,0 +1,41 @@
+Apr-03 15:36:23.262 [main] DEBUG nextflow.cli.Launcher - $> /usr/bin/nextflow run atest.nf
+Apr-03 15:36:23.363 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 0.24.1
+Apr-03 15:36:23.372 [main] INFO  nextflow.cli.CmdRun - Launching `atest.nf` [sharp_sammet] - revision: 4cc3a0bc35
+Apr-03 15:36:23.714 [main] DEBUG nextflow.Session - Session uuid: 2c6f3d3c-9a3d-4618-9046-1b40ac0d961d
+Apr-03 15:36:23.715 [main] DEBUG nextflow.Session - Run name: sharp_sammet
+Apr-03 15:36:23.717 [main] DEBUG nextflow.Session - Executor pool size: 12
+Apr-03 15:36:23.730 [main] DEBUG nextflow.cli.CmdRun - 
+  Version: 0.24.1 build 4245
+  Modified: 24-03-2017 19:41 UTC (20:41 CEST)
+  System: Linux 4.4.0-71-generic
+  Runtime: Groovy 2.4.10 on Java HotSpot(TM) 64-Bit Server VM 1.8.0_121-b13
+  Encoding: UTF-8 (UTF-8)
+  Process: 5916@CUBA [127.0.1.1]
+  CPUs: 12 - Mem: 47.2 GB (35.4 GB) - Swap: 48 GB (48 GB)
+Apr-03 15:36:23.756 [main] DEBUG nextflow.Session - Work-dir: /home/ksayers/cwlconversion_work/cwl2nxf/sample_data/helloworld/work [ext2/ext3]
+Apr-03 15:36:23.756 [main] DEBUG nextflow.Session - Script base path does not exist or is not a directory: /home/ksayers/cwlconversion_work/cwl2nxf/sample_data/helloworld/bin
+Apr-03 15:36:23.882 [main] DEBUG nextflow.Session - Session start invoked
+Apr-03 15:36:23.891 [main] DEBUG nextflow.processor.TaskDispatcher - Dispatcher > start
+Apr-03 15:36:23.892 [main] DEBUG nextflow.script.ScriptRunner - > Script parsing
+Apr-03 15:36:23.965 [main] DEBUG nextflow.Session - Session aborted -- Cause: startup failed:
+_nf_script_a85a6227: 5: Invalid process block definition -- Unknown keyword `inputs` @ line 5, column 2.
+   	val invar0 from atest
+    ^
+
+_nf_script_a85a6227: 14: Invalid process block definition -- Unknown keyword `inputs` @ line 14, column 2.
+   	val invar1 from atest
+    ^
+
+2 errors
+
+Apr-03 15:36:24.053 [main] ERROR nextflow.cli.Launcher - startup failed:
+_nf_script_a85a6227: 5: Invalid process block definition -- Unknown keyword `inputs` @ line 5, column 2.
+   	val invar0 from atest
+    ^
+
+_nf_script_a85a6227: 14: Invalid process block definition -- Unknown keyword `inputs` @ line 14, column 2.
+   	val invar1 from atest
+    ^
+
+2 errors
+

@@ -100,50 +100,58 @@ class Step{
 		def glob = ''
 		def outType = ''
 
-		if(cwldata.keySet().contains('stdout')){
-			if(cwldata['stdout'].contains('.')){
-				typemap.put('stdout','file')
-			}
-		}
-
-		cwldata['outputs'].keySet().each{
-            //This checks for the outputs being an array
-            if(cwldata['outputs'][it]['type'].getClass() == String){
-                outType = typemap[cwldata['outputs'][it]['type']]
-            }
-            else{
-                outType = typemap[cwldata['outputs'][it]['type']['items']]
-            }
-
-			def into = it
-			def keycheck = cwldata['outputs'][it].keySet()
-
-			if(keycheck.contains('outputBinding')){
-				glob =cwldata['outputs'][it]['outputBinding']['glob']
-
-				if (glob.contains('$(inputs')){
-					glob = glob.replace("\$(inputs.",'')
-					glob = glob.replace(")",'')
-					glob = ymldata[stepins[glob]]
+		if(cwldata['outputs'] != []){
+			if(cwldata.keySet().contains('stdout')){
+				if(cwldata['stdout'].contains('.')){
+					typemap.put('stdout','file')
 				}
-				outputs.add(new String(outType + ' "' + glob + '" into ' + into ))
-
 			}
-			if(keycheck.size() == 1){
-				outType = typemap[cwldata['outputs'][it]['type']]
-				glob = cwldata['stdout']
-				outputs.add(new String(outType + ' "' + glob + '" into ' + into ))
 
-				//This covers a specific case where no file is output as named
-				//normally this would cause nextflow to crash.
-				if(this.cmdString.contains('gunzip -c')){
-					if(!this.cmdString.contains('>')){
-						this.cmdString += ' > ' + glob
+			cwldata['outputs'].keySet().each{
+				//This checks for the outputs being an array
+				if(cwldata['outputs'][it]['type'].getClass() == String){
+					outType = typemap[cwldata['outputs'][it]['type']]
+				}
+				else{
+					outType = typemap[cwldata['outputs'][it]['type']['items']]
+				}
+
+				def into = it
+				def keycheck = cwldata['outputs'][it].keySet()
+
+				if(keycheck.contains('outputBinding')){
+					glob =cwldata['outputs'][it]['outputBinding']['glob']
+
+					if (glob.contains('$(inputs')){
+						glob = glob.replace("\$(inputs.",'')
+						glob = glob.replace(")",'')
+						glob = ymldata[stepins[glob]]
+					}
+					outputs.add(new String(outType + ' "' + glob + '" into ' + into ))
+
+				}
+				if(keycheck.size() == 1){
+					outType = typemap[cwldata['outputs'][it]['type']]
+					glob = cwldata['stdout']
+					outputs.add(new String(outType + ' "' + glob + '" into ' + into ))
+
+					//This covers a specific case where no file is output as named
+					//normally this would cause nextflow to crash.
+					if(this.cmdString.contains('gunzip -c')){
+						if(!this.cmdString.contains('>')){
+							this.cmdString += ' > ' + glob
+						}
 					}
 				}
-			}
+		}
 
 
+
+
+
+		}
+		else{
+			outputs.add('')
 		}
 
 		return outputs
@@ -153,11 +161,17 @@ class Step{
 		//the same thing for each step. 
 		def outs = []
 
-		cwldata['outputs'].keySet().each{
-			String outsrc = cwldata['outputs'][it]['outputSource']
-			if(outsrc.contains('/')){
-				outs.add(outsrc.split('/')[-1])
+		if(cwldata['outputs'] != []){
+			cwldata['outputs'].keySet().each{
+				String outsrc = cwldata['outputs'][it]['outputSource']
+				if(outsrc.contains('/')){
+					outs.add(outsrc.split('/')[-1])
+				}
 			}
+
+		}
+		else{
+			outs.add('')
 		}
 
 		return outs

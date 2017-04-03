@@ -1,7 +1,12 @@
 cwlVersion: v1.0
 class: Workflow
+
+requirements:
+- class: ScatterFeatureRequirement
+
 inputs:
-  infile: string
+  infile: string[]
+
 
 outputs: []
 
@@ -11,4 +16,5 @@ steps:
     run: hello.cwl
     in:
       message: infile
+    scatter: message
     out: []

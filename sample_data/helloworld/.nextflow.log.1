@@ -1,0 +1,32 @@
+Apr-03 16:15:26.419 [main] DEBUG nextflow.cli.Launcher - $> /usr/bin/nextflow run atest.nf
+Apr-03 16:15:26.525 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 0.24.1
+Apr-03 16:15:26.535 [main] INFO  nextflow.cli.CmdRun - Launching `atest.nf` [cocky_noether] - revision: 87aeef4352
+Apr-03 16:15:26.864 [main] DEBUG nextflow.Session - Session uuid: c1f132b7-123a-4826-81b3-b3d5f67523c0
+Apr-03 16:15:26.864 [main] DEBUG nextflow.Session - Run name: cocky_noether
+Apr-03 16:15:26.866 [main] DEBUG nextflow.Session - Executor pool size: 12
+Apr-03 16:15:26.880 [main] DEBUG nextflow.cli.CmdRun - 
+  Version: 0.24.1 build 4245
+  Modified: 24-03-2017 19:41 UTC (20:41 CEST)
+  System: Linux 4.4.0-71-generic
+  Runtime: Groovy 2.4.10 on Java HotSpot(TM) 64-Bit Server VM 1.8.0_121-b13
+  Encoding: UTF-8 (UTF-8)
+  Process: 6622@CUBA [127.0.1.1]
+  CPUs: 12 - Mem: 47.2 GB (35.2 GB) - Swap: 48 GB (48 GB)
+Apr-03 16:15:26.905 [main] DEBUG nextflow.Session - Work-dir: /home/ksayers/cwlconversion_work/cwl2nxf/sample_data/helloworld/work [ext2/ext3]
+Apr-03 16:15:26.905 [main] DEBUG nextflow.Session - Script base path does not exist or is not a directory: /home/ksayers/cwlconversion_work/cwl2nxf/sample_data/helloworld/bin
+Apr-03 16:15:27.039 [main] DEBUG nextflow.Session - Session start invoked
+Apr-03 16:15:27.047 [main] DEBUG nextflow.processor.TaskDispatcher - Dispatcher > start
+Apr-03 16:15:27.047 [main] DEBUG nextflow.script.ScriptRunner - > Script parsing
+Apr-03 16:15:27.169 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
+Apr-03 16:15:27.177 [main] DEBUG nextflow.Session - Session aborted -- Cause: No such property: a for class: _nf_script_2fc9deb4
+Apr-03 16:15:27.269 [main] ERROR nextflow.cli.Launcher - @unknown
+groovy.lang.MissingPropertyException: No such property: a for class: _nf_script_2fc9deb4
+	at org.codehaus.groovy.runtime.ScriptBytecodeAdapter.unwrap(ScriptBytecodeAdapter.java:53)
+	at org.codehaus.groovy.runtime.callsite.PogoGetPropertySite.getProperty(PogoGetPropertySite.java:52)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callGroovyObjectGetProperty(AbstractCallSite.java:307)
+	at _nf_script_2fc9deb4.run(_nf_script_2fc9deb4:2)
+	at nextflow.script.ScriptRunner.run(ScriptRunner.groovy:322)
+	at nextflow.script.ScriptRunner.execute(ScriptRunner.groovy:156)
+	at nextflow.cli.CmdRun.run(CmdRun.groovy:223)
+	at nextflow.cli.Launcher.run(Launcher.groovy:410)
+	at nextflow.cli.Launcher.main(Launcher.groovy:564)

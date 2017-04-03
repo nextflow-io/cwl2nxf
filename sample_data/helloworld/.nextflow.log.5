@@ -1,0 +1,54 @@
+Apr-03 16:12:53.381 [main] DEBUG nextflow.cli.Launcher - $> /usr/bin/nextflow run atest.nf
+Apr-03 16:12:53.482 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 0.24.1
+Apr-03 16:12:53.492 [main] INFO  nextflow.cli.CmdRun - Launching `atest.nf` [evil_galileo] - revision: a009b6a05f
+Apr-03 16:12:53.827 [main] DEBUG nextflow.Session - Session uuid: e3a66f7c-c543-4b7b-8882-8834d666716e
+Apr-03 16:12:53.827 [main] DEBUG nextflow.Session - Run name: evil_galileo
+Apr-03 16:12:53.829 [main] DEBUG nextflow.Session - Executor pool size: 12
+Apr-03 16:12:53.842 [main] DEBUG nextflow.cli.CmdRun - 
+  Version: 0.24.1 build 4245
+  Modified: 24-03-2017 19:41 UTC (20:41 CEST)
+  System: Linux 4.4.0-71-generic
+  Runtime: Groovy 2.4.10 on Java HotSpot(TM) 64-Bit Server VM 1.8.0_121-b13
+  Encoding: UTF-8 (UTF-8)
+  Process: 6367@CUBA [127.0.1.1]
+  CPUs: 12 - Mem: 47.2 GB (35.2 GB) - Swap: 48 GB (48 GB)
+Apr-03 16:12:53.865 [main] DEBUG nextflow.Session - Work-dir: /home/ksayers/cwlconversion_work/cwl2nxf/sample_data/helloworld/work [ext2/ext3]
+Apr-03 16:12:53.865 [main] DEBUG nextflow.Session - Script base path does not exist or is not a directory: /home/ksayers/cwlconversion_work/cwl2nxf/sample_data/helloworld/bin
+Apr-03 16:12:53.995 [main] DEBUG nextflow.Session - Session start invoked
+Apr-03 16:12:54.003 [main] DEBUG nextflow.processor.TaskDispatcher - Dispatcher > start
+Apr-03 16:12:54.003 [main] DEBUG nextflow.script.ScriptRunner - > Script parsing
+Apr-03 16:12:54.118 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
+Apr-03 16:12:54.201 [main] DEBUG nextflow.processor.ProcessFactory - << taskConfig executor: null
+Apr-03 16:12:54.201 [main] DEBUG nextflow.processor.ProcessFactory - >> processorType: 'local'
+Apr-03 16:12:54.207 [main] DEBUG nextflow.executor.Executor - Initializing executor: local
+Apr-03 16:12:54.209 [main] INFO  nextflow.executor.Executor - [warm up] executor > local
+Apr-03 16:12:54.215 [main] DEBUG n.processor.LocalPollingMonitor - Creating local task monitor for executor 'local' > cpus=12; memory=47.2 GB; capacity=12; pollInterval=100ms; dumpInterval=5m
+Apr-03 16:12:54.218 [main] DEBUG nextflow.processor.TaskDispatcher - Starting monitor: LocalPollingMonitor
+Apr-03 16:12:54.218 [main] DEBUG n.processor.TaskPollingMonitor - >>> barrier register (monitor: local)
+Apr-03 16:12:54.220 [main] DEBUG nextflow.executor.Executor - Invoke register for executor: local
+Apr-03 16:12:54.267 [main] DEBUG nextflow.Session - >>> barrier register (process: first)
+Apr-03 16:12:54.278 [main] DEBUG nextflow.processor.TaskProcessor - Creating operator > first -- maxForks: 12
+Apr-03 16:12:54.309 [main] DEBUG nextflow.processor.ProcessFactory - << taskConfig executor: null
+Apr-03 16:12:54.309 [main] DEBUG nextflow.processor.ProcessFactory - >> processorType: 'local'
+Apr-03 16:12:54.309 [main] DEBUG nextflow.executor.Executor - Initializing executor: local
+Apr-03 16:12:54.310 [main] DEBUG nextflow.Session - >>> barrier register (process: second)
+Apr-03 16:12:54.318 [main] DEBUG nextflow.processor.TaskProcessor - Creating operator > second -- maxForks: 12
+Apr-03 16:12:54.325 [Actor Thread 1] DEBUG nextflow.processor.TaskProcessor - <first> Poison pill arrived
+Apr-03 16:12:54.346 [main] DEBUG nextflow.script.ScriptRunner - > Await termination 
+Apr-03 16:12:54.346 [main] DEBUG nextflow.Session - Session await
+Apr-03 16:12:54.347 [Actor Thread 4] DEBUG nextflow.processor.TaskProcessor - <second> Poison pill arrived
+Apr-03 16:12:54.448 [Actor Thread 5] DEBUG nextflow.processor.StateObj - <second> State before poison: StateObj[submitted: 1; completed: 0; poisoned: false ]
+Apr-03 16:12:54.449 [Actor Thread 2] DEBUG nextflow.processor.StateObj - <first> State before poison: StateObj[submitted: 1; completed: 0; poisoned: false ]
+Apr-03 16:12:54.541 [Actor Thread 3] INFO  nextflow.Session - [82/087db8] Submitted process > first
+Apr-03 16:12:54.541 [Actor Thread 6] INFO  nextflow.Session - [cf/9ab829] Submitted process > second
+Apr-03 16:12:54.543 [Actor Thread 4] DEBUG nextflow.processor.TaskProcessor - <second> After stop
+Apr-03 16:12:54.543 [Actor Thread 1] DEBUG nextflow.processor.TaskProcessor - <first> After stop
+Apr-03 16:12:54.576 [Actor Thread 2] DEBUG nextflow.processor.TaskProcessor - <first> Sending poison pills and terminating process
+Apr-03 16:12:54.578 [Actor Thread 2] DEBUG nextflow.Session - <<< barrier arrive (process: first)
+Apr-03 16:12:54.578 [Actor Thread 7] DEBUG nextflow.processor.TaskProcessor - <second> Sending poison pills and terminating process
+Apr-03 16:12:54.581 [Actor Thread 7] DEBUG nextflow.Session - <<< barrier arrive (process: second)
+Apr-03 16:12:54.581 [main] DEBUG nextflow.Session - Session await > all process finished
+Apr-03 16:12:54.657 [Thread-1] DEBUG n.processor.TaskPollingMonitor - <<< barrier arrives (monitor: local)
+Apr-03 16:12:54.657 [main] DEBUG nextflow.Session - Session await > all barriers passed
+Apr-03 16:12:54.674 [main] DEBUG nextflow.CacheDB - Closing CacheDB done
+Apr-03 16:12:54.683 [main] DEBUG nextflow.script.ScriptRunner - > Execution complete -- Goodbye
