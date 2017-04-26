@@ -10,6 +10,6 @@ gradle uberjar
 
 Then the below command will execute the newly created jar and process the provided sample data.
 ```
-java -jar build/libs/cwl2nxf-0.1.jar sample_data/wf.cwl sample_data/wf.yml
+java -jar build/libs/cwl2nxf-0.1.jar sample_data/tutorial_tar_test/wf.cwl sample_data/tutorial_tar_test/wf.yml 
 ```
 Upon execution a *.nf file will be created in the base folder. The file is currently just named with a timestamp. This file should be then runnable in nextflow. 
