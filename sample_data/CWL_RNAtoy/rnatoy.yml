@@ -1,0 +1,13 @@
+infile:
+  class: File
+  path: ./data/ggal/ggal_1_48850000_49020000.Ggal71.500bpflank.fa
+act: /home/ksayers/cwlconversion_work/cwl2nxf/sample_data/CWL_RNAtoy/data/ggal/genome.index
+gtf:
+  class: File
+  path: ./data/ggal/ggal_1_48850000_49020000.bed.gff
+pairone:
+  class: File
+  path: ./data/ggal/ggal_gut_1.fq
+pairtwo:
+  class: File
+  path: ./data/ggal/ggal_gut_2.fq
