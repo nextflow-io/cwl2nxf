@@ -54,7 +54,6 @@ class Workflow{
         def data = parser.load(this.cwl)
         def ymldata = parser.load(this.yml)
         Map ymlmapping = [:]
-
         ymldata.keySet().each {
             if (ymldata[it].getClass() == String) {
                 this.ymlmapping.put(it, ymldata[it])
@@ -63,6 +62,11 @@ class Workflow{
             if (ymldata[it].getClass() == LinkedHashMap) {
                 this.ymlmapping.put(it, ymldata[it]['path'])
                 channelList.add("${it} = file('${ymldata[it]['path']}')")
+            }
+            if (ymldata[it].getClass() == ArrayList){
+                String tmpstring = new String("'" + ymldata[it].join("', '") + "'")
+                this.ymlmapping.put(it, tmpstring)
+                channelList.add("${it} = Channel.from(${tmpstring})")
             }
 
         }
@@ -117,6 +121,8 @@ class Workflow{
         def ymldata = parser.load(this.yml)
         def channelList = []
         Map wfinputs = [:]
+
+        println(data)
 
         data['steps'].keySet().each {
             def stepins = data['steps'][it]['in']

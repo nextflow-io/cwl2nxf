@@ -1,54 +1,110 @@
-Apr-03 16:12:53.381 [main] DEBUG nextflow.cli.Launcher - $> /usr/bin/nextflow run atest.nf
-Apr-03 16:12:53.482 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 0.24.1
-Apr-03 16:12:53.492 [main] INFO  nextflow.cli.CmdRun - Launching `atest.nf` [evil_galileo] - revision: a009b6a05f
-Apr-03 16:12:53.827 [main] DEBUG nextflow.Session - Session uuid: e3a66f7c-c543-4b7b-8882-8834d666716e
-Apr-03 16:12:53.827 [main] DEBUG nextflow.Session - Run name: evil_galileo
-Apr-03 16:12:53.829 [main] DEBUG nextflow.Session - Executor pool size: 12
-Apr-03 16:12:53.842 [main] DEBUG nextflow.cli.CmdRun - 
+Apr-03 16:15:53.577 [main] DEBUG nextflow.cli.Launcher - $> /usr/bin/nextflow run atest.nf
+Apr-03 16:15:53.684 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 0.24.1
+Apr-03 16:15:53.694 [main] INFO  nextflow.cli.CmdRun - Launching `atest.nf` [prickly_poitras] - revision: 5c27f5f335
+Apr-03 16:15:54.042 [main] DEBUG nextflow.Session - Session uuid: 75ab2203-8f14-4bc4-ae54-171227b1e4dc
+Apr-03 16:15:54.043 [main] DEBUG nextflow.Session - Run name: prickly_poitras
+Apr-03 16:15:54.046 [main] DEBUG nextflow.Session - Executor pool size: 12
+Apr-03 16:15:54.060 [main] DEBUG nextflow.cli.CmdRun - 
   Version: 0.24.1 build 4245
   Modified: 24-03-2017 19:41 UTC (20:41 CEST)
   System: Linux 4.4.0-71-generic
   Runtime: Groovy 2.4.10 on Java HotSpot(TM) 64-Bit Server VM 1.8.0_121-b13
   Encoding: UTF-8 (UTF-8)
-  Process: 6367@CUBA [127.0.1.1]
+  Process: 6679@CUBA [127.0.1.1]
   CPUs: 12 - Mem: 47.2 GB (35.2 GB) - Swap: 48 GB (48 GB)
-Apr-03 16:12:53.865 [main] DEBUG nextflow.Session - Work-dir: /home/ksayers/cwlconversion_work/cwl2nxf/sample_data/helloworld/work [ext2/ext3]
-Apr-03 16:12:53.865 [main] DEBUG nextflow.Session - Script base path does not exist or is not a directory: /home/ksayers/cwlconversion_work/cwl2nxf/sample_data/helloworld/bin
-Apr-03 16:12:53.995 [main] DEBUG nextflow.Session - Session start invoked
-Apr-03 16:12:54.003 [main] DEBUG nextflow.processor.TaskDispatcher - Dispatcher > start
-Apr-03 16:12:54.003 [main] DEBUG nextflow.script.ScriptRunner - > Script parsing
-Apr-03 16:12:54.118 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
-Apr-03 16:12:54.201 [main] DEBUG nextflow.processor.ProcessFactory - << taskConfig executor: null
-Apr-03 16:12:54.201 [main] DEBUG nextflow.processor.ProcessFactory - >> processorType: 'local'
-Apr-03 16:12:54.207 [main] DEBUG nextflow.executor.Executor - Initializing executor: local
-Apr-03 16:12:54.209 [main] INFO  nextflow.executor.Executor - [warm up] executor > local
-Apr-03 16:12:54.215 [main] DEBUG n.processor.LocalPollingMonitor - Creating local task monitor for executor 'local' > cpus=12; memory=47.2 GB; capacity=12; pollInterval=100ms; dumpInterval=5m
-Apr-03 16:12:54.218 [main] DEBUG nextflow.processor.TaskDispatcher - Starting monitor: LocalPollingMonitor
-Apr-03 16:12:54.218 [main] DEBUG n.processor.TaskPollingMonitor - >>> barrier register (monitor: local)
-Apr-03 16:12:54.220 [main] DEBUG nextflow.executor.Executor - Invoke register for executor: local
-Apr-03 16:12:54.267 [main] DEBUG nextflow.Session - >>> barrier register (process: first)
-Apr-03 16:12:54.278 [main] DEBUG nextflow.processor.TaskProcessor - Creating operator > first -- maxForks: 12
-Apr-03 16:12:54.309 [main] DEBUG nextflow.processor.ProcessFactory - << taskConfig executor: null
-Apr-03 16:12:54.309 [main] DEBUG nextflow.processor.ProcessFactory - >> processorType: 'local'
-Apr-03 16:12:54.309 [main] DEBUG nextflow.executor.Executor - Initializing executor: local
-Apr-03 16:12:54.310 [main] DEBUG nextflow.Session - >>> barrier register (process: second)
-Apr-03 16:12:54.318 [main] DEBUG nextflow.processor.TaskProcessor - Creating operator > second -- maxForks: 12
-Apr-03 16:12:54.325 [Actor Thread 1] DEBUG nextflow.processor.TaskProcessor - <first> Poison pill arrived
-Apr-03 16:12:54.346 [main] DEBUG nextflow.script.ScriptRunner - > Await termination 
-Apr-03 16:12:54.346 [main] DEBUG nextflow.Session - Session await
-Apr-03 16:12:54.347 [Actor Thread 4] DEBUG nextflow.processor.TaskProcessor - <second> Poison pill arrived
-Apr-03 16:12:54.448 [Actor Thread 5] DEBUG nextflow.processor.StateObj - <second> State before poison: StateObj[submitted: 1; completed: 0; poisoned: false ]
-Apr-03 16:12:54.449 [Actor Thread 2] DEBUG nextflow.processor.StateObj - <first> State before poison: StateObj[submitted: 1; completed: 0; poisoned: false ]
-Apr-03 16:12:54.541 [Actor Thread 3] INFO  nextflow.Session - [82/087db8] Submitted process > first
-Apr-03 16:12:54.541 [Actor Thread 6] INFO  nextflow.Session - [cf/9ab829] Submitted process > second
-Apr-03 16:12:54.543 [Actor Thread 4] DEBUG nextflow.processor.TaskProcessor - <second> After stop
-Apr-03 16:12:54.543 [Actor Thread 1] DEBUG nextflow.processor.TaskProcessor - <first> After stop
-Apr-03 16:12:54.576 [Actor Thread 2] DEBUG nextflow.processor.TaskProcessor - <first> Sending poison pills and terminating process
-Apr-03 16:12:54.578 [Actor Thread 2] DEBUG nextflow.Session - <<< barrier arrive (process: first)
-Apr-03 16:12:54.578 [Actor Thread 7] DEBUG nextflow.processor.TaskProcessor - <second> Sending poison pills and terminating process
-Apr-03 16:12:54.581 [Actor Thread 7] DEBUG nextflow.Session - <<< barrier arrive (process: second)
-Apr-03 16:12:54.581 [main] DEBUG nextflow.Session - Session await > all process finished
-Apr-03 16:12:54.657 [Thread-1] DEBUG n.processor.TaskPollingMonitor - <<< barrier arrives (monitor: local)
-Apr-03 16:12:54.657 [main] DEBUG nextflow.Session - Session await > all barriers passed
-Apr-03 16:12:54.674 [main] DEBUG nextflow.CacheDB - Closing CacheDB done
-Apr-03 16:12:54.683 [main] DEBUG nextflow.script.ScriptRunner - > Execution complete -- Goodbye
+Apr-03 16:15:54.084 [main] DEBUG nextflow.Session - Work-dir: /home/ksayers/cwlconversion_work/cwl2nxf/sample_data/helloworld/work [ext2/ext3]
+Apr-03 16:15:54.085 [main] DEBUG nextflow.Session - Script base path does not exist or is not a directory: /home/ksayers/cwlconversion_work/cwl2nxf/sample_data/helloworld/bin
+Apr-03 16:15:54.228 [main] DEBUG nextflow.Session - Session start invoked
+Apr-03 16:15:54.235 [main] DEBUG nextflow.processor.TaskDispatcher - Dispatcher > start
+Apr-03 16:15:54.235 [main] DEBUG nextflow.script.ScriptRunner - > Script parsing
+Apr-03 16:15:54.356 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
+Apr-03 16:15:54.464 [main] DEBUG nextflow.processor.ProcessFactory - << taskConfig executor: null
+Apr-03 16:15:54.464 [main] DEBUG nextflow.processor.ProcessFactory - >> processorType: 'local'
+Apr-03 16:15:54.470 [main] DEBUG nextflow.executor.Executor - Initializing executor: local
+Apr-03 16:15:54.472 [main] INFO  nextflow.executor.Executor - [warm up] executor > local
+Apr-03 16:15:54.477 [main] DEBUG n.processor.LocalPollingMonitor - Creating local task monitor for executor 'local' > cpus=12; memory=47.2 GB; capacity=12; pollInterval=100ms; dumpInterval=5m
+Apr-03 16:15:54.481 [main] DEBUG nextflow.processor.TaskDispatcher - Starting monitor: LocalPollingMonitor
+Apr-03 16:15:54.481 [main] DEBUG n.processor.TaskPollingMonitor - >>> barrier register (monitor: local)
+Apr-03 16:15:54.483 [main] DEBUG nextflow.executor.Executor - Invoke register for executor: local
+Apr-03 16:15:54.525 [main] DEBUG nextflow.Session - >>> barrier register (process: first)
+Apr-03 16:15:54.536 [main] DEBUG nextflow.processor.TaskProcessor - Creating operator > first -- maxForks: 12
+Apr-03 16:15:54.558 [main] DEBUG nextflow.processor.ProcessFactory - << taskConfig executor: null
+Apr-03 16:15:54.558 [main] DEBUG nextflow.processor.ProcessFactory - >> processorType: 'local'
+Apr-03 16:15:54.559 [main] DEBUG nextflow.executor.Executor - Initializing executor: local
+Apr-03 16:15:54.560 [main] DEBUG nextflow.Session - >>> barrier register (process: second)
+Apr-03 16:15:54.567 [main] DEBUG nextflow.processor.TaskProcessor - Creating operator > second -- maxForks: 12
+Apr-03 16:15:54.572 [main] DEBUG nextflow.Session - Session aborted -- Cause: Channel `invar1` has been used twice as an input by process `second` and process `first`
+Apr-03 16:15:54.576 [Actor Thread 1] DEBUG nextflow.processor.TaskProcessor - <first> Poison pill arrived
+Apr-03 16:15:54.576 [Thread-1] DEBUG n.processor.TaskPollingMonitor - <<< barrier arrives (monitor: local)
+Apr-03 16:15:54.577 [Actor Thread 2] DEBUG nextflow.processor.StateObj - <first> State before poison: StateObj[submitted: 3; completed: 0; poisoned: false ]
+Apr-03 16:15:54.691 [Actor Thread 1] DEBUG nextflow.processor.TaskProcessor - <first> After stop
+Apr-03 16:15:54.774 [main] ERROR nextflow.cli.Launcher - @unknown
+nextflow.dag.MultipleInputChannelException: Channel `invar1` has been used twice as an input by process `second` and process `first`
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at org.codehaus.groovy.reflection.CachedConstructor.invoke(CachedConstructor.java:83)
+	at org.codehaus.groovy.runtime.callsite.ConstructorSite$ConstructorSiteNoUnwrapNoCoerce.callConstructor(ConstructorSite.java:105)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallConstructor(CallSiteArray.java:60)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callConstructor(AbstractCallSite.java:235)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callConstructor(AbstractCallSite.java:263)
+	at nextflow.dag.DAG.inbound(DAG.groovy:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:93)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:325)
+	at org.codehaus.groovy.runtime.metaclass.ClosureMetaClass.invokeMethod(ClosureMetaClass.java:384)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1027)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaClassSite.callCurrent(PogoMetaClassSite.java:69)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:174)
+	at nextflow.dag.DAG$_addVertex_closure1.doCall(DAG.groovy:128)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:93)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:325)
+	at org.codehaus.groovy.runtime.metaclass.ClosureMetaClass.invokeMethod(ClosureMetaClass.java:294)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1027)
+	at groovy.lang.Closure.call(Closure.java:414)
+	at groovy.lang.Closure.call(Closure.java:430)
+	at org.codehaus.groovy.runtime.DefaultGroovyMethods.each(DefaultGroovyMethods.java:2030)
+	at org.codehaus.groovy.runtime.DefaultGroovyMethods.each(DefaultGroovyMethods.java:2015)
+	at org.codehaus.groovy.runtime.DefaultGroovyMethods.each(DefaultGroovyMethods.java:2056)
+	at org.codehaus.groovy.runtime.dgm$162.invoke(Unknown Source)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite$PojoMetaMethodSiteNoUnwrapNoCoerce.invoke(PojoMetaMethodSite.java:274)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite.call(PojoMetaMethodSite.java:56)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:125)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callSafe(AbstractCallSite.java:87)
+	at nextflow.dag.DAG.addVertex(DAG.groovy:127)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite$PogoCachedMethodSiteNoUnwrapNoCoerce.invoke(PogoMetaMethodSite.java:210)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite.callCurrent(PogoMetaMethodSite.java:59)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:190)
+	at nextflow.dag.DAG.addProcessNode(DAG.groovy:86)
+	at nextflow.dag.DAG$addProcessNode$0.call(Unknown Source)
+	at nextflow.processor.TaskProcessor.createOperator(TaskProcessor.groovy:470)
+	at nextflow.processor.TaskProcessor.run(TaskProcessor.groovy:364)
+	at nextflow.processor.TaskProcessor$run.call(Unknown Source)
+	at nextflow.script.BaseScript.process(BaseScript.groovy:134)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite$PogoCachedMethodSiteNoUnwrapNoCoerce.invoke(PogoMetaMethodSite.java:210)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite.callCurrent(PogoMetaMethodSite.java:59)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallCurrent(CallSiteArray.java:52)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:154)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:174)
+	at _nf_script_b0e72aa1.run(_nf_script_b0e72aa1:14)
+	at nextflow.script.ScriptRunner.run(ScriptRunner.groovy:322)
+	at nextflow.script.ScriptRunner.execute(ScriptRunner.groovy:156)
+	at nextflow.cli.CmdRun.run(CmdRun.groovy:223)
+	at nextflow.cli.Launcher.run(Launcher.groovy:410)
+	at nextflow.cli.Launcher.main(Launcher.groovy:564)

@@ -1,54 +1,32 @@
-Apr-03 16:12:37.550 [main] DEBUG nextflow.cli.Launcher - $> /usr/bin/nextflow run atest.nf
-Apr-03 16:12:37.653 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 0.24.1
-Apr-03 16:12:37.663 [main] INFO  nextflow.cli.CmdRun - Launching `atest.nf` [loving_pasteur] - revision: 3cac6a69fe
-Apr-03 16:12:38.007 [main] DEBUG nextflow.Session - Session uuid: dc9f28d7-5005-4570-99de-629388e14d4d
-Apr-03 16:12:38.008 [main] DEBUG nextflow.Session - Run name: loving_pasteur
-Apr-03 16:12:38.010 [main] DEBUG nextflow.Session - Executor pool size: 12
-Apr-03 16:12:38.023 [main] DEBUG nextflow.cli.CmdRun - 
+Apr-03 16:15:26.419 [main] DEBUG nextflow.cli.Launcher - $> /usr/bin/nextflow run atest.nf
+Apr-03 16:15:26.525 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 0.24.1
+Apr-03 16:15:26.535 [main] INFO  nextflow.cli.CmdRun - Launching `atest.nf` [cocky_noether] - revision: 87aeef4352
+Apr-03 16:15:26.864 [main] DEBUG nextflow.Session - Session uuid: c1f132b7-123a-4826-81b3-b3d5f67523c0
+Apr-03 16:15:26.864 [main] DEBUG nextflow.Session - Run name: cocky_noether
+Apr-03 16:15:26.866 [main] DEBUG nextflow.Session - Executor pool size: 12
+Apr-03 16:15:26.880 [main] DEBUG nextflow.cli.CmdRun - 
   Version: 0.24.1 build 4245
   Modified: 24-03-2017 19:41 UTC (20:41 CEST)
   System: Linux 4.4.0-71-generic
   Runtime: Groovy 2.4.10 on Java HotSpot(TM) 64-Bit Server VM 1.8.0_121-b13
   Encoding: UTF-8 (UTF-8)
-  Process: 6292@CUBA [127.0.1.1]
+  Process: 6622@CUBA [127.0.1.1]
   CPUs: 12 - Mem: 47.2 GB (35.2 GB) - Swap: 48 GB (48 GB)
-Apr-03 16:12:38.046 [main] DEBUG nextflow.Session - Work-dir: /home/ksayers/cwlconversion_work/cwl2nxf/sample_data/helloworld/work [ext2/ext3]
-Apr-03 16:12:38.046 [main] DEBUG nextflow.Session - Script base path does not exist or is not a directory: /home/ksayers/cwlconversion_work/cwl2nxf/sample_data/helloworld/bin
-Apr-03 16:12:38.176 [main] DEBUG nextflow.Session - Session start invoked
-Apr-03 16:12:38.185 [main] DEBUG nextflow.processor.TaskDispatcher - Dispatcher > start
-Apr-03 16:12:38.186 [main] DEBUG nextflow.script.ScriptRunner - > Script parsing
-Apr-03 16:12:38.301 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
-Apr-03 16:12:38.383 [main] DEBUG nextflow.processor.ProcessFactory - << taskConfig executor: null
-Apr-03 16:12:38.383 [main] DEBUG nextflow.processor.ProcessFactory - >> processorType: 'local'
-Apr-03 16:12:38.389 [main] DEBUG nextflow.executor.Executor - Initializing executor: local
-Apr-03 16:12:38.391 [main] INFO  nextflow.executor.Executor - [warm up] executor > local
-Apr-03 16:12:38.396 [main] DEBUG n.processor.LocalPollingMonitor - Creating local task monitor for executor 'local' > cpus=12; memory=47.2 GB; capacity=12; pollInterval=100ms; dumpInterval=5m
-Apr-03 16:12:38.400 [main] DEBUG nextflow.processor.TaskDispatcher - Starting monitor: LocalPollingMonitor
-Apr-03 16:12:38.400 [main] DEBUG n.processor.TaskPollingMonitor - >>> barrier register (monitor: local)
-Apr-03 16:12:38.402 [main] DEBUG nextflow.executor.Executor - Invoke register for executor: local
-Apr-03 16:12:38.452 [main] DEBUG nextflow.Session - >>> barrier register (process: first)
-Apr-03 16:12:38.463 [main] DEBUG nextflow.processor.TaskProcessor - Creating operator > first -- maxForks: 12
-Apr-03 16:12:38.495 [main] DEBUG nextflow.processor.ProcessFactory - << taskConfig executor: null
-Apr-03 16:12:38.495 [main] DEBUG nextflow.processor.ProcessFactory - >> processorType: 'local'
-Apr-03 16:12:38.495 [main] DEBUG nextflow.executor.Executor - Initializing executor: local
-Apr-03 16:12:38.496 [main] DEBUG nextflow.Session - >>> barrier register (process: second)
-Apr-03 16:12:38.504 [main] DEBUG nextflow.processor.TaskProcessor - Creating operator > second -- maxForks: 12
-Apr-03 16:12:38.510 [main] DEBUG nextflow.script.ScriptRunner - > Await termination 
-Apr-03 16:12:38.511 [main] DEBUG nextflow.Session - Session await
-Apr-03 16:12:38.511 [Actor Thread 1] DEBUG nextflow.processor.TaskProcessor - <first> Poison pill arrived
-Apr-03 16:12:38.512 [Actor Thread 3] DEBUG nextflow.processor.TaskProcessor - <second> Poison pill arrived
-Apr-03 16:12:38.513 [Actor Thread 2] DEBUG nextflow.processor.StateObj - <first> State before poison: StateObj[submitted: 1; completed: 0; poisoned: false ]
-Apr-03 16:12:38.513 [Actor Thread 6] DEBUG nextflow.processor.StateObj - <second> State before poison: StateObj[submitted: 1; completed: 0; poisoned: false ]
-Apr-03 16:12:38.727 [Actor Thread 4] INFO  nextflow.Session - [eb/4f290f] Submitted process > first
-Apr-03 16:12:38.727 [Actor Thread 5] INFO  nextflow.Session - [46/580113] Submitted process > second
-Apr-03 16:12:38.728 [Actor Thread 1] DEBUG nextflow.processor.TaskProcessor - <first> After stop
-Apr-03 16:12:38.729 [Actor Thread 3] DEBUG nextflow.processor.TaskProcessor - <second> After stop
-Apr-03 16:12:38.754 [Actor Thread 6] DEBUG nextflow.processor.TaskProcessor - <first> Sending poison pills and terminating process
-Apr-03 16:12:38.756 [Actor Thread 7] DEBUG nextflow.processor.TaskProcessor - <second> Sending poison pills and terminating process
-Apr-03 16:12:38.756 [Actor Thread 6] DEBUG nextflow.Session - <<< barrier arrive (process: first)
-Apr-03 16:12:38.757 [Actor Thread 7] DEBUG nextflow.Session - <<< barrier arrive (process: second)
-Apr-03 16:12:38.757 [main] DEBUG nextflow.Session - Session await > all process finished
-Apr-03 16:12:38.840 [Thread-1] DEBUG n.processor.TaskPollingMonitor - <<< barrier arrives (monitor: local)
-Apr-03 16:12:38.840 [main] DEBUG nextflow.Session - Session await > all barriers passed
-Apr-03 16:12:38.858 [main] DEBUG nextflow.CacheDB - Closing CacheDB done
-Apr-03 16:12:38.864 [main] DEBUG nextflow.script.ScriptRunner - > Execution complete -- Goodbye
+Apr-03 16:15:26.905 [main] DEBUG nextflow.Session - Work-dir: /home/ksayers/cwlconversion_work/cwl2nxf/sample_data/helloworld/work [ext2/ext3]
+Apr-03 16:15:26.905 [main] DEBUG nextflow.Session - Script base path does not exist or is not a directory: /home/ksayers/cwlconversion_work/cwl2nxf/sample_data/helloworld/bin
+Apr-03 16:15:27.039 [main] DEBUG nextflow.Session - Session start invoked
+Apr-03 16:15:27.047 [main] DEBUG nextflow.processor.TaskDispatcher - Dispatcher > start
+Apr-03 16:15:27.047 [main] DEBUG nextflow.script.ScriptRunner - > Script parsing
+Apr-03 16:15:27.169 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
+Apr-03 16:15:27.177 [main] DEBUG nextflow.Session - Session aborted -- Cause: No such property: a for class: _nf_script_2fc9deb4
+Apr-03 16:15:27.269 [main] ERROR nextflow.cli.Launcher - @unknown
+groovy.lang.MissingPropertyException: No such property: a for class: _nf_script_2fc9deb4
+	at org.codehaus.groovy.runtime.ScriptBytecodeAdapter.unwrap(ScriptBytecodeAdapter.java:53)
+	at org.codehaus.groovy.runtime.callsite.PogoGetPropertySite.getProperty(PogoGetPropertySite.java:52)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callGroovyObjectGetProperty(AbstractCallSite.java:307)
+	at _nf_script_2fc9deb4.run(_nf_script_2fc9deb4:2)
+	at nextflow.script.ScriptRunner.run(ScriptRunner.groovy:322)
+	at nextflow.script.ScriptRunner.execute(ScriptRunner.groovy:156)
+	at nextflow.cli.CmdRun.run(CmdRun.groovy:223)
+	at nextflow.cli.Launcher.run(Launcher.groovy:410)
+	at nextflow.cli.Launcher.main(Launcher.groovy:564)

@@ -1,33 +1,46 @@
-Apr-03 16:14:47.842 [main] DEBUG nextflow.cli.Launcher - $> /usr/bin/nextflow run atest.nf
-Apr-03 16:14:47.948 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 0.24.1
-Apr-03 16:14:47.956 [main] INFO  nextflow.cli.CmdRun - Launching `atest.nf` [gloomy_poincare] - revision: c4002416ed
-Apr-03 16:14:48.291 [main] DEBUG nextflow.Session - Session uuid: 42f94810-f48f-416c-bb12-1514ed63c7ce
-Apr-03 16:14:48.291 [main] DEBUG nextflow.Session - Run name: gloomy_poincare
-Apr-03 16:14:48.293 [main] DEBUG nextflow.Session - Executor pool size: 12
-Apr-03 16:14:48.306 [main] DEBUG nextflow.cli.CmdRun - 
+Apr-18 12:18:20.818 [main] DEBUG nextflow.cli.Launcher - $> /usr/bin/nextflow run 1492509368847.nf
+Apr-18 12:18:20.923 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 0.24.1
+Apr-18 12:18:20.932 [main] INFO  nextflow.cli.CmdRun - Launching `1492509368847.nf` [stupefied_gates] - revision: d8b2dd8047
+Apr-18 12:18:21.264 [main] DEBUG nextflow.Session - Session uuid: c5c8d752-3fa4-4644-b18b-b83536ed8640
+Apr-18 12:18:21.264 [main] DEBUG nextflow.Session - Run name: stupefied_gates
+Apr-18 12:18:21.266 [main] DEBUG nextflow.Session - Executor pool size: 12
+Apr-18 12:18:21.279 [main] DEBUG nextflow.cli.CmdRun - 
   Version: 0.24.1 build 4245
   Modified: 24-03-2017 19:41 UTC (20:41 CEST)
-  System: Linux 4.4.0-71-generic
+  System: Linux 4.4.0-72-generic
   Runtime: Groovy 2.4.10 on Java HotSpot(TM) 64-Bit Server VM 1.8.0_121-b13
   Encoding: UTF-8 (UTF-8)
-  Process: 6501@CUBA [127.0.1.1]
-  CPUs: 12 - Mem: 47.2 GB (35.2 GB) - Swap: 48 GB (48 GB)
-Apr-03 16:14:48.329 [main] DEBUG nextflow.Session - Work-dir: /home/ksayers/cwlconversion_work/cwl2nxf/sample_data/helloworld/work [ext2/ext3]
-Apr-03 16:14:48.330 [main] DEBUG nextflow.Session - Script base path does not exist or is not a directory: /home/ksayers/cwlconversion_work/cwl2nxf/sample_data/helloworld/bin
-Apr-03 16:14:48.458 [main] DEBUG nextflow.Session - Session start invoked
-Apr-03 16:14:48.465 [main] DEBUG nextflow.processor.TaskDispatcher - Dispatcher > start
-Apr-03 16:14:48.466 [main] DEBUG nextflow.script.ScriptRunner - > Script parsing
-Apr-03 16:14:48.507 [main] DEBUG nextflow.Session - Session aborted -- Cause: startup failed:
-_nf_script_e098b26b: 2: expecting ')', found ',' @ line 2, column 13.
-   atest = ('a','b','c')
-               ^
-
-1 error
-
-Apr-03 16:14:48.594 [main] ERROR nextflow.cli.Launcher - startup failed:
-_nf_script_e098b26b: 2: expecting ')', found ',' @ line 2, column 13.
-   atest = ('a','b','c')
-               ^
-
-1 error
-
+  Process: 2717@CUBA [127.0.1.1]
+  CPUs: 12 - Mem: 47.2 GB (41.1 GB) - Swap: 48 GB (48 GB)
+Apr-18 12:18:21.302 [main] DEBUG nextflow.Session - Work-dir: /home/ksayers/cwlconversion_work/cwl2nxf/sample_data/helloworld/work [ext2/ext3]
+Apr-18 12:18:21.302 [main] DEBUG nextflow.Session - Script base path does not exist or is not a directory: /home/ksayers/cwlconversion_work/cwl2nxf/sample_data/helloworld/bin
+Apr-18 12:18:21.444 [main] DEBUG nextflow.Session - Session start invoked
+Apr-18 12:18:21.451 [main] DEBUG nextflow.processor.TaskDispatcher - Dispatcher > start
+Apr-18 12:18:21.451 [main] DEBUG nextflow.script.ScriptRunner - > Script parsing
+Apr-18 12:18:21.562 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
+Apr-18 12:18:21.666 [main] DEBUG nextflow.processor.ProcessFactory - << taskConfig executor: null
+Apr-18 12:18:21.667 [main] DEBUG nextflow.processor.ProcessFactory - >> processorType: 'local'
+Apr-18 12:18:21.673 [main] DEBUG nextflow.executor.Executor - Initializing executor: local
+Apr-18 12:18:21.675 [main] INFO  nextflow.executor.Executor - [warm up] executor > local
+Apr-18 12:18:21.680 [main] DEBUG n.processor.LocalPollingMonitor - Creating local task monitor for executor 'local' > cpus=12; memory=47.2 GB; capacity=12; pollInterval=100ms; dumpInterval=5m
+Apr-18 12:18:21.684 [main] DEBUG nextflow.processor.TaskDispatcher - Starting monitor: LocalPollingMonitor
+Apr-18 12:18:21.685 [main] DEBUG n.processor.TaskPollingMonitor - >>> barrier register (monitor: local)
+Apr-18 12:18:21.687 [main] DEBUG nextflow.executor.Executor - Invoke register for executor: local
+Apr-18 12:18:21.731 [main] DEBUG nextflow.Session - >>> barrier register (process: hello)
+Apr-18 12:18:21.743 [main] DEBUG nextflow.processor.TaskProcessor - Creating operator > hello -- maxForks: 12
+Apr-18 12:18:21.765 [main] DEBUG nextflow.script.ScriptRunner - > Await termination 
+Apr-18 12:18:21.765 [main] DEBUG nextflow.Session - Session await
+Apr-18 12:18:21.781 [Actor Thread 1] DEBUG nextflow.processor.TaskProcessor - <hello> Poison pill arrived
+Apr-18 12:18:21.783 [Actor Thread 2] DEBUG nextflow.processor.StateObj - <hello> State before poison: StateObj[submitted: 4; completed: 0; poisoned: false ]
+Apr-18 12:18:22.007 [Actor Thread 5] INFO  nextflow.Session - [c5/912cbe] Submitted process > hello (3)
+Apr-18 12:18:22.007 [Actor Thread 4] INFO  nextflow.Session - [ec/29c426] Submitted process > hello (2)
+Apr-18 12:18:22.008 [Actor Thread 6] INFO  nextflow.Session - [96/1dd91d] Submitted process > hello (4)
+Apr-18 12:18:22.009 [Actor Thread 3] INFO  nextflow.Session - [d0/7d3b40] Submitted process > hello (1)
+Apr-18 12:18:22.009 [Actor Thread 1] DEBUG nextflow.processor.TaskProcessor - <hello> After stop
+Apr-18 12:18:22.048 [Actor Thread 7] DEBUG nextflow.processor.TaskProcessor - <hello> Sending poison pills and terminating process
+Apr-18 12:18:22.050 [Actor Thread 7] DEBUG nextflow.Session - <<< barrier arrive (process: hello)
+Apr-18 12:18:22.051 [main] DEBUG nextflow.Session - Session await > all process finished
+Apr-18 12:18:22.123 [Thread-1] DEBUG n.processor.TaskPollingMonitor - <<< barrier arrives (monitor: local)
+Apr-18 12:18:22.124 [main] DEBUG nextflow.Session - Session await > all barriers passed
+Apr-18 12:18:22.141 [main] DEBUG nextflow.CacheDB - Closing CacheDB done
+Apr-18 12:18:22.155 [main] DEBUG nextflow.script.ScriptRunner - > Execution complete -- Goodbye
