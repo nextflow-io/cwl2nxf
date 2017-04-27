@@ -65,5 +65,18 @@ class StepTest extends Specification {
         then:
         argsreturn == ' -d ./'
     }
+    def 'check type returns' (){
+        given:
+        def step = new Step()
+
+        when:
+        def typeTest = step.cwlTypeConversion('File')
+        then:
+        typeTest == 'file'
+        when:
+        def typeTest2 = step.cwlTypeConversion('int')
+        then:
+        typeTest2 == 'val'
+    }
 
 }

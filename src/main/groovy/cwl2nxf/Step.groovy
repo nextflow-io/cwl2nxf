@@ -74,15 +74,27 @@ class Step{
 			return ''
 		}
 	}
+
+	/*
+	cwlTypeConversion: takes in a type from CWL and returns the
+	corresponding Nextflow type.
+	 */
+	def cwlTypeConversion(cwltype){
+		def typemap = ['File':'file',
+					   'string':'val',
+					   'int?':'val',
+					   'int':'val']
+		return typemap[cwltype]
+	}
 	def extractInputs(cwldata, wfdata, stepins){
-		def typemap = ['File':'file', 'string':'val','int?':'val','int':'val']
+
 		def inputsreturn = []
 		int counter = 0
 
 
 		cwldata['inputs'].keySet().each{
 
-			def intype = typemap[cwldata['inputs'][it]['type']]
+			def intype = cwlTypeConversion(cwldata['inputs'][it]['type'])
 			def from = stepins[it]
 			if(from.getClass() == String){
 				if(from.contains('/')){
@@ -121,10 +133,10 @@ class Step{
 			cwldata['outputs'].keySet().each{
 				//This checks for the outputs being an array
 				if(cwldata['outputs'][it]['type'].getClass() == String){
-					outType = typemap[cwldata['outputs'][it]['type']]
+					outType = cwlTypeConversion(cwldata['outputs'][it]['type'])
 				}
 				else{
-					outType = typemap[cwldata['outputs'][it]['type']['items']]
+					outType = cwlTypeConversion(cwldata['outputs'][it]['type']['items'])
 				}
 
 				def into = it
@@ -142,7 +154,7 @@ class Step{
 
 				}
 				if(keycheck.size() == 1){
-					outType = typemap[cwldata['outputs'][it]['type']]
+					outType = cwlTypeConversion(cwldata['outputs'][it]['type'])
 					glob = cwldata['stdout']
 					outputs.add(new String(outType + ' "' + glob + '" into ' + into ))
 
