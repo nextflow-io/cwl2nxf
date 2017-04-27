@@ -75,7 +75,7 @@ class Step{
 		}
 	}
 	def extractInputs(cwldata, wfdata, stepins){
-		def typemap = ['File':'file', 'string':'val']
+		def typemap = ['File':'file', 'string':'val','int?':'val','int':'val']
 		def inputsreturn = []
 		int counter = 0
 
@@ -106,7 +106,7 @@ class Step{
 
 	}
 	def extractOutputs(cwldata, wfdata, stepins, ymldata){
-		def typemap = ['File':'file', 'string':'val']
+		def typemap = ['File':'file', 'string':'val','int?':'val','int':'val']
 		def outputs = []
 		def glob = ''
 		def outType = ''
