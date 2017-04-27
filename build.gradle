@@ -21,3 +21,14 @@ task uberjar(type: Jar,dependsOn:[':compileJava',':compileGroovy']) {
         attributes 'Main-Class': mainClassName
     }
 }
+
+
+task exportClasspath {
+    dependsOn configurations.runtime
+
+    def all = configurations.runtime
+    def libs = all.collect { File file -> /* println file.canonicalPath.replace(System.getProperty('user.home'), '$HOME'); */ file.canonicalPath;  }
+    new File('.launch.classpath').text = libs.join(':')
+}
+
+jar.dependsOn exportClasspath
