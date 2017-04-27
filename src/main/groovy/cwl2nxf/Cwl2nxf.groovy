@@ -2,7 +2,18 @@
 package cwl2nxf
 
 class Cwl2nxf {
-    static void main(String[] args) {
+
+    Cwl2nxf() {
+
+    }
+
+    void run(String... args) {
+        if( !args ) {
+            println "Missing input CWL workflow files"
+            println "usage: cwl2nxf <workflow.cwl> <input.yml>"
+            System.exit 1
+        }
+
         String inpath = args[0]
         String ymlpath = args[1]
         String workingDir = (inpath.replace(inpath.split('/')[-1],''))
@@ -30,5 +41,9 @@ class Cwl2nxf {
 
         }
 
+    }
+
+    static void main(String[] args) {
+       new Cwl2nxf().run(args)
     }
 }
