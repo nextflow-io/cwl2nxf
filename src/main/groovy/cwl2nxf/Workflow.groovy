@@ -21,7 +21,9 @@ class Workflow{
     private String yml
 
 
+    Workflow(){
 
+    }
 
     public Workflow(String cwl, String yml, String workingDir){
         //refactor
@@ -122,7 +124,6 @@ class Workflow{
         def channelList = []
         Map wfinputs = [:]
 
-        println(data)
 
         data['steps'].keySet().each {
             def stepins = data['steps'][it]['in']
