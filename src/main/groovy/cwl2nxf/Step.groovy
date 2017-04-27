@@ -9,6 +9,11 @@ class Step{
 	def wfouts //These are the final files which are kept
 
 
+	/** Only for testing purpose */
+	protected Step() {
+
+	}
+
 	Step(stepdata, id, wfdata, stepins, ymldata){
 		this.cmdString = extractCommandString(stepdata)
 		this.id = id
@@ -18,17 +23,23 @@ class Step{
 
 
 	}
-	def extractCommandString(cwldata){
+
+	def extractCommandString(Map cwldata){
 		def counter = 0 
 		def cmdstr = ''
-		//Deal with if the base command is a string or a list of commands
-		if (cwldata['baseCommand'].getClass() == String){
-			cmdstr += cwldata['baseCommand']
-		}
-		else{
-			cmdstr += cwldata['baseCommand'].join(" ")
 
+		//Deal with if the base command is a string or a list of commands
+		def baseCommand = cwldata.baseCommand
+		if ( baseCommand instanceof String){
+			cmdstr += baseCommand
 		}
+		else if( baseCommand instanceof List ) {
+			cmdstr += baseCommand.join(" ")
+		}
+		else {
+			throw new IllegalArgumentException("Not a valid `baseCommand`: $baseCommand [${baseCommand?.getClass()}]")
+		}
+
 		cmdstr = cmdstr + extractArguments(cwldata)
 
 		cwldata['inputs'].keySet().each{
