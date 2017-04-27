@@ -1,5 +1,11 @@
+plugins {
+    // see https://github.com/stevesaliman/gradle-cobertura-plugin/blob/master/usage.md
+    id 'net.saliman.cobertura' version '2.4.0'
+}
 apply plugin: 'groovy'
 apply plugin: 'application'
+
+
 version = '0.1'
 mainClassName='cwl2nxf.Cwl2nxf'
 
@@ -16,6 +22,7 @@ dependencies {
     testCompile "org.objenesis:objenesis:1.4"
     testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
     testCompile 'com.google.jimfs:jimfs:1.0'
+    testRuntime "org.slf4j:slf4j-api:1.7.10" // needed by Cobertura plugin
 }
 
 task uberjar(type: Jar,dependsOn:[':compileJava',':compileGroovy']) {
@@ -37,3 +44,5 @@ task exportClasspath {
 }
 
 jar.dependsOn exportClasspath
+
+
