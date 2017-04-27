@@ -27,7 +27,6 @@ class Cwl2nxf {
         String fileName = new Date().getTime() + '.nf'
         def outfile = new File(workingDir,fileName)
         wf.getChannels().each {
-            println(it)
             outfile.append(it + '\n')
         }
         wf.getSteplist().each {
@@ -36,8 +35,8 @@ class Cwl2nxf {
         }
         if(wf.getDocker() != null){
             def configFile = new File(workingDir,'nextflow.config')
-            configFile.write("process.container = '${wf.getDocker()}'")
-            configFile.write("docker.enabled = true")
+            configFile.append("process.container = '${wf.getDocker()}'\n")
+            configFile.append("docker.enabled = true\n")
 
         }
 
