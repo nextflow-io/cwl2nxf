@@ -1,0 +1,10 @@
+index:
+  class: Directory
+  path: sample_data/index
+inf1:
+  class: File
+  path: sample_data/reads_1.fastq
+inf2:
+  class: File
+  path: sample_data/reads_2.fastq
+quantdir: quantdir
