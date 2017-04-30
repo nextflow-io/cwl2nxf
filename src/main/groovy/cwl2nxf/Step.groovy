@@ -15,7 +15,7 @@ class Step{
 	}
 
 	Step(stepdata, id, wfdata, stepins, ymldata){
-		this.cmdString = extractCommandString(stepdata)
+		this.cmdString = extractCommandString(stepdata, stepins)
 		this.id = id
 		this.inputs = extractInputs(stepdata, wfdata, stepins)
 		this.outputs = extractOutputs(stepdata,wfdata, stepins, ymldata)
@@ -24,9 +24,9 @@ class Step{
 
 	}
 
-	def extractCommandString(Map cwldata){
-		def counter = 0 
-		def cmdstr = ''
+	def extractCommandString(Map cwldata, stepins){
+		int counter = 0
+		String cmdstr = ''
 
 		//Deal with if the base command is a string or a list of commands
 		def baseCommand = cwldata.baseCommand
@@ -43,11 +43,16 @@ class Step{
 		cmdstr = cmdstr + extractArguments(cwldata)
 
 		cwldata['inputs'].keySet().each{
+			//here the if(it in stepins.keySet check that a step input is also in the wf.
 			if('prefix' in cwldata['inputs'][it]['inputBinding']){
-				cmdstr = cmdstr + ' ' + cwldata['inputs'][it]['inputBinding']['prefix']
+				if(it in stepins.keySet()) {
+					cmdstr = cmdstr + ' ' + cwldata['inputs'][it]['inputBinding']['prefix']
+				}
 			}
-			cmdstr = cmdstr + ' ${invar_' + counter + '}'
-			counter += 1
+			if(it in stepins.keySet()) {
+				cmdstr = cmdstr + ' ${invar_' + counter + '}'
+				counter += 1
+			}
 
 		}
 	
@@ -83,7 +88,8 @@ class Step{
 		def typemap = ['File':'file',
 					   'string':'val',
 					   'int?':'val',
-					   'int':'val']
+					   'int':'val',
+					   'Directory':'file']
 		return typemap[cwltype]
 	}
 	def extractInputs(cwldata, wfdata, stepins){
@@ -91,7 +97,8 @@ class Step{
 		def inputsreturn = []
 		int counter = 0
 
-
+/*		stepins.keySet()
+		println(cwldata['inputs'])*/
 		cwldata['inputs'].keySet().each{
 
 			def intype = cwlTypeConversion(cwldata['inputs'][it]['type'])
@@ -104,9 +111,12 @@ class Step{
 			if(from.getClass() == LinkedHashMap){
 				from = from[from.keySet()[0]]
 			}
+			//Check if an input is present in the workflow so inputs that are not in the workflow are ignored
+			if(it in stepins.keySet()){
+				inputsreturn.add(new String(intype + ' invar_' + counter + ' from ' + from))
+				counter += 1
 
-			inputsreturn.add(new String(intype + ' invar_' + counter + ' from ' + from))
-			counter += 1
+			}
 
 		}
 
