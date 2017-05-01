@@ -107,5 +107,21 @@ class WorkflowTest extends Specification{
         steps['tophat']['in']['index'].toString() == '"index/indexout"'
         steps['cuff']['out'].toString() == '["cuffout"]'
     }
+    def 'Check inputs are only from workflow' (){
+        given:
+        def wf = new Workflow(cwl, yml, 'sample_data/CWL_RNAtoy')
+        def results = ['infile', 'act', 'gtf', 'pairone', 'pairtwo']
+
+
+        when:
+        def steps = wf.getChannels()
+
+
+
+        then:
+        steps.each{
+            assert(it.split('=')[0].trim() in results)
+        }
+    }
 
 }
