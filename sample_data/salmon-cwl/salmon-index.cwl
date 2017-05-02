@@ -1,5 +1,11 @@
 cwlVersion: v1.0
 class: CommandLineTool
+
+hints:
+  DockerRequirement:
+    dockerPull: combinelab/salmon
+
+    
 baseCommand: salmon
 arguments: [index]
 inputs:
@@ -19,7 +25,7 @@ inputs:
       1
       int: number of threads to run Salmon
 outputs:
-  index:
+  outindex:
     type: Directory
     outputBinding:
-      glob: "*"
+       glob: "*"

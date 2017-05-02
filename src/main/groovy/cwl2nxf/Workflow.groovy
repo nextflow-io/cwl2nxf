@@ -66,7 +66,20 @@ class Workflow{
                 channelList.add("${it} = file('${ymldata[it]['path']}')")
             }
             if (ymldata[it].getClass() == ArrayList){
-                String tmpstring = new String("'" + ymldata[it].join("', '") + "'")
+                def templist = []
+                ymldata[it].each{
+                    if(it.getClass() == String){
+                        templist.add("'${it}'")
+                    }
+                    if(it.getClass() == LinkedHashMap){
+                        if('class' in it.keySet() && 'path' in it.keySet()){
+                            if(it['class'] == 'File'){
+                                templist.add("file('${it['path']}')")
+                            }
+                        }
+                    }
+                }
+                String tmpstring = new String(templist.join(","))
                 this.ymlmapping.put(it, tmpstring)
                 channelList.add("${it} = Channel.from(${tmpstring})")
             }

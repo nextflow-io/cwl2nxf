@@ -15,12 +15,12 @@ requirements:
   - class: ScatterFeatureRequirement
 
 outputs:
-  index:
+  outindex:
     type: Directory
-    outputSource: quasiindex/index
-  quantdir:
+    outputSource: quasiindex/outindex
+  outquantdir:
     type: Directory[]
-    outputSource: quant/quantdir
+    outputSource: quant/outquantdir
 
 steps:
   quasiindex:
@@ -28,15 +28,15 @@ steps:
     in:
       index: index
       transcripts: transcripts
-    out: [index]
+    out: [outindex]
   quant:
     run: salmon-quant.cwl
     in:
-      index: quasiindex/index
+      index: quasiindex/outindex
       inf1: inf1
       inf2: inf2
       quantdir: samplename
-    out: [quantdir]
+    out: [outquantdir]
     scatter:
       - inf1
       - inf2

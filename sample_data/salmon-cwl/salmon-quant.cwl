@@ -1,5 +1,11 @@
 cwlVersion: v1.0
 class: CommandLineTool
+
+
+hints:
+  DockerRequirement:
+    dockerPull: combinelab/salmon
+
 baseCommand: salmon
 arguments: [quant]
 inputs:
@@ -37,7 +43,7 @@ inputs:
       1
       int: number of threads to run Salmon
 outputs:
-  quantdir:
+  outquantdir:
     type: Directory
     outputBinding:
       glob: .

@@ -43,15 +43,28 @@ class Step{
 		cmdstr = cmdstr + extractArguments(cwldata)
 
 		cwldata['inputs'].keySet().each{
-			//here the if(it in stepins.keySet check that a step input is also in the wf.
-			if('prefix' in cwldata['inputs'][it]['inputBinding']){
-				if(it in stepins.keySet()) {
-					cmdstr = cmdstr + ' ' + cwldata['inputs'][it]['inputBinding']['prefix']
-				}
-			}
+			//First check if the input from the step is also in the workflow
 			if(it in stepins.keySet()) {
+				if ('prefix' in cwldata['inputs'][it]['inputBinding']) {
+					cmdstr = cmdstr + ' ' + cwldata['inputs'][it]['inputBinding']['prefix']
+
+				}
+
 				cmdstr = cmdstr + ' ${invar_' + counter + '}'
 				counter += 1
+
+			}
+			else{
+				//Check if the step input has a default value if it does include it in the command string
+				if('default' in cwldata['inputs'][it].keySet()){
+					if ('prefix' in cwldata['inputs'][it]['inputBinding']) {
+						cmdstr = cmdstr + ' ' + cwldata['inputs'][it]['inputBinding']['prefix']
+
+					}
+					cmdstr = cmdstr + ' ' + cwldata['inputs'][it]['default']
+					counter += 1
+				}
+
 			}
 
 		}
@@ -153,7 +166,9 @@ class Step{
 
 				if(keycheck.contains('outputBinding')){
 					glob =cwldata['outputs'][it]['outputBinding']['glob']
-
+                    if(glob == '.'){
+                        glob = '*'
+                    }
 					if (glob.contains('$(inputs')){
 						glob = glob.replace("\$(inputs.",'')
 						glob = glob.replace(")",'')
