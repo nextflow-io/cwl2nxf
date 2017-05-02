@@ -39,6 +39,37 @@ class StepTest extends Specification {
         cmd == 'bowtie2-build ${invar_0} ${invar_1}'
 
     }
+    def 'check that extractCommandString handles defaults correctly' () {
+
+        given:
+        def text = '''
+        cwlVersion: v1.0
+        class: CommandLineTool
+        baseCommand: bowtie2-build
+
+        inputs:
+          indexfile:
+            type: File
+            inputBinding:
+              position: 1
+          doing:
+            type: string
+            default: test
+            inputBinding:
+              position: 2
+        '''
+                .stripIndent()
+
+        def cwl = (Map)new Yaml().load(text)
+        def step = new Step()
+        Map stepinsTest = ['indexfile':'']
+
+        when:
+        def cmd = step.extractCommandString(cwl, stepinsTest)
+        then:
+        cmd == 'bowtie2-build ${invar_0} test'
+
+    }
     def 'should extract arguments' (){
         given:
         def text = '''
