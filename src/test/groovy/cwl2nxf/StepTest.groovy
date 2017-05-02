@@ -31,9 +31,10 @@ class StepTest extends Specification {
 
         def cwl = (Map)new Yaml().load(text)
         def step = new Step()
+        Map stepinsTest = ['indexfile':'','doing':'']
 
         when:
-        def cmd = step.extractCommandString(cwl)
+        def cmd = step.extractCommandString(cwl, stepinsTest)
         then:
         cmd == 'bowtie2-build ${invar_0} ${invar_1}'
 
