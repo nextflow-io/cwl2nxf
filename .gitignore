@@ -7,3 +7,5 @@
 hs_err_pid*
 work
 build
+*.nf
+nextflow.config
