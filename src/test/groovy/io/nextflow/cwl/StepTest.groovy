@@ -18,7 +18,7 @@
  *   along with Nextflow.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package cwl2nxf
+package io.nextflow.cwl
 
 import org.yaml.snakeyaml.Yaml
 import spock.lang.Specification

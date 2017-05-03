@@ -18,8 +18,7 @@
  *   along with Nextflow.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#!/usr/bin/env groovy
-package cwl2nxf
+package io.nextflow.cwl
 
 class Step{
 	String cmdString

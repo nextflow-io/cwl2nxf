@@ -45,7 +45,7 @@ fi
 declare -a args=()
 DEBUG=''
 COLUMNS=${COLUMNS:-`tput cols 2> /dev/tty`}
-MAIN_CLASS=${MAIN_CLASS:-'cwl2nxf.Cwl2nxf'}
+MAIN_CLASS=${MAIN_CLASS:-'io.nextflow.cwl.Cwl2nxf'}
 JVM_ARGS+=" -Dfile.encoding=UTF-8 -noverify -XX:+TieredCompilation -XX:TieredStopAtLevel=1"
 ## flight recorded -- http://docs.oracle.com/javacomponents/jmc-5-4/jfr-runtime-guide/run.htm
 ##JVM_ARGS+=" -XX:+UnlockCommercialFeatures -XX:+FlightRecorder -XX:StartFlightRecording=duration=60s,filename=myrecording.jfr"

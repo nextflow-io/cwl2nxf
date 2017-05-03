@@ -18,7 +18,10 @@
  *   along with Nextflow.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package cwl2nxf
+package io.nextflow.cwl
+
+import java.nio.file.Path
+import java.nio.file.Paths
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -31,7 +34,7 @@ class Workflow{
     private List<String> channels
     private JsonNode cwlJson
     private JsonNode ymlJson
-    private String workingDir
+    private Path workingDir
     private List<Step> stepList
     private String docker = null
     public Map ymlmapping = [:]
@@ -45,7 +48,11 @@ class Workflow{
 
     }
 
-    public Workflow(String cwl, String yml, String workingDir){
+    Workflow(String cwl, String yml, String workingDir ) {
+        this(cwl,yml, Paths.get(workingDir))
+    }
+
+    Workflow(String cwl, String yml, Path workingDir){
         //refactor
         this.cwl = cwl
         this.yml = yml
@@ -136,7 +143,7 @@ class Workflow{
     public List<Step> getSteplist(){
         return this.stepList
     }
-    public String getWorkingDir(){
+    public Path getWorkingDir(){
         return this.workingDir
     }
     public String getDocker(){
@@ -157,7 +164,7 @@ class Workflow{
             if (stepID.contains('-')) {
                 stepID = stepID.replace('-', '_')
             }
-            def stepFile = new File(this.workingDir,stepFilename).text
+            def stepFile = workingDir.resolve(stepFilename).text
             def stepcwl = parser.load(stepFile)
             stepList.add(new Step(stepcwl, stepID, data, stepins, this.ymlmapping))
         }

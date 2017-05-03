@@ -7,7 +7,7 @@ apply plugin: 'application'
 
 
 version = '0.1'
-mainClassName='cwl2nxf.Cwl2nxf'
+mainClassName='io.nextflow.cwl.Cwl2nxf'
 
 repositories {
     mavenCentral()
@@ -17,6 +17,7 @@ dependencies {
     compile 'org.codehaus.groovy:groovy-all:2.4.10'
     compile 'org.yaml:snakeyaml:1.18'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.9.0.pr1'
+    compile 'commons-cli:commons-cli:20040117.000000'
 
     testCompile "cglib:cglib-nodep:2.2"
     testCompile "org.objenesis:objenesis:1.4"
