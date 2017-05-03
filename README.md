@@ -35,13 +35,13 @@ Debug the execution by using a remote debugger (eg. IntelliJ IDEA) as shown belo
 Run the code coverage by using the command: 
 
 ```
-./gradlew cobertura && 
+./gradlew cobertura  
 ```
 
 The generated report is available at the following path: 
 
 ```
-./build/reports/cobertura/index.html
+open ./build/reports/cobertura/index.html
 ```
 
  
