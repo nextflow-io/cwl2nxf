@@ -1,3 +1,23 @@
+/*
+ * Copyright (c) 2013-2017, Centre for Genomic Regulation (CRG).
+ * Copyright (c) 2013-2017, Paolo Di Tommaso and the respective authors.
+ *
+ *   This file is part of 'Nextflow'.
+ *
+ *   Nextflow is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   (at your option) any later version.
+ *
+ *   Nextflow is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with Nextflow.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package cwl2nxf
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -5,7 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.yaml.snakeyaml.Yaml
 
 /**
- * Created by kevin on 23/03/17.
+ * @author Kevin Sayers
  */
 class Workflow{
     private List<String> channels
@@ -38,11 +58,8 @@ class Workflow{
         this.channels = extractChannels()
         this.docker = extractDocker()
 
-
-
-
-
     }
+
     private JsonNode parseYml(String ymlData){
         Yaml parser = new Yaml()
         ObjectMapper jsonMapper = new ObjectMapper()
@@ -53,7 +70,6 @@ class Workflow{
         List<String> channelList = []
 
         Yaml parser = new Yaml()
-        def data = parser.load(this.cwl)
         def ymldata = parser.load(this.yml)
         Map ymlmapping = [:]
         ymldata.keySet().each {
@@ -91,7 +107,6 @@ class Workflow{
 
     private Map extractYmlMapping(){
         Yaml parser = new Yaml()
-        def data = parser.load(this.cwl)
         def ymldata = parser.load(this.yml)
         Map ymlmapping = [:]
 
@@ -133,10 +148,6 @@ class Workflow{
         //refactor
         Yaml parser = new Yaml()
         def data = parser.load(this.cwl)
-        def ymldata = parser.load(this.yml)
-        def channelList = []
-        Map wfinputs = [:]
-
 
         data['steps'].keySet().each {
             def stepins = data['steps'][it]['in']
