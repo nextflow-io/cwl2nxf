@@ -1,0 +1,4 @@
+indexfile:
+  class: File
+  path: ./data/ggal/ggal_1_48850000_49020000.Ggal71.500bpflank.fa
+doing: genome.index

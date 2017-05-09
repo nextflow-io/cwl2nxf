@@ -16,8 +16,6 @@ inputs:
 
 outputs: 
   indexout:
-    type: 
-      type: array
-      items: File
+    type: File[]
     outputBinding:
       glob: "genome.index*"

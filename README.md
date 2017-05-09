@@ -44,4 +44,7 @@ The generated report is available at the following path:
 open ./build/reports/cobertura/index.html
 ```
 
+License
+-----------
+The cwl2nxf is released under the GNU GPLv3 License.
  

@@ -80,6 +80,7 @@ class Cwl2nxf {
 
             saveOutput( wf, targetFileName, targetConfigName )
 
+
     }
 
     protected void saveOutput( Workflow wf, Path targetScriptPath, Path targetConfigPath ) {
@@ -102,7 +103,7 @@ class Cwl2nxf {
         try {
             if(wf.getDocker() != null) {
                 if( !targetConfigPath )
-                    config.append "======= nextflow.config ======="
+                    config.append "======= nextflow.config =======\n"
                 config.append("process.container = '${wf.getDocker()}'\n")
                 config.append("docker.enabled = true\n")
             }

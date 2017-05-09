@@ -1,0 +1,10 @@
+{
+    "salmon_version": "0.8.2",
+    "index": "/var/lib/cwl/stg27c90d8e-5d03-41e8-84e7-95b3d2eec3cf/index",
+    "mates1": "/var/lib/cwl/stg7fa946d1-9db0-4b93-890f-8536504004c1/reads_1.fastq",
+    "mates2": "/var/lib/cwl/stgd1e7651a-33df-4437-98c9-fc1c11499044/reads_2.fastq",
+    "libType": "A",
+    "numBootstraps": "30",
+    "output": "sample1",
+    "auxDir": "aux_info"
+}
