@@ -2,7 +2,7 @@ cwlVersion: v1.0
 class: CommandLineTool
 baseCommand: bowtie2-build
 
-
+arguments: [--outdir result]
 inputs:
   indexfile:
     type: File
@@ -18,4 +18,4 @@ outputs:
   indexout:
     type: File[]
     outputBinding:
-      glob: "genome.index*"
+      glob: "*"
