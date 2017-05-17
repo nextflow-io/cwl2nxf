@@ -22,7 +22,7 @@ steps:
   tophat:
     run: tophatmod.cwl
     in:
-      index: index/indexout
+      indexs: index/indexout
       gtffile: gtf
       doing: act
       pair1: pairone
