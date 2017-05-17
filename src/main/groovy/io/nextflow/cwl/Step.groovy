@@ -69,7 +69,10 @@ class Step{
 
 				}
 
-				cmdstr = cmdstr + ' ${invar_' + counter + '}'
+                //Check if the input has an actual commandline position
+                if(cwldata['inputs'][it]['inputBinding'] != null) {
+                    cmdstr = cmdstr + ' ${invar_' + counter + '}'
+                }
 				counter += 1
 
 			}
@@ -121,7 +124,8 @@ class Step{
 					   'string':'val',
 					   'int?':'val',
 					   'int':'val',
-					   'Directory':'file']
+					   'Directory':'file',
+					   'File[]':'file']
 		return typemap[cwltype]
 	}
 	def extractInputs(cwldata, wfdata, stepins){
