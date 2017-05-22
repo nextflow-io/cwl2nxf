@@ -34,6 +34,7 @@ class Step{
 	}
 
 	Step(stepdata, id, wfdata, stepins, ymldata){
+
 		this.cmdString = extractCommandString(stepdata, stepins)
 		this.id = id
 		this.inputs = extractInputs(stepdata, wfdata, stepins)
@@ -125,7 +126,8 @@ class Step{
 					   'int?':'val',
 					   'int':'val',
 					   'Directory':'file',
-					   'File[]':'file']
+					   'File[]':'file',
+					   'long':'val']
 		return typemap[cwltype]
 	}
 	def extractInputs(cwldata, wfdata, stepins){
@@ -136,8 +138,15 @@ class Step{
 /*		stepins.keySet()
 		println(cwldata['inputs'])*/
 		cwldata['inputs'].keySet().each{
+			def intype = null
 
-			def intype = cwlTypeConversion(cwldata['inputs'][it]['type'])
+			if(cwldata['inputs'][it]['type'].getClass() == String){
+				intype = cwlTypeConversion(cwldata['inputs'][it]['type'])
+			}
+			if(cwldata['inputs'][it]['type'].getClass() == LinkedHashMap){
+				intype = cwlTypeConversion(cwldata['inputs'][it]['type']['items'])
+			}
+
 			def from = stepins[it]
 			if(from.getClass() == String){
 				if(from.contains('/')){

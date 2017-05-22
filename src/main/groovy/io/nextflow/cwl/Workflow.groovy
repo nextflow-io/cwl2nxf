@@ -58,6 +58,7 @@ class Workflow{
         this.yml = yml
         this.ymlmapping = extractYmlMapping()
 
+
         this.cwlJson = parseYml(cwl)
         this.ymlJson = parseYml(yml)
         this.workingDir = workingDir
@@ -166,6 +167,7 @@ class Workflow{
             }
             def stepFile = workingDir.resolve(stepFilename).text
             def stepcwl = parser.load(stepFile)
+
             stepList.add(new Step(stepcwl, stepID, data, stepins, this.ymlmapping))
         }
 

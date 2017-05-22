@@ -75,9 +75,7 @@ class Cwl2nxf {
             System.exit 1
         }
 
-
         def wf = new Workflow(cwlFile.getText(), ymlFile.getText(), workDir)
-
             saveOutput( wf, targetFileName, targetConfigName )
 
 
