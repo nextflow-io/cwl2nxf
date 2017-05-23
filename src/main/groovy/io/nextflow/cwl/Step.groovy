@@ -20,6 +20,8 @@
 
 package io.nextflow.cwl
 
+import java.rmi.NoSuchObjectException
+
 class Step{
 	String cmdString
 	String id
@@ -65,13 +67,26 @@ class Step{
 		cwldata['inputs'].keySet().each{
 			//First check if the input from the step is also in the workflow
 			if(it in stepins.keySet()) {
-				if ('prefix' in cwldata['inputs'][it]['inputBinding']) {
-					cmdstr = cmdstr + ' ' + cwldata['inputs'][it]['inputBinding']['prefix']
+				Map inputBinding = null
+				println(cwldata['inputs'][it])
+				//Find the inputBinding this should work for standard binding and array type
+				if('inputBinding' in cwldata['inputs'][it].keySet()){
+					inputBinding = cwldata['inputs'][it]['inputBinding']
+				}
+				else if('inputBinding' in cwldata['inputs'][it]['type'].keySet()){
+					inputBinding = cwldata['inputs'][it]['type']['inputBinding']
+				}
+				else{
+					throw new NoSuchObjectException("No inputBinding found")
+				}
+
+				if ('prefix' in inputBinding) {
+					cmdstr = cmdstr + ' ' + inputBinding['prefix']
 
 				}
 
                 //Check if the input has an actual commandline position
-                if(cwldata['inputs'][it]['inputBinding'] != null) {
+                if(inputBinding != null) {
                     cmdstr = cmdstr + ' ${invar_' + counter + '}'
                 }
 				counter += 1
@@ -139,6 +154,7 @@ class Step{
 		println(cwldata['inputs'])*/
 		cwldata['inputs'].keySet().each{
 			def intype = null
+
 
 			if(cwldata['inputs'][it]['type'].getClass() == String){
 				intype = cwlTypeConversion(cwldata['inputs'][it]['type'])
