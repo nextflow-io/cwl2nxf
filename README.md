@@ -49,9 +49,11 @@ Graphs
 A comparison of native CWL graph to the Nextflow generated graph after conversion. 
 
 CWL graph:
+
 ![Alt text](docs/CWL_graph.png "CWL workflow graph")
 
 Nextflow graph after conversion:
+
 ![Alt text](docs/Nextflow_graph.png "Converted Nextflow graph")
 
 License
