@@ -110,6 +110,15 @@ class Workflow{
                             }
                         }
                     }
+                    if(it.getClass() == ArrayList){
+                        it.each{
+                            if('class' in it.keySet() && 'path' in it.keySet()){
+                                if(it['class'] == 'File'){
+                                    templist.add("file('${it['path']}')")
+                                }
+                            }
+                        }
+                    }
                 }
                 String tmpstring = new String(templist.join(","))
                 this.ymlmapping.put(it, tmpstring)
