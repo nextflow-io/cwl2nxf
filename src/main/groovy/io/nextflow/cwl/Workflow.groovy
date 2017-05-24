@@ -20,6 +20,8 @@
 
 package io.nextflow.cwl
 
+import org.codehaus.groovy.runtime.NullObject
+
 import java.nio.file.Path
 import java.nio.file.Paths
 
@@ -94,6 +96,12 @@ class Workflow{
                 ymldata[it].each{
                     if(it.getClass() == String){
                         templist.add("'${it}'")
+                    }
+                    if(it.getClass() == Integer){
+                        templist.add(it)
+                    }
+                    if(it.getClass() == NullObject){
+                        templist.add('null')
                     }
                     if(it.getClass() == LinkedHashMap){
                         if('class' in it.keySet() && 'path' in it.keySet()){
