@@ -63,22 +63,18 @@ class Step{
 		}
 
 		cmdstr = cmdstr + extractArguments(cwldata)
-
 		cwldata['inputs'].keySet().each{
 			//First check if the input from the step is also in the workflow
 			if(it in stepins.keySet()) {
 				Map inputBinding = null
-				println(cwldata['inputs'][it])
 				//Find the inputBinding this should work for standard binding and array type
 				if('inputBinding' in cwldata['inputs'][it].keySet()){
 					inputBinding = cwldata['inputs'][it]['inputBinding']
 				}
-				else if('inputBinding' in cwldata['inputs'][it]['type'].keySet()){
+				if(cwldata['inputs'][it]['type'].getClass() == LinkedHashMap &&'inputBinding' in cwldata['inputs'][it]['type'].keySet()){
 					inputBinding = cwldata['inputs'][it]['type']['inputBinding']
 				}
-				else{
-					throw new NoSuchObjectException("No inputBinding found")
-				}
+
 
 				if ('prefix' in inputBinding) {
 					cmdstr = cmdstr + ' ' + inputBinding['prefix']
