@@ -20,6 +20,8 @@
 
 package io.nextflow.cwl
 
+import org.codehaus.groovy.runtime.NullObject
+
 import java.rmi.NoSuchObjectException
 
 class Step{
@@ -138,7 +140,8 @@ class Step{
 					   'int':'val',
 					   'Directory':'file',
 					   'File[]':'file',
-					   'long':'val']
+					   'long':'val',
+					   'null':'val']
 		return typemap[cwltype]
 	}
 	def extractInputs(cwldata, wfdata, stepins){
@@ -151,12 +154,17 @@ class Step{
 		cwldata['inputs'].keySet().each{
 			def intype = null
 
-
 			if(cwldata['inputs'][it]['type'].getClass() == String){
 				intype = cwlTypeConversion(cwldata['inputs'][it]['type'])
 			}
 			if(cwldata['inputs'][it]['type'].getClass() == LinkedHashMap){
-				intype = cwlTypeConversion(cwldata['inputs'][it]['type']['items'])
+				if(cwldata['inputs'][it]['type']['items'].getClass() == LinkedHashMap){
+					intype = cwlTypeConversion(cwldata['inputs'][it]['type']['items']['items'])
+				}
+				else{
+					intype = cwlTypeConversion(cwldata['inputs'][it]['type']['items'])
+
+				}
 			}
 
 			def from = stepins[it]
