@@ -44,6 +44,11 @@ The generated report is available at the following path:
 open ./build/reports/cobertura/index.html
 ```
 
+Graphs
+-----------
+![Alt text](docs/CWL_graph.png "CWL workflow graph")
+![Alt text](docs/Nextflow_graph.png "Converted Nextflow graph")
+
 License
 -----------
 The cwl2nxf is released under the GNU GPLv3 License.
