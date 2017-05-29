@@ -68,6 +68,8 @@ class Step{
 
 		cmdstr = cmdstr + extractArguments(cwldata)
 		cwldata['inputs'].keySet().each{
+            String tmpcmdstr =''
+
 			//First check if the input from the step is also in the workflow
 			if(it in stepins.keySet()) {
 				Map inputBinding = null
@@ -81,14 +83,23 @@ class Step{
 
 
 				if ('prefix' in inputBinding) {
-					cmdstr = cmdstr + ' ' + inputBinding['prefix']
+					tmpcmdstr = tmpcmdstr + ' ' + inputBinding['prefix']
 
 				}
 
                 //Check if the input has an actual commandline position
                 if(inputBinding != null) {
-                    cmdstr = cmdstr + ' ${invar_' + counter + '}'
+                    tmpcmdstr = tmpcmdstr + ' ${invar_' + counter + '}'
                 }
+                if(cwldata['inputs'][it]['type']['items'].getClass() == ArrayList){
+                    //${invar_9 != NULL_FILE ? "reference__bwa__indexes= ${invar_9}" : ''}
+                    cmdstr = cmdstr + " \${invar_${counter} != NULL_FILE ? ${tmpcmdstr} : ''}"
+
+                }
+                else{
+                    cmdstr = cmdstr + tmpcmdstr
+                }
+
 				counter += 1
 
 			}
@@ -100,7 +111,9 @@ class Step{
 
 					}
 					cmdstr = cmdstr + ' ' + cwldata['inputs'][it]['default']
-					counter += 1
+					//counter += 1
+                    //This counter shouldn't be incremented as the default is not coming from
+                    //an invar
 				}
 
 			}
