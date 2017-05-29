@@ -20,6 +20,8 @@
 
 package io.nextflow.cwl
 
+import com.fasterxml.jackson.databind.node.ArrayNode
+import jdk.nashorn.internal.ir.ObjectNode
 import org.codehaus.groovy.runtime.NullObject
 
 import java.rmi.NoSuchObjectException
@@ -41,7 +43,7 @@ class Step{
 
 		this.cmdString = extractCommandString(stepdata, stepins)
 		this.id = id
-		this.inputs = extractInputs(stepdata, wfdata, stepins)
+		this.inputs = extractInputs(stepdata, wfdata, stepins, ymldata)
 		this.outputs = extractOutputs(stepdata,wfdata, stepins, ymldata)
 		this.wfouts = extractWfouts(wfdata)
 
@@ -144,15 +146,17 @@ class Step{
 					   'null':'val']
 		return typemap[cwltype]
 	}
-	def extractInputs(cwldata, wfdata, stepins){
+	def extractInputs(cwldata, wfdata, stepins, yml){
 
 		def inputsreturn = []
 		int counter = 0
+
 
 /*		stepins.keySet()
 		println(cwldata['inputs'])*/
 		cwldata['inputs'].keySet().each{
 			def intype = null
+
 
 			if(cwldata['inputs'][it]['type'].getClass() == String){
 				intype = cwlTypeConversion(cwldata['inputs'][it]['type'])
@@ -160,9 +164,19 @@ class Step{
 			if(cwldata['inputs'][it]['type'].getClass() == LinkedHashMap){
 				if(cwldata['inputs'][it]['type']['items'].getClass() == LinkedHashMap){
 					intype = cwlTypeConversion(cwldata['inputs'][it]['type']['items']['items'])
+
 				}
 				else{
-					intype = cwlTypeConversion(cwldata['inputs'][it]['type']['items'])
+                   /*This operates under the assumption that an ArrayList for items will always
+                    be a case of File and null. The type conversion is just done for File then*/
+                    if(cwldata['inputs'][it]['type']['items'].getClass() == ArrayList){
+                        if('File' in cwldata['inputs'][it]['type']['items']){
+                            intype = cwlTypeConversion('File')
+                        }
+                    }
+                    else{
+                        intype = cwlTypeConversion(cwldata['inputs'][it]['type']['items'])
+                    }
 
 				}
 			}
@@ -180,6 +194,10 @@ class Step{
 			if(it in stepins.keySet()){
 				inputsreturn.add(new String(intype + ' invar_' + counter + ' from ' + from))
 				counter += 1
+                extractSecondaryFiles(it, yml)
+
+
+
 
 			}
 
@@ -192,6 +210,19 @@ class Step{
 		return inputsreturn
 
 	}
+
+    def extractSecondaryFiles(stepID, yml){
+        //Check for secondary files that should also be included
+        /*if(yml[stepID].getClass() == ArrayNode){
+            yml[stepID].each{
+                if(it.getClass() == com.fasterxml.jackson.databind.node.ObjectNode){
+                    println(it)
+                }
+
+            }
+        }*/
+    }
+
 	def extractOutputs(cwldata, wfdata, stepins, ymldata){
 		def outputs = []
 		def glob = ''

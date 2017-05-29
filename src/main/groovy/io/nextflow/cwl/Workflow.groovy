@@ -58,7 +58,11 @@ class Workflow{
         //refactor
         this.cwl = cwl
         this.yml = yml
-        this.ymlmapping = extractYmlMapping()
+
+        //Remove this? ymlmapping no longer seems to be used
+/*        this.ymlmapping = extractYmlMapping()
+
+        println(this.ymlmapping)*/
 
 
         this.cwlJson = parseYml(cwl)
@@ -78,6 +82,12 @@ class Workflow{
     }
     private List<String> extractChannels(){
         List<String> channelList = []
+
+        //Refactor this. It is used to handle null file inputs by making
+        //a fake file. This was done so that files and null can be mixed in
+        //a channel.
+        channelList.add('NULL_FILE = java.nio.file.Paths.get(\'.NULL\')')
+        channelList.add('Channel.from(NULL_FILE).set { data_ch }')
 
         Yaml parser = new Yaml()
         def ymldata = parser.load(this.yml)
@@ -101,7 +111,7 @@ class Workflow{
                         templist.add(it)
                     }
                     if(it.getClass() == NullObject){
-                        templist.add('null')
+                        templist.add('NULL_FILE')
                     }
                     if(it.getClass() == LinkedHashMap){
                         if('class' in it.keySet() && 'path' in it.keySet()){
@@ -185,7 +195,7 @@ class Workflow{
             def stepFile = workingDir.resolve(stepFilename).text
             def stepcwl = parser.load(stepFile)
 
-            stepList.add(new Step(stepcwl, stepID, data, stepins, this.ymlmapping))
+            stepList.add(new Step(stepcwl, stepID, data, stepins, this.ymlJson))
         }
 
 
