@@ -71,8 +71,9 @@ class Step{
             String tmpcmdstr =''
 
 			//First check if the input from the step is also in the workflow
-			if(it in stepins.keySet()) {
+			if(it in stepins.keySet() && cwldata['inputs'][it].getClass() != String) {
 				Map inputBinding = null
+
 				//Find the inputBinding this should work for standard binding and array type
 				if('inputBinding' in cwldata['inputs'][it].keySet()){
 					inputBinding = cwldata['inputs'][it]['inputBinding']
@@ -87,9 +88,10 @@ class Step{
 
 				}
 
+
                 //Check if the input has an actual commandline position
                 if(inputBinding != null) {
-                    tmpcmdstr = tmpcmdstr + ' ${invar_' + counter + '}'
+                    tmpcmdstr = tmpcmdstr + '${invar_' + counter + '}'
                 }
                 if(cwldata['inputs'][it]['type']['items'].getClass() == ArrayList){
                     //${invar_9 != NULL_FILE ? "reference__bwa__indexes= ${invar_9}" : ''}
@@ -103,6 +105,11 @@ class Step{
 				counter += 1
 
 			}
+			else if(it in stepins.keySet() && cwldata['inputs'][it].getClass() == String) {
+				//this checks for inputs that are just a Directory or other string without any
+				//additional attributes.
+				throw new IllegalArgumentException("Unsupported input from string")
+			}
 			else{
 				//Check if the step input has a default value if it does include it in the command string
 				if('default' in cwldata['inputs'][it].keySet()){
@@ -110,7 +117,7 @@ class Step{
 						cmdstr = cmdstr + ' ' + cwldata['inputs'][it]['inputBinding']['prefix']
 
 					}
-					cmdstr = cmdstr + ' ' + cwldata['inputs'][it]['default']
+					cmdstr = cmdstr + cwldata['inputs'][it]['default']
 					//counter += 1
                     //This counter shouldn't be incremented as the default is not coming from
                     //an invar
@@ -162,6 +169,7 @@ class Step{
 	def extractInputs(cwldata, wfdata, stepins, yml){
 
 		def inputsreturn = []
+		def secondaryFiles = []
 		int counter = 0
 
 
@@ -207,33 +215,44 @@ class Step{
 			if(it in stepins.keySet()){
 				inputsreturn.add(new String(intype + ' invar_' + counter + ' from ' + from))
 				counter += 1
-                extractSecondaryFiles(it, yml)
-
-
-
+                def tmpSecondaryFiles = extractSecondaryFiles(it, yml)
+				if(tmpSecondaryFiles){
+					secondaryFiles.addAll(tmpSecondaryFiles)
+				}
 
 			}
 
 		}
 
-        //Add in inputs that come directly from another step
-/*        println(cwldata['inputs'])
-        println(stepins)*/
-
+		if(secondaryFiles){
+			inputsreturn.add("\n\n\t//Secondary Files from CWL")
+			inputsreturn.addAll(formatSecondartFiles(secondaryFiles))
+		}
 		return inputsreturn
 
 	}
 
+	def formatSecondartFiles(secondaryFiles){
+		int counter=0
+		secondaryFiles.unique().collect {
+			"file secondary_${counter++} from file(${it})"
+		}
+	}
+
     def extractSecondaryFiles(stepID, yml){
-        //Check for secondary files that should also be included
-        /*if(yml[stepID].getClass() == ArrayNode){
+		//extracts Secondary Files that are associated with a primary file
+		def secondaryFiles = []
+
+        if(yml[stepID].getClass() == ArrayNode){
             yml[stepID].each{
                 if(it.getClass() == com.fasterxml.jackson.databind.node.ObjectNode){
-                    println(it)
+                    it["secondaryFiles"].each{
+						secondaryFiles.add(it["path"])
+					}
                 }
-
             }
-        }*/
+        }
+		return secondaryFiles
     }
 
 	def extractOutputs(cwldata, wfdata, stepins, ymldata){
