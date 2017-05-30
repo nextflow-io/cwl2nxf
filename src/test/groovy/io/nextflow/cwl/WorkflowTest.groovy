@@ -101,14 +101,15 @@ class WorkflowTest extends Specification{
 
         when:
         def channels = wf.getChannels()
+        println(channels)
         List<String> correct = ["infile = file('./data/ggal/ggal_1_48850000_49020000.Ggal71.500bpflank.fa')",
                                 "pairone = file('./data/ggal/ggal_gut_1.fq')",
                                 "pairtwo = file('./data/ggal/ggal_gut_2.fq')"]
 
         then:
-        channels[0] == correct[0]
-        channels[3] == correct[1]
-        channels[4] == correct[2]
+        channels[2] == correct[0]
+        channels[5] == correct[1]
+        channels[6] == correct[2]
     }
     def 'test buildSteps' (){
         given:
@@ -127,11 +128,14 @@ class WorkflowTest extends Specification{
     def 'Check inputs are only from workflow' (){
         given:
         def wf = new Workflow(cwl, yml, 'sample_data/CWL_RNAtoy')
-        def results = ['infile', 'act', 'gtf', 'pairone', 'pairtwo']
+        def results = ['NULL_FILE', 'Channel.from(NULL_FILE).set { data_ch }',
+                       'infile', 'act', 'gtf', 'pairone', 'pairtwo']
 
 
         when:
         def steps = wf.getChannels()
+        steps.take(2)
+
 
 
 

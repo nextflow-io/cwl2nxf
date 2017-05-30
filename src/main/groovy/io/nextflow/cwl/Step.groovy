@@ -91,12 +91,12 @@ class Step{
 
                 //Check if the input has an actual commandline position
                 if(inputBinding != null) {
-                    tmpcmdstr = tmpcmdstr + '${invar_' + counter + '}'
+                    tmpcmdstr = tmpcmdstr + ' ${invar_' + counter + '}'
                 }
-                if(cwldata['inputs'][it]['type']['items'].getClass() == ArrayList){
+
+                if(cwldata['inputs'][it]['type'].getClass() == LinkedHashMap && cwldata['inputs'][it]['type']['items'].getClass() == ArrayList){
                     //${invar_9 != NULL_FILE ? "reference__bwa__indexes= ${invar_9}" : ''}
                     cmdstr = cmdstr + " \${invar_${counter} != NULL_FILE ? ${tmpcmdstr} : ''}"
-
                 }
                 else{
                     cmdstr = cmdstr + tmpcmdstr
@@ -117,7 +117,7 @@ class Step{
 						cmdstr = cmdstr + ' ' + cwldata['inputs'][it]['inputBinding']['prefix']
 
 					}
-					cmdstr = cmdstr + cwldata['inputs'][it]['default']
+					cmdstr = cmdstr + ' ' + cwldata['inputs'][it]['default']
 					//counter += 1
                     //This counter shouldn't be incremented as the default is not coming from
                     //an invar
@@ -226,13 +226,13 @@ class Step{
 
 		if(secondaryFiles){
 			inputsreturn.add("\n\n\t//Secondary Files from CWL")
-			inputsreturn.addAll(formatSecondartFiles(secondaryFiles))
+			inputsreturn.addAll(formatSecondaryFiles(secondaryFiles))
 		}
 		return inputsreturn
 
 	}
 
-	def formatSecondartFiles(secondaryFiles){
+	def formatSecondaryFiles(secondaryFiles){
 		int counter=0
 		secondaryFiles.unique().collect {
 			"file secondary_${counter++} from file(${it})"

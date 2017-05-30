@@ -130,5 +130,15 @@ class StepTest extends Specification {
         then:
         typeTest2 == 'val'
     }
+    def 'secondary file formatting' (){
+        given:
+        def step = new Step()
+        def secondaryFiles = ['../atestpath1','../atestpath2']
+
+        when:
+        def formatTest = step.formatSecondaryFiles(secondaryFiles)
+        then:
+        formatTest == ["file secondary_0 from file(../atestpath1)", "file secondary_1 from file(../atestpath2)"]
+    }
 
 }
