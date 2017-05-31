@@ -30,7 +30,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.yaml.snakeyaml.Yaml
 
 /**
- * @author Kevin Sayers
+ * @author Kevin Sayers <sayerskt@gmail.com>
  */
 class Workflow{
     private List<String> channels
