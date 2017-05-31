@@ -117,7 +117,9 @@ class Step{
 			else if(it in stepins.keySet() && cwldata['inputs'][it].getClass() == String) {
 				//this checks for inputs that are just a Directory or other string without any
 				//additional attributes.
-				throw new IllegalArgumentException("Unsupported input from string")
+				if(cwldata['inputs'][it] != 'Directory'){
+					throw new IllegalArgumentException("Unsupported input from string")
+				}
 			}
 			else{
 				//Check if the step input has a default value if it does include it in the command string
@@ -187,7 +189,11 @@ class Step{
 		cwldata['inputs'].keySet().each{
 			def intype = null
 
-
+			//This is a bit of a hack. It handles things like an input which
+			//is just a directory defined as inputvar: Directory
+			if(cwldata['inputs'][it].getClass() == String){
+				cwldata['inputs'][it] = ['type':cwldata['inputs'][it]]
+			}
 			if(cwldata['inputs'][it]['type'].getClass() == String){
 				intype = cwlTypeConversion(cwldata['inputs'][it]['type'])
 			}
