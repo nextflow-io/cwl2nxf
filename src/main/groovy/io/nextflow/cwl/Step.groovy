@@ -84,14 +84,21 @@ class Step{
 
 
 				if ('prefix' in inputBinding) {
-					tmpcmdstr = tmpcmdstr + ' ' + inputBinding['prefix']
+					String prefixStripped = inputBinding['prefix'].toString().stripIndent()
+					if(prefixStripped.contains("=")){
+						tmpcmdstr = tmpcmdstr + prefixStripped
+					}
+					else{
+						tmpcmdstr = tmpcmdstr + prefixStripped + ' '
+					}
+
 
 				}
 
 
                 //Check if the input has an actual commandline position
                 if(inputBinding != null) {
-                    tmpcmdstr = tmpcmdstr + ' ${invar_' + counter + '}'
+                    tmpcmdstr = tmpcmdstr + '${invar_' + counter + '}'
                 }
 
                 if(cwldata['inputs'][it]['type'].getClass() == LinkedHashMap && cwldata['inputs'][it]['type']['items'].getClass() == ArrayList){
@@ -99,7 +106,7 @@ class Step{
                     cmdstr = cmdstr + " \${invar_${counter} != NULL_FILE ? ${tmpcmdstr} : ''}"
                 }
                 else{
-                    cmdstr = cmdstr + tmpcmdstr
+                    cmdstr = cmdstr + ' ' + tmpcmdstr
                 }
 
 				counter += 1
@@ -306,10 +313,6 @@ class Step{
 					}
 				}
 		}
-
-
-
-
 
 		}
 		else{

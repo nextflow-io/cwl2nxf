@@ -140,5 +140,55 @@ class StepTest extends Specification {
         then:
         formatTest == ["file secondary_0 from file(../atestpath1)", "file secondary_1 from file(../atestpath2)"]
     }
+    def 'check prefix parsing' (){
+        given:
+        def text = '''
+        cwlVersion: v1.0
+        class: CommandLineTool
+        baseCommand: bowtie2-build
+        
+        inputs:
+          gtffile:
+            type: File
+            inputBinding:
+              position: 1
+              prefix: --GTF
+        '''.stripIndent()
+
+        def cwl = (Map)new Yaml().load(text)
+        def step = new Step()
+
+        when:
+        def stepins = ['gtffile':'gtf']
+        def cmdreturn = step.extractCommandString(cwl,stepins)
+        then:
+        cmdreturn == 'bowtie2-build --GTF ${invar_0}'
+
+
+    }
+    def 'check prefix parsing with = in' (){
+        given:
+        def text = '''
+        cwlVersion: v1.0
+        class: CommandLineTool
+        baseCommand: bowtie2-build
+        
+        inputs:
+          gtffile:
+            type: File
+            inputBinding:
+              position: 1
+              prefix: test=
+        '''.stripIndent()
+
+        def cwl = (Map)new Yaml().load(text)
+        def step = new Step()
+
+        when:
+        def stepins = ['gtffile':'gtf']
+        def cmdreturn = step.extractCommandString(cwl,stepins)
+        then:
+        cmdreturn == 'bowtie2-build test=${invar_0}'
+    }
 
 }
