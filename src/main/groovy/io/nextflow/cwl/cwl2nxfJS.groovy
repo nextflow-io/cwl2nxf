@@ -24,11 +24,31 @@ package io.nextflow.cwl
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
+import javax.script.ScriptContext
+import javax.script.*;
 
 class cwl2nxfJS {
+    ScriptEngineManager factory = new ScriptEngineManager();
+    ScriptEngine engine = factory.getEngineByName("nashorn");
+
+    SimpleBindings bindings = new SimpleBindings(['runtime':['coresMin': 1,'coresMax': 1,'ramMin': 1024,
+                                                             'ramMax': 1024,'tmpdirMin': 1024,'tmpdirMax': 1024,
+                                                             'outdirMin': 1024,'outdirMax': 1024]])
+    cwl2nxfJS(){
+
+    }
+    def evaluateJS(String jsString){
+        return this.engine.eval(jsString, this.bindings)
+    }
+    def setJS(Map map){
+        this.bindings.putAll(map)
+    }
+
     static void main(String[] args) {
-        ScriptEngineManager factory = new ScriptEngineManager();
-        ScriptEngine engine = factory.getEngineByName("nashorn");
-        engine.eval("print('check.txt'.basename);");
+        def test = new cwl2nxfJS()
+        test.setJS(['runtime':['coresMin': 3]])
+        println(test.evaluateJS("runtime.coresMin"))
+
+
     }
 }
