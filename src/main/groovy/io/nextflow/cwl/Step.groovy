@@ -23,10 +23,6 @@
 package io.nextflow.cwl
 
 import com.fasterxml.jackson.databind.node.ArrayNode
-import jdk.nashorn.internal.ir.ObjectNode
-import org.codehaus.groovy.runtime.NullObject
-
-import java.rmi.NoSuchObjectException
 
 class Step{
 	String cmdString
@@ -34,7 +30,7 @@ class Step{
 	def inputs
 	def outputs
 	def wfouts //These are the final files which are kept
-	def jsEvaluator = new cwl2nxfJS()
+	def jsEvaluator = new Cwl2nxfJS()
 
 
 

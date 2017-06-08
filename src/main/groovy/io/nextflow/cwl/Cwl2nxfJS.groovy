@@ -23,19 +23,17 @@ package io.nextflow.cwl
  */
 
 import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptContext
+import javax.script.ScriptEngineManager
 import javax.script.*
-import java.util.regex.Matcher;
 
-class cwl2nxfJS {
+class Cwl2nxfJS {
     ScriptEngineManager factory = new ScriptEngineManager();
     ScriptEngine engine = factory.getEngineByName("nashorn");
 
     SimpleBindings bindings = new SimpleBindings(['runtime':['coresMin': 1,'coresMax': 1,'ramMin': 1024,
                                                              'ramMax': 1024,'tmpdirMin': 1024,'tmpdirMax': 1024,
                                                              'outdirMin': 1024,'outdirMax': 1024,'outdir':'./']])
-    cwl2nxfJS(){
+    Cwl2nxfJS(){
 
     }
     def evaluateJS(String jsString){
@@ -55,10 +53,8 @@ class cwl2nxfJS {
 
     }
     static void main(String[] args) {
-        def test = new cwl2nxfJS()
+        def test = new Cwl2nxfJS()
         test.setJS(['runtime':['coresMin': 3]])
-        println(test.evaluateJS("runtime.coresMin"))
-
         String testreg = '$(runtime.coresMin)'
         println(test.evaluateJSExpression(testreg))
 /*        def jsRegex = (testreg =~ /^\$\((.*?)\)$/)
