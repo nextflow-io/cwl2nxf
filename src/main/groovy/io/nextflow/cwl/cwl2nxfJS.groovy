@@ -25,7 +25,8 @@ package io.nextflow.cwl
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptContext
-import javax.script.*;
+import javax.script.*
+import java.util.regex.Matcher;
 
 class cwl2nxfJS {
     ScriptEngineManager factory = new ScriptEngineManager();
@@ -33,7 +34,7 @@ class cwl2nxfJS {
 
     SimpleBindings bindings = new SimpleBindings(['runtime':['coresMin': 1,'coresMax': 1,'ramMin': 1024,
                                                              'ramMax': 1024,'tmpdirMin': 1024,'tmpdirMax': 1024,
-                                                             'outdirMin': 1024,'outdirMax': 1024]])
+                                                             'outdirMin': 1024,'outdirMax': 1024,'outdir':'./']])
     cwl2nxfJS(){
 
     }
@@ -43,11 +44,28 @@ class cwl2nxfJS {
     def setJS(Map map){
         this.bindings.putAll(map)
     }
+    def checkForJSPattern(String jsString){
+        def jsRegex = (jsString =~ /^\$\((.*?)\)$/)
+        return jsRegex.matches()
+    }
+    def evaluateJSExpression(String jsString){
+        def jsRegex = (jsString =~ /^\$\((.*?)\)$/)
+        jsRegex.matches()
+        return evaluateJS(jsRegex.group(1))
 
+    }
     static void main(String[] args) {
         def test = new cwl2nxfJS()
         test.setJS(['runtime':['coresMin': 3]])
         println(test.evaluateJS("runtime.coresMin"))
+
+        String testreg = '$(runtime.coresMin)'
+        println(test.evaluateJSExpression(testreg))
+/*        def jsRegex = (testreg =~ /^\$\((.*?)\)$/)
+        println jsRegex.matches()
+        println jsRegex.group(1)*/
+
+
 
 
     }

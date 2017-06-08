@@ -34,6 +34,8 @@ class Step{
 	def inputs
 	def outputs
 	def wfouts //These are the final files which are kept
+	def jsEvaluator = new cwl2nxfJS()
+
 
 
 	/** Only for testing purpose */
@@ -142,12 +144,11 @@ class Step{
 
 	}
 	def extractArguments(cwldata){
-		Map cwl_vals = ['$(runtime.outdir)':'./']
 		def tmplist = ['',]
 		if ('arguments' in cwldata.keySet()){
 			cwldata['arguments'].each{
-				if(cwl_vals.containsKey(it)){
-					tmplist.add(cwl_vals[it])
+				if(this.jsEvaluator.checkForJSPattern(it) == true){
+					tmplist.add(this.jsEvaluator.evaluateJSExpression(it))
 				}
 				else{
 					tmplist.add(it)
