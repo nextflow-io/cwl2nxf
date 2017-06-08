@@ -142,6 +142,7 @@ class Step{
 	def extractArguments(cwldata){
 		def tmplist = ['',]
 		if ('arguments' in cwldata.keySet()){
+			println(cwldata['arguments'].getClass())
 			cwldata['arguments'].each{
 				if(this.jsEvaluator.checkForJSPattern(it) == true){
 					tmplist.add(this.jsEvaluator.evaluateJSExpression(it))
