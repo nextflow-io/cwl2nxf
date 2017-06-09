@@ -40,8 +40,16 @@ class Cwl2nxfJS {
     def evaluateJS(String jsString){
         return this.engine.eval(jsString, this.bindings)
     }
-    def setJS(Map map){
-        this.bindings.putAll(map)
+
+    def setJS(Map map, def bind=null){
+        map.keySet().each{
+            if(it in this.bindings.keySet()){
+                setJS(map[it],this.bindings[it])
+            }
+            else{
+                bind[it] = map[it]
+            }
+        }
     }
     def checkForJSPattern(String jsString){
         def jsRegex = (jsString =~ /^\$\((.*?)\)$/)
@@ -55,18 +63,25 @@ class Cwl2nxfJS {
     }
     static void main(String[] args) {
         def test = new Cwl2nxfJS()
+
         Map testmap = [:]
 
         test.setJS(['runtime':['coresMin': 3]])
-        String testreg = 'sentinel_runtime=cores,$(runtime[\'cores\']),ram,$(runtime[\'ram\'])'
+        println(test.evaluateJS('runtime.coresMin'))
+        test.setJS(['runtime':['coresMin': 25]])
+        println(test.evaluateJS('runtime.coresMin'))
+
+
+/*        String testreg = 'sentinel_runtime=cores,$(runtime[\'cores\']),ram,$(runtime[\'ram\'])'
         def jsRegex = (testreg =~ /\$\((.*?)\)/).findAll()
         testmap[jsRegex[0][0]] = jsRegex[0][1]
         testmap[jsRegex[1][0]] = jsRegex[1][1]
         testmap.keySet().each{
             String newstr = testmap[it].replace("['",'.').replace("']",'')
             println(newstr)
-        }
-        println(test.evaluateJS('runtime.outdir'))
+
+        }*/
+
 /*
         println(test.evaluateJSExpression(testreg))
 */
