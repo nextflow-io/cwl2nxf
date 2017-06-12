@@ -57,37 +57,31 @@ class Cwl2nxfJS {
     }
     def evaluateJSExpression(String jsString){
         def jsRegex = (jsString =~ /^\$\((.*?)\)$/)
-        jsRegex.matches()
-        return evaluateJS(jsRegex.group(1))
+        try{
+            jsRegex.matches()
+            evaluateJS(jsRegex.group(1))
+            return result
+        }
+        catch (Exception jsExpression){
+            println('Error: no valid JS expression found')
+            return null
+        }
+
 
     }
     static void main(String[] args) {
         def test = new Cwl2nxfJS()
 
         Map testmap = [:]
-
+/*
         test.setJS(['runtime':['coresMin': 3]])
         println(test.evaluateJS('runtime.coresMin'))
         test.setJS(['runtime':['coresMin': 25]])
-        println(test.evaluateJS('runtime.coresMin'))
+        println(test.evaluateJS('runtime.coresMin'))*/
 
 
-/*        String testreg = 'sentinel_runtime=cores,$(runtime[\'cores\']),ram,$(runtime[\'ram\'])'
-        def jsRegex = (testreg =~ /\$\((.*?)\)/).findAll()
-        testmap[jsRegex[0][0]] = jsRegex[0][1]
-        testmap[jsRegex[1][0]] = jsRegex[1][1]
-        testmap.keySet().each{
-            String newstr = testmap[it].replace("['",'.').replace("']",'')
-            println(newstr)
-
-        }*/
-
-/*
-        println(test.evaluateJSExpression(testreg))
-*/
-/*        def jsRegex = (testreg =~ /^\$\((.*?)\)$/)
-        println jsRegex.matches()
-        println jsRegex.group(1)*/
+        String testreg = 'sentinel_runtime=cores,$(runtime[\'cores\']),ram,$(runtime[\'ram\'])'
+        test.evaluateJSExpression(testreg)
 
 
 
