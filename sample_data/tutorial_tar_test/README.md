@@ -21,8 +21,9 @@ cwltool wf.cwl wf.yml
 ```
 Converting to Nextflow
 -----------
+The output file name of 'tar.nf' is specified on the commandline
 ```
-./launch.sh sample_data/tutorial_tar_test/wf.cwl sample_data/tutorial_tar_test/wf.yml
+./launch.sh -o tar.nf sample_data/tutorial_tar_test/wf.cwl sample_data/tutorial_tar_test/wf.yml
 ```
 Resulting Nextflow
 -----------
@@ -54,4 +55,10 @@ process arguments{
 	"""
 }
 
+```
+
+Running in Nextflow
+-----------
+```
+nextflow run tar.nf
 ```
