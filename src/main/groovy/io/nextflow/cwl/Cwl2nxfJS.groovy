@@ -38,6 +38,9 @@ class Cwl2nxfJS {
 
     }
     def evaluateJS(String jsString){
+        if('runtime.cores' in jsString){
+            jsString.replace('runtime.cores','runtime.coresMax')
+        }
         return this.engine.eval(jsString, this.bindings)
     }
 

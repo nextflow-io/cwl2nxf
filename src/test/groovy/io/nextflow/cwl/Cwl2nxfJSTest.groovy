@@ -64,4 +64,17 @@ class Cwl2nxfJSTest extends Specification {
         then:
         newaccess == 3
     }
+    def 'test conversion of runtime.cores' (){
+        given:
+        def jsevaluator = new Cwl2nxfJS()
+
+        when:
+        jsevaluator.setJS(['runtime':['coresMax': 3]])
+
+        def newaccess = jsevaluator.evaluateJS('runtime.cores')
+        println(newaccess)
+
+        then:
+        newaccess == 1
+    }
 }
