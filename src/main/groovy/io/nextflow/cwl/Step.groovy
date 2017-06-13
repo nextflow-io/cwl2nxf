@@ -123,7 +123,7 @@ class Step{
 				//Check if the step input has a default value if it does include it in the command string
 				if('default' in cwldata['inputs'][it].keySet()){
 					if ('prefix' in cwldata['inputs'][it]['inputBinding']) {
-						cmdstr = cmdstr + ' ' + cwldata['inputs'][it]['inputBinding']['prefix']
+						cmdstr = cmdstr + ' ' + cwldata['inputs'][it]['inputBinding']['prefix'].stripIndent()
 
 					}
 					cmdstr = cmdstr + cwldata['inputs'][it]['default']

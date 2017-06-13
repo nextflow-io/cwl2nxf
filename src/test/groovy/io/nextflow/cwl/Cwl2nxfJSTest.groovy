@@ -86,7 +86,7 @@ class Cwl2nxfJSTest extends Specification {
         def newaccess = jsevaluator.evaluateJSExpression(test)
         println(newaccess)
 
-        Map correct = ["\$(runtime['cores'])":1, "\$(runtime['ram'])":1]
+        Map correct = ["\$(runtime['cores'])":1, "\$(runtime['ram'])":1024]
         then:
         newaccess == correct
     }
