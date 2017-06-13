@@ -103,7 +103,7 @@ class Step{
 
                 if(cwldata['inputs'][it]['type'].getClass() == LinkedHashMap && cwldata['inputs'][it]['type']['items'].getClass() == ArrayList){
                     //${invar_9 != NULL_FILE ? "reference__bwa__indexes= ${invar_9}" : ''}
-                    cmdstr = cmdstr + " \${invar_${counter} != NULL_FILE ? ${tmpcmdstr} : ''}"
+                    cmdstr = cmdstr + " \${invar_${counter} != NULL_FILE ? \"${tmpcmdstr}\" : ''}"
                 }
                 else{
                     cmdstr = cmdstr + ' ' + tmpcmdstr
@@ -126,7 +126,7 @@ class Step{
 						cmdstr = cmdstr + ' ' + cwldata['inputs'][it]['inputBinding']['prefix']
 
 					}
-					cmdstr = cmdstr + ' ' + cwldata['inputs'][it]['default']
+					cmdstr = cmdstr + cwldata['inputs'][it]['default']
 					//counter += 1
                     //This counter shouldn't be incremented as the default is not coming from
                     //an invar
@@ -142,10 +142,22 @@ class Step{
 	def extractArguments(cwldata){
 		def tmplist = ['',]
 		if ('arguments' in cwldata.keySet()){
-			println(cwldata['arguments'].getClass())
 			cwldata['arguments'].each{
+				if(it.getClass() == LinkedHashMap){
+					if('valueFrom' in it.keySet()){
+						it = it['valueFrom']
+					}
+				}
 				if(this.jsEvaluator.checkForJSPattern(it) == true){
-					tmplist.add(this.jsEvaluator.evaluateJSExpression(it))
+					String jsEval = it
+					Map jsMapping = this.jsEvaluator.evaluateJSExpression(it)
+					jsMapping.keySet().each{
+						jsEval = jsEval.replace(it,jsMapping[it].toString())
+
+					}
+
+					tmplist.add(jsEval)
+
 				}
 				else{
 					tmplist.add(it)

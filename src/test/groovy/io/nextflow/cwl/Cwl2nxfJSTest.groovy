@@ -24,7 +24,7 @@ class Cwl2nxfJSTest extends Specification {
 
         given:
         def jsevaluator = new Cwl2nxfJS()
-        def jsTestString = '$(runtime.coresMin)'
+        def jsTestString = 'sentinel_runtime=cores,$(runtime[\'cores\']),ram,$(runtime[\'ram\'])'
 
         when:
         def testresult = jsevaluator.checkForJSPattern(jsTestString)
@@ -40,7 +40,7 @@ class Cwl2nxfJSTest extends Specification {
         when:
         def testresult = jsevaluator.evaluateJSExpression(jsTestString)
         then:
-        testresult == 1
+        testresult['$(runtime.coresMin)'] == 1
     }
     def 'check setting of runtime values' (){
         given:
@@ -51,7 +51,7 @@ class Cwl2nxfJSTest extends Specification {
         jsevaluator.setJS(['runtime':['coresMin': 3]])
         def testresult = jsevaluator.evaluateJSExpression(jsTestString)
         then:
-        testresult == 3
+        testresult['$(runtime.coresMin)'] == 3
     }
     def 'test updating a JS value and accesing it again' (){
         given:
@@ -77,4 +77,18 @@ class Cwl2nxfJSTest extends Specification {
         then:
         newaccess == 1
     }
+    def 'test multiple inline JS expressions' (){
+        given:
+        def jsevaluator = new Cwl2nxfJS()
+
+        when:
+        String test = 'sentinel_runtime=cores,$(runtime[\'cores\']),ram,$(runtime[\'ram\'])'
+        def newaccess = jsevaluator.evaluateJSExpression(test)
+        println(newaccess)
+
+        Map correct = ["\$(runtime['cores'])":1, "\$(runtime['ram'])":1]
+        then:
+        newaccess == correct
+    }
+
 }

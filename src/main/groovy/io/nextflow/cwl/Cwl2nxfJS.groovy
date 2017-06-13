@@ -33,7 +33,7 @@ class Cwl2nxfJS {
     SimpleBindings bindings = new SimpleBindings(['runtime':['coresMin': 1,'coresMax': 1,'ramMin': 1024,
                                                              'ramMax': 1024,'tmpdirMin': 1024,'tmpdirMax': 1024,
                                                              'outdirMin': 1024,'outdirMax': 1024,'outdir':'./',
-                                                             'cores':1, 'ram':1]])
+                                                             'cores':1, 'ram':1024]])
     Cwl2nxfJS(){
 
     }
@@ -55,20 +55,24 @@ class Cwl2nxfJS {
         }
     }
     def checkForJSPattern(String jsString){
-        def jsRegex = (jsString =~ /^\$\((.*?)\)$/)
-        return jsRegex.matches()
+        def jsRegex = (jsString =~ /^*\$\((.*?)\)*$/).find()
+        return jsRegex
     }
     def evaluateJSExpression(String jsString){
-        def jsRegex = (jsString =~ /^\$\((.*?)\)$/)
-        try{
-            jsRegex.matches()
-            evaluateJS(jsRegex.group(1))
-            return result
+        Map results = [:]
+        def jsRegex = (jsString =~ /\$\([^\)]+\)/).findAll()
+        jsRegex.each{
+            try{
+                def subRegex = (it =~ /^\$\((.*?)\)$/)
+                subRegex.matches()
+                results[it] = evaluateJS(subRegex.group(1))
+            }
+            catch (Exception jsExpression){
+                throw new Exception('Error: no valid JS expression found')
+            }
         }
-        catch (Exception jsExpression){
-            println('Error: no valid JS expression found')
-            return null
-        }
+        return results
+
 
 
     }
@@ -76,15 +80,17 @@ class Cwl2nxfJS {
         def test = new Cwl2nxfJS()
 
         Map testmap = [:]
-/*
-        test.setJS(['runtime':['coresMin': 3]])
-        println(test.evaluateJS('runtime.coresMin'))
-        test.setJS(['runtime':['coresMin': 25]])
-        println(test.evaluateJS('runtime.coresMin'))*/
+
+/*        test.setJS(['runtime':['test':['foo':20,'bar':5]]])
+        println(test.evaluateJS('runtime.test.bar'))*/
 
 
-        String testreg = 'sentinel_runtime=cores,$(runtime[\'cores\']),ram,$(runtime[\'ram\'])'
-        test.evaluateJSExpression(testreg)
+        //String testreg = 'sentinel_runtime=cores,$(runtime[\'cores\']),ram,$(runtime[\'ram\'])'
+/*        String testreg = '$(runtime.cores)'
+        println(test.evaluateJSExpression(testreg))*/
+        String jsString = '$(runtime[\'cores\'])'
+        println(test.checkForJSPattern(jsString))
+
 
 
 

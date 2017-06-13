@@ -38,7 +38,7 @@ process tar_param{
 	file invar_0 from inp
 	val invar_1 from ex
 	output: 
-	file ""Hello.java"" into example_out
+	file "Hello.java" into example_out
 	"""
 	tar xf ${invar_0} ${invar_1}
 	"""
