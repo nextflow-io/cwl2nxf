@@ -309,7 +309,12 @@ class Step{
                     if(glob == '.'){
                         glob = '*'
                     }
+					if(this.jsEvaluator.checkForJSPattern(glob)){
+						println(glob)
+					}
 					if (glob.contains('$(inputs')){
+						println(ymldata)
+						println(stepins)
 						glob = glob.replace("\$(inputs.",'')
 						glob = glob.replace(")",'')
 						glob = ymldata[stepins[glob]]
