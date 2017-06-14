@@ -1,7 +1,7 @@
 cwl2nxf
 ========
 
-Early development work on a CWL to Nextflow converter. This is still a very early prototype, and is most likely only functional for a small number of cases. 
+This is a prototype conversion tool from Common Workflow Language (CWL) to Nextflow. This project is still under active development, with a number of common CWL features implemented currently. Example workflows to demonstrate the conversion are included in the 'sample_data' folder with additional information on how to convert and run each exmaple. 
 
 Supported features
 -----------
@@ -20,6 +20,8 @@ Unsupported features
 	* Currently each workflow step must be an individual CWL commandline tool file
 * JS expressions are currently not implemented
 
+Building cwl2nxf
+-----------
 
 The converter can be built using the following Gradle command. 
 ```
@@ -28,9 +30,9 @@ The converter can be built using the following Gradle command.
 
 Then the below command will execute the newly created jar and process the provided sample data.
 ```
-java -jar build/libs/cwl2nxf-*.jar sample_data/tutorial_tar_test/wf.cwl sample_data/tutorial_tar_test/wf.yml 
+java -jar build/libs/cwl2nxf-*.jar -o NXFout.nf sample_data/tutorial_tar_test/wf.cwl sample_data/tutorial_tar_test/wf.yml 
 ```
-Upon execution a *.nf file will be created in the base folder. The file is currently just named with a timestamp. This file should be then runnable in nextflow. 
+Upon execution NXFout.nf file will be created in the base folder. This file will then be runnable using Nextflow
 
 
 Development 
