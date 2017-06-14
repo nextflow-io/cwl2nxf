@@ -3,6 +3,24 @@ cwl2nxf
 
 Early development work on a CWL to Nextflow converter. This is still a very early prototype, and is most likely only functional for a small number of cases. 
 
+Supported features
+-----------
+* Parsing of CWL v1.0 documents. 
+* Basic scatter support
+* Support of 'runtime' JS evaluation
+* secondaryFiles
+* Conditional commandline inclusion.
+	* In CWL if an input is null it is excluded from the commandline
+* Commandline parsing supports default values and prefixs 
+
+Unsupported features
+-----------
+* Parsing of CWL draft-3 or earlier specifications
+* Subworkflows.
+	* Currently each workflow step must be an individual CWL commandline tool file
+* JS expressions are currently not implemented
+
+
 The converter can be built using the following Gradle command. 
 ```
 ./gradlew uberjar
