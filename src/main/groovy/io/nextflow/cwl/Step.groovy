@@ -82,7 +82,6 @@ class Step{
 					inputBinding = cwldata['inputs'][it]['type']['inputBinding']
 				}
 
-
 				if ('prefix' in inputBinding) {
 					String prefixStripped = inputBinding['prefix'].toString().stripIndent()
 					if(prefixStripped.contains("=")){
@@ -91,8 +90,6 @@ class Step{
 					else{
 						tmpcmdstr = tmpcmdstr + prefixStripped + ' '
 					}
-
-
 				}
 
 
@@ -124,7 +121,6 @@ class Step{
 				if('default' in cwldata['inputs'][it].keySet()){
 					if ('prefix' in cwldata['inputs'][it]['inputBinding']) {
 						cmdstr = cmdstr + ' ' + cwldata['inputs'][it]['inputBinding']['prefix']
-
 					}
 					cmdstr = cmdstr + cwldata['inputs'][it]['default']
 					//counter += 1
