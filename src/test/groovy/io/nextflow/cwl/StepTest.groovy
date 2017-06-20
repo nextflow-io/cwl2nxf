@@ -192,4 +192,35 @@ class StepTest extends Specification {
         cmdreturn == 'bowtie2-build test=${invar_0}'
     }
 
+    def 'check getProcessBlock' (){
+
+        given:
+        def wfoutputs = ["[classfile]"]
+        String id = "tar_param"
+        def outputs = ["file \"Hello.java\" into example_out"]
+        def inputs = ["file invar_0 from inp", "val invar_1 from ex"]
+        def cmdstr = "tar xf \${invar_0} \${invar_1}"
+
+        def correctResult = '''
+        process tar_param{
+            input:
+            file invar_0 from inp
+            val invar_1 from ex
+            output:
+            file "Hello.java" into example_out
+            """
+            tar xf ${invar_0} ${invar_1}
+            """
+        }
+        '''.stripIndent()
+
+        when:
+        def step = new Step(wfoutputs, id, inputs, outputs, cmdstr)
+        def testResult = step.getProcessBlock()
+        then:
+        correctResult == testResult
+
+
+    }
+
 }
