@@ -73,6 +73,7 @@ class StepTest extends Specification {
               position: 1
           doing:
             type: string
+            default: "default value"
             inputBinding:
               position: 2
 
@@ -87,7 +88,7 @@ class StepTest extends Specification {
         when:
         def cmd = step.extractCommandString(cwl, stepinsTest)
         then:
-        cmd == 'bowtie2-build ${invar_0}'
+        cmd == 'bowtie2-build ${invar_0} default value'
 
     }
     def 'should extract arguments' (){

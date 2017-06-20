@@ -122,7 +122,7 @@ class Step{
 					if ('prefix' in cwldata['inputs'][it]['inputBinding']) {
 						cmdstr = cmdstr + ' ' + cwldata['inputs'][it]['inputBinding']['prefix']
 					}
-					cmdstr = cmdstr + cwldata['inputs'][it]['default']
+					cmdstr = cmdstr + ' ' + cwldata['inputs'][it]['default']
 					//counter += 1
                     //This counter shouldn't be incremented as the default is not coming from
                     //an invar
