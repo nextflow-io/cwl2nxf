@@ -20,6 +20,11 @@ Unsupported features
 	* Currently each workflow step must be an individual CWL commandline tool file
 * JS expressions are currently not implemented
 
+Improvements on Toil
+-----------
+Toil currently does not support a number of features that can be run via cwltool. Conversion to Nextflow allows running workflows with some of these features.
+* InitialWorkDirRequirement: The CWL_RNAtoy examlpe workflow has an InitialWorkDirRequirement that runs under cwltool, but does not run under cwltoil. Conversion to Nextflow would enable the running of this workflow on non-local compute resources. 
+
 Building cwl2nxf
 -----------
 
