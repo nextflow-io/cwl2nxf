@@ -64,8 +64,6 @@ class StepTest extends Specification {
 
         given:
         def text = '''
-        cwlVersion: v1.0
-        class: CommandLineTool
         baseCommand: bowtie2-build
 
         inputs:
@@ -75,9 +73,10 @@ class StepTest extends Specification {
               position: 1
           doing:
             type: string
-            default: test
             inputBinding:
               position: 2
+
+
         '''
                 .stripIndent()
 
@@ -88,7 +87,7 @@ class StepTest extends Specification {
         when:
         def cmd = step.extractCommandString(cwl, stepinsTest)
         then:
-        cmd == 'bowtie2-build ${invar_0} test'
+        cmd == 'bowtie2-build ${invar_0}'
 
     }
     def 'should extract arguments' (){
