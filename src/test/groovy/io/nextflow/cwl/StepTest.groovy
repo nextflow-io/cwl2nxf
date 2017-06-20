@@ -202,23 +202,36 @@ class StepTest extends Specification {
         def cmdstr = "tar xf \${invar_0} \${invar_1}"
 
         def correctResult = '''
-        process tar_param{
-            input:
-            file invar_0 from inp
-            val invar_1 from ex
-            output:
-            file "Hello.java" into example_out
-            """
-            tar xf ${invar_0} ${invar_1}
-            """
-        }
-        '''.stripIndent()
+        process tar_param{ 
+        \tinput: 
+        \tfile invar_0 from inp
+        \tval invar_1 from ex
+        \toutput: 
+        \tfile "Hello.java" into example_out
+        \t"""
+        \ttar xf ${invar_0} ${invar_1}
+        \t"""
+        }'''.stripIndent()
 
         when:
-        def step = new Step(wfoutputs, id, inputs, outputs, cmdstr)
-        def testResult = step.getProcessBlock()
+        def step = new Step(null, wfoutputs, id, inputs, outputs, cmdstr)
+        def testResult = step.getProcessBlock().stripMargin()
         then:
         correctResult == testResult
+
+
+    }
+
+    def 'check JS argument evaluation' (){
+
+        given:
+        def arg = [arguments:['-d', '\$(runtime.outdir)']]
+
+        when:
+        def step = new Step()
+        def testResult = step.extractArguments(arg)
+        then:
+        testResult == " -d ./"
 
 
     }

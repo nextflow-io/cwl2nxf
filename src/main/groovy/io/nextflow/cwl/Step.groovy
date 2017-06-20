@@ -39,14 +39,12 @@ class Step{
 
 	}
 
-	protected Step(wfout, String id, ins, outs, cmds){
+	protected Step(testid, wfout, String id, ins, outs, cmds){
 		this.cmdString = cmds
 		this.id = id
 		this.inputs = ins
 		this.outputs = outs
 		this.wfouts = wfout
-
-
 	}
 
 	Step(stepdata, id, wfdata, stepins, ymldata){
@@ -146,6 +144,7 @@ class Step{
 
 	}
 	def extractArguments(cwldata){
+		println (cwldata)
 		def tmplist = ['',]
 		if ('arguments' in cwldata.keySet()){
 			cwldata['arguments'].each{
@@ -409,15 +408,6 @@ class Step{
 		processString += '\t' + this.cmdString + '\n'
 		processString += '\t"""\n'
 		processString += '}'
-
-		println("start")
-		println(wfouts)
-		println(id)
-		println(outputs)
-		println(inputs)
-		println(cmdString)
-		//println(processString)
-		println("end")
 
 		return processString
 	}
