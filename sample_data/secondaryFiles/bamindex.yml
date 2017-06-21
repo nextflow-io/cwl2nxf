@@ -1,0 +1,3 @@
+bamfile:
+  class: File
+  path: ./data/test.bam

@@ -1,19 +1,19 @@
 cwlVersion: v1.0
 class: Workflow
-
 inputs:
-  firstfile: File
+  bam: File
 
+requirements:
+- class: MultipleInputFeatureRequirement
 
-outputs: 
-  testout:
+outputs:
+  indexed:
     type: File
-    outputSource: test/outfile
-
+    outputSource: [bamindex/indexout]
 
 steps:
-  test:
-    run: test.cwl
+  bamindex:
+    run: bamindex.cwl
     in:
-      first: firstfile
-    out: [outfile]
+      bamfile: bam
+    out: [indexout]
