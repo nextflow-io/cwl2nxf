@@ -199,7 +199,7 @@ class StepTest extends Specification {
 
         when:
         def step = new Step()
-        def testResult = step.processGlob(glob,into,outType)
+        def testResult = step.processGlob(glob,into,outType,null,null)
         def expected = "file \"*.bam\" into indexout"
 
         then:
