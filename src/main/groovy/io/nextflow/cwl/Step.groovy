@@ -287,6 +287,7 @@ class Step{
 
 	def extractOutputs(cwldata, wfdata, stepins, ymldata){
 		def outputs = []
+		def secondaryFiles = []
 		def glob = ''
 		def outType = ''
 
@@ -298,6 +299,7 @@ class Step{
 			}
 
 			cwldata['outputs'].keySet().each{
+				println(cwldata['outputs'][it])
 				//This checks for the outputs being an array
 				if(cwldata['outputs'][it]['type'].getClass() == String){
 					outType = cwlTypeConversion(cwldata['outputs'][it]['type'])
@@ -310,21 +312,29 @@ class Step{
 				def keycheck = cwldata['outputs'][it].keySet()
 
 				if(keycheck.contains('outputBinding')){
-					glob =cwldata['outputs'][it]['outputBinding']['glob']
-                    if(glob == '.'){
-                        glob = '*'
+
+                    //THE SECONDARYFILES NEED TO GO HERE
+                    if('glob' in cwldata['outputs'][it]['outputBinding'].keySet()){
+                        glob = cwldata['outputs'][it]['outputBinding']['glob']
+                        if(glob == '.'){
+                            glob = '*'
+                        }
+                        if(this.jsEvaluator.checkForJSPattern(glob)){
+                            println(glob)
+                        }
+                        if (glob.contains('$(inputs')){
+                            println(ymldata)
+                            println(stepins)
+                            glob = glob.replace("\$(inputs.",'')
+                            glob = glob.replace(")",'')
+                            glob = ymldata[stepins[glob]]
+                        }
+                        outputs.add(new String(outType + ' "' + glob + '" into ' + into ))
                     }
-					if(this.jsEvaluator.checkForJSPattern(glob)){
-						println(glob)
-					}
-					if (glob.contains('$(inputs')){
-						println(ymldata)
-						println(stepins)
-						glob = glob.replace("\$(inputs.",'')
-						glob = glob.replace(")",'')
-						glob = ymldata[stepins[glob]]
-					}
-					outputs.add(new String(outType + ' ' + glob + ' into ' + into ))
+                    else{
+                        throw new IllegalArgumentException("outputBinding can only be of type 'glob'")
+                    }
+
 
 				}
 				if(keycheck.size() == 1){
@@ -344,7 +354,7 @@ class Step{
 
 		}
 		else{
-			outputs.add('')
+			outputs.add(null)
 		}
 
 		return outputs
@@ -385,7 +395,7 @@ class Step{
 		String processString = ''
 		processString += '\n'
 		processString += 'process ' + this.id + '{ \n'
-		if(this.outputs.size() > 0){
+		if(this.outputs.size() > 0 && this.outputs != [null]){
 			this.outputs.each{
 				if(this.wfouts.contains(it.split(' ')[-1])){
 					processString += "\tpublishDir './', mode:'copy' \n"
@@ -399,10 +409,12 @@ class Step{
 		this.inputs.each{
 			processString += '\t' + it + '\n'
 		}
-		processString += '\toutput: \n'
-		this.outputs.each{
-			processString += '\t' + it + '\n'
-		}
+        if(this.outputs != [null]){
+            processString += '\toutput: \n'
+            this.outputs.each{
+                processString += '\t' + it + '\n'
+            }
+        }
 
 		processString += '\t"""\n'
 		processString += '\t' + this.cmdString + '\n'

@@ -20,6 +20,8 @@ Unsupported features
 * Subworkflows.
 	* Currently each workflow step must be an individual CWL commandline tool file
 * JS expressions are currently not implemented
+* Record types
+* outputBinding only supports 'glob'. outputEval and loadContents are unsupported.
 
 Building cwl2nxf
 -----------
