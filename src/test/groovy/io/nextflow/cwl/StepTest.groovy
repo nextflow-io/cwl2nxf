@@ -191,6 +191,21 @@ class StepTest extends Specification {
         then:
         cmdreturn == 'bowtie2-build test=${invar_0}'
     }
+    def 'check processGlob' (){
+        given:
+        def glob = "*.bam"
+        def into = "indexout"
+        def outType = "file"
+
+        when:
+        def step = new Step()
+        def testResult = step.processGlob(glob,into,outType)
+        def expected = "file \"*.bam\" into indexout"
+
+        then:
+        testResult == expected
+
+    }
 
     def 'check getProcessBlock' (){
 
@@ -221,6 +236,8 @@ class StepTest extends Specification {
 
 
     }
+
+
 
     def 'check JS argument evaluation' (){
 

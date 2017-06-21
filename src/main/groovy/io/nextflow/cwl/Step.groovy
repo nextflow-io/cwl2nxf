@@ -299,7 +299,6 @@ class Step{
 			}
 
 			cwldata['outputs'].keySet().each{
-				println(cwldata['outputs'][it])
 				//This checks for the outputs being an array
 				if(cwldata['outputs'][it]['type'].getClass() == String){
 					outType = cwlTypeConversion(cwldata['outputs'][it]['type'])
@@ -314,26 +313,21 @@ class Step{
 				if(keycheck.contains('outputBinding')){
 
                     //THE SECONDARYFILES NEED TO GO HERE
-                    if('glob' in cwldata['outputs'][it]['outputBinding'].keySet()){
+                    if('glob' in cwldata['outputs'][it]['outputBinding'].keySet()) {
                         glob = cwldata['outputs'][it]['outputBinding']['glob']
-                        if(glob == '.'){
-                            glob = '*'
+                        String processedGlob = processGlob(glob, into, outType, ymldata, stepins)
+                        outputs.add(processedGlob)
+                        if('secondaryFiles' in cwldata['outputs'][it].keySet()) {
+                            cwldata['outputs'][it]['secondaryFiles'].each{
+                                throw new IllegalArgumentException("secondaryFiles not currently supported for outputs")
+                            }
                         }
-                        if(this.jsEvaluator.checkForJSPattern(glob)){
-                            println(glob)
-                        }
-                        if (glob.contains('$(inputs')){
-                            println(ymldata)
-                            println(stepins)
-                            glob = glob.replace("\$(inputs.",'')
-                            glob = glob.replace(")",'')
-                            glob = ymldata[stepins[glob]]
-                        }
-                        outputs.add(new String(outType + ' "' + glob + '" into ' + into ))
                     }
                     else{
                         throw new IllegalArgumentException("outputBinding can only be of type 'glob'")
                     }
+
+
 
 
 				}
@@ -359,6 +353,23 @@ class Step{
 
 		return outputs
 	}
+    def processGlob(glob,into,outType, ymldata,stepins){
+        if(glob == '.'){
+            glob = '*'
+        }
+/*        if(this.jsEvaluator.checkForJSPattern(glob, into)){
+            println(glob)
+        }*/
+        if (glob.contains('$(inputs')){
+            println(ymldata)
+            println(stepins)
+            glob = glob.replace("\$(inputs.",'')
+            glob = glob.replace(")",'')
+            glob = ymldata[stepins[glob]]
+        }
+        return "${outType} \"${glob}\" into ${into}"
+
+    }
 	def extractWfouts(cwldata){
 		//efficiency of this step could be improved it currently parses
 		//the same thing for each step. 
