@@ -23,7 +23,6 @@
 package io.nextflow.cwl
 
 import com.fasterxml.jackson.databind.node.ArrayNode
-
 class Step{
 	String cmdString
 	String id
@@ -319,8 +318,9 @@ class Step{
                         outputs.add(processedGlob)
                         if('secondaryFiles' in cwldata['outputs'][it].keySet()) {
                             cwldata['outputs'][it]['secondaryFiles'].each{
-                                throw new IllegalArgumentException("secondaryFiles not currently supported for outputs")
-                            }
+								int numexts = it.count("^")
+
+							}
                         }
                     }
                     else{
