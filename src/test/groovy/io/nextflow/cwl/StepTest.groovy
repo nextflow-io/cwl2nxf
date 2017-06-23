@@ -131,6 +131,16 @@ class StepTest extends Specification {
         then:
         typeTest2 == 'val'
     }
+    def 'check type return error handling' (){
+        given:
+        def step = new Step()
+
+        when:
+        def typeTest = step.cwlTypeConversion('Notvalid')
+        then:
+        thrown IllegalArgumentException
+
+    }
     def 'secondary file formatting' (){
         given:
         def step = new Step()

@@ -189,7 +189,12 @@ class Step{
 					   'File[]':'file',
 					   'long':'val',
 					   'null':'val']
-		return typemap[cwltype]
+		if(typemap[cwltype] != null){
+			return typemap[cwltype]
+		}
+		else{
+			throw new IllegalArgumentException("${cwltype} is not a supported data type")
+		}
 	}
 	def extractInputs(cwldata, wfdata, stepins, yml){
 
@@ -287,7 +292,6 @@ class Step{
 	def extractOutputs(cwldata, wfdata, stepins, ymldata){
 		def outputs = []
 		def secondaryFiles = []
-		def glob = ''
 		def outType = ''
 
 		if(cwldata['outputs'] != []){
@@ -310,26 +314,7 @@ class Step{
 				def keycheck = cwldata['outputs'][it].keySet()
 
 				if(keycheck.contains('outputBinding')){
-
-                    //THE SECONDARYFILES NEED TO GO HERE
-                    if('glob' in cwldata['outputs'][it]['outputBinding'].keySet()) {
-                        glob = cwldata['outputs'][it]['outputBinding']['glob']
-                        String processedGlob = processGlob(glob, into, outType, ymldata, stepins)
-                        outputs.add(processedGlob)
-                        if('secondaryFiles' in cwldata['outputs'][it].keySet()) {
-                            cwldata['outputs'][it]['secondaryFiles'].each{
-								int numexts = it.count("^")
-
-							}
-                        }
-                    }
-                    else{
-                        throw new IllegalArgumentException("outputBinding can only be of type 'glob'")
-                    }
-
-
-
-
+					outputs.addAll(processOutputbinding(cwldata,into,outType, ymldata,stepins,it))
 				}
 				if(keycheck.size() == 1){
 					outType = cwlTypeConversion(cwldata['outputs'][it]['type'])
@@ -353,23 +338,55 @@ class Step{
 
 		return outputs
 	}
-    def processGlob(glob,into,outType, ymldata,stepins){
-        if(glob == '.'){
-            glob = '*'
-        }
+    def processOutputbinding(cwldata,into,outType, ymldata,stepins,out){
+		def glob = ''
+		def returns = []
+		boolean secondaryFilesFound = false
+
+		if('glob' in cwldata['outputs'][out]['outputBinding'].keySet()) {
+			glob = cwldata['outputs'][out]['outputBinding']['glob']
+			if(glob == '.'){
+				glob = '*'
+			}
 /*        if(this.jsEvaluator.checkForJSPattern(glob, into)){
             println(glob)
         }*/
-        if (glob.contains('$(inputs')){
-            println(ymldata)
-            println(stepins)
-            glob = glob.replace("\$(inputs.",'')
-            glob = glob.replace(")",'')
-            glob = ymldata[stepins[glob]]
-        }
-        return "${outType} \"${glob}\" into ${into}"
+			if (glob.contains('$(inputs')){
+				println(ymldata)
+				println(stepins)
+				glob = glob.replace("\$(inputs.",'')
+				glob = glob.replace(")",'')
+				glob = ymldata[stepins[glob]]
+			}
+			returns.add("${outType} \"${glob}\" into ${into}")
+			if('secondaryFiles' in cwldata['outputs'][out].keySet()) {
+				secondaryFilesFound = true
+				int counter = 0
+				cwldata['outputs'][out]['secondaryFiles'].each{
+					if((glob =~ /\*\.(.*)/).find() && (it =~ /\^\.(.*)/)){
+						String secondaryGlob = (it.replace('^','*'))
+						returns.add("${outType} \"${secondaryGlob}\" into temp${counter}")
+						counter++
+					}
 
+				}
+			}
+		}
+		else{
+			throw new IllegalArgumentException("outputBinding can only be of type 'glob'")
+		}
+		if(secondaryFilesFound == true){
+			returns = secondaryFilesProcessing(returns, into)
+		}
+		return returns
     }
+
+	def secondaryFilesProcessing(returns,into){
+		String newChannel = "${into} = Channel.create()"
+		println(into)
+		return returns
+
+	}
 	def extractWfouts(cwldata){
 		//efficiency of this step could be improved it currently parses
 		//the same thing for each step. 
@@ -430,7 +447,7 @@ class Step{
 		processString += '\t"""\n'
 		processString += '\t' + this.cmdString + '\n'
 		processString += '\t"""\n'
-		processString += '}'
+		processString += '}\n'
 
 		return processString
 	}
