@@ -236,7 +236,7 @@ class StepTest extends Specification {
         \t"""
         \ttar xf ${invar_0} ${invar_1}
         \t"""
-        }'''.stripIndent()
+        }\n'''.stripIndent()
 
         when:
         def step = new Step(null, wfoutputs, id, inputs, outputs, cmdstr)
