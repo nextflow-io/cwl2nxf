@@ -194,27 +194,12 @@ class StepTest extends Specification {
 
         def cwl = (Map)new Yaml().load(text)
         def step = new Step()
-
+println(tst)
         when:
         def stepins = ['gtffile':'gtf']
         def cmdreturn = step.extractCommandString(cwl,stepins)
         then:
         cmdreturn == 'bowtie2-build test=${invar_0}'
-    }
-    def 'check processGlob' (){
-        given:
-        def glob = "*.bam"
-        def into = "indexout"
-        def outType = "file"
-
-        when:
-        def step = new Step()
-        def testResult = step.processGlob(glob,into,outType,null,null)
-        def expected = "file \"*.bam\" into indexout"
-
-        then:
-        testResult == expected
-
     }
 
     def 'check getProcessBlock' (){
@@ -261,6 +246,18 @@ class StepTest extends Specification {
         testResult == " -d ./"
 
 
+    }
+
+    def 'test hints error for non ResourceRequirement' (){
+        given:
+        def stepdata = [hints:[[class:'NotResourceRequirement', coresMin:2, outdirMin:1024, ramMin:4096]]]
+
+        def step = new Step()
+
+        when:
+        def tst = step.extractHints(stepdata)
+        then:
+        thrown IllegalArgumentException
     }
 
 }

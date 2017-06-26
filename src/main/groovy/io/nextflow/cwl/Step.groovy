@@ -30,6 +30,7 @@ class Step{
 	def outputs
 	def wfouts //These are the final files which are kept
 	def jsEvaluator = new Cwl2nxfJS()
+    def hints
 
 
 
@@ -50,12 +51,29 @@ class Step{
 
 		this.cmdString = extractCommandString(stepdata, stepins)
 		this.id = id
+        this.hints = extractHints(stepdata)
 		this.inputs = extractInputs(stepdata, wfdata, stepins, ymldata)
 		this.outputs = extractOutputs(stepdata,wfdata, stepins, ymldata)
 		this.wfouts = extractWfouts(wfdata)
 
 
+
 	}
+
+
+    def extractHints(stepdata){
+        println(stepdata)
+        stepdata['hints'].each{
+            if(it['class'] == 'ResourceRequirement'){
+                this.jsEvaluator.setJS(['runtime':it])
+            }
+            else{
+                throw new IllegalArgumentException("An unsupported hint is present in the ${this.id} step")
+            }
+        }
+        println(this.jsEvaluator.evaluateJS('runtime.ramMin'))
+        return null
+    }
 
 	def extractCommandString(Map cwldata, stepins){
 		int counter = 0
@@ -197,7 +215,6 @@ class Step{
 		}
 	}
 	def extractInputs(cwldata, wfdata, stepins, yml){
-
 		def inputsreturn = []
 		def secondaryFiles = []
 		int counter = 0

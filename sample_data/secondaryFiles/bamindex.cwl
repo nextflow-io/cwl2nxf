@@ -8,6 +8,12 @@ requirements:
     listing:
       - $(inputs.bamfile)
 
+hints:
+  - class: ResourceRequirement
+    coresMin: 2
+    outdirMin: 1024
+    ramMin: 4096
+
 inputs:
   bamfile:
     type: File
