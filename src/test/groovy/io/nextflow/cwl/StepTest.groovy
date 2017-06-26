@@ -194,7 +194,7 @@ class StepTest extends Specification {
 
         def cwl = (Map)new Yaml().load(text)
         def step = new Step()
-println(tst)
+
         when:
         def stepins = ['gtffile':'gtf']
         def cmdreturn = step.extractCommandString(cwl,stepins)
