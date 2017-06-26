@@ -11,7 +11,7 @@ requirements:
 hints:
   - class: ResourceRequirement
     coresMin: 2
-    outdirMin: 1024
+    outdirMin: 2048
     ramMin: 4096
 
 inputs:

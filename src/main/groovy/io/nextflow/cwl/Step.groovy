@@ -62,17 +62,26 @@ class Step{
 
 
     def extractHints(stepdata){
-        println(stepdata)
+        def hintsReturn = []
+
         stepdata['hints'].each{
+            def keys = it.keySet()
             if(it['class'] == 'ResourceRequirement'){
                 this.jsEvaluator.setJS(['runtime':it])
+                if('outdirMin' in keys){
+                    hintsReturn.add("disk \'${this.jsEvaluator.evaluateJS('runtime.outdirMin')} MB\'")
+                }
+                if('ramMin' in keys){
+                    hintsReturn.add("memory \'${this.jsEvaluator.evaluateJS('runtime.outdirMin')} MB\'")
+                }
             }
             else{
                 throw new IllegalArgumentException("An unsupported hint is present in the ${this.id} step")
             }
         }
-        println(this.jsEvaluator.evaluateJS('runtime.ramMin'))
-        return null
+
+
+        return hintsReturn
     }
 
 	def extractCommandString(Map cwldata, stepins){
@@ -440,6 +449,11 @@ class Step{
 		String processString = ''
 		processString += '\n'
 		processString += 'process ' + this.id + '{ \n'
+        if(this.hints){
+            this.hints.each{
+                processString += "\t${it}\n"
+            }
+        }
 		if(this.outputs.size() > 0 && this.outputs != [null]){
 			this.outputs.each{
 				if(this.wfouts.contains(it.split(' ')[-1])){

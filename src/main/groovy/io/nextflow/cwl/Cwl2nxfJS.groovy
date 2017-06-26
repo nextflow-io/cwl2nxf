@@ -53,6 +53,7 @@ class Cwl2nxfJS {
                 bind[it] = map[it]
             }
         }
+
     }
     def checkForJSPattern(String jsString){
         def jsRegex = (jsString =~ /^*\$\((.*?)\)*$/).find()
