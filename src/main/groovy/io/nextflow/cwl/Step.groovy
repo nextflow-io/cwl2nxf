@@ -51,7 +51,11 @@ class Step{
 
 		this.cmdString = extractCommandString(stepdata, stepins)
 		this.id = id
-        this.hints = extractHints(stepdata)
+        println(stepdata.keySet())
+        if('hints' in stepdata.keySet()){
+            this.hints = extractHints(stepdata)
+        }
+
 		this.inputs = extractInputs(stepdata, wfdata, stepins, ymldata)
 		this.outputs = extractOutputs(stepdata,wfdata, stepins, ymldata)
 		this.wfouts = extractWfouts(wfdata)
@@ -65,6 +69,7 @@ class Step{
         def hintsReturn = []
 
         stepdata['hints'].each{
+            println(it.getClass())
             def keys = it.keySet()
             if(it['class'] == 'ResourceRequirement'){
                 this.jsEvaluator.setJS(['runtime':it])
@@ -83,8 +88,10 @@ class Step{
 				if('coresMin' in keys && 'coresMax' in keys){
 					hintsReturn.add("cpus ${this.jsEvaluator.evaluateJS('runtime.coresMax')}")
 				}
-            }
-            else{
+            } else if (it['class'] == 'DockerRequirement'){
+                hintsReturn.add("container ${it['dockerPull']}")
+
+            } else{
                 throw new IllegalArgumentException("An unsupported hint is present in the ${this.id} step")
             }
         }

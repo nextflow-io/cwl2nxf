@@ -2,7 +2,7 @@ cwlVersion: v1.0
 class: Workflow
 
 hints:
-  DockerRequirement:
+  - class:DockerRequirement:
     dockerPull: combinelab/salmon
 
 inputs:

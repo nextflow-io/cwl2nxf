@@ -22,6 +22,7 @@ Unsupported features
 * JS expressions are currently not implemented
 * Record types
 * outputBinding only supports 'glob'. outputEval and loadContents are unsupported.
+* import statements do not work.
 
 Building cwl2nxf
 -----------
