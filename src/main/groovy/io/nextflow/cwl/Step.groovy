@@ -74,6 +74,15 @@ class Step{
                 if('ramMin' in keys){
                     hintsReturn.add("memory \'${this.jsEvaluator.evaluateJS('runtime.outdirMin')} MB\'")
                 }
+				if('coresMin' in keys && !('coresMax' in keys)){
+					hintsReturn.add("cpus ${this.jsEvaluator.evaluateJS('runtime.coresMin')}")
+				}
+				if('coresMax' in keys && !('coresMin' in keys)){
+					hintsReturn.add("cpus ${this.jsEvaluator.evaluateJS('runtime.coresMax')}")
+				}
+				if('coresMin' in keys && 'coresMax' in keys){
+					hintsReturn.add("cpus ${this.jsEvaluator.evaluateJS('runtime.coresMax')}")
+				}
             }
             else{
                 throw new IllegalArgumentException("An unsupported hint is present in the ${this.id} step")

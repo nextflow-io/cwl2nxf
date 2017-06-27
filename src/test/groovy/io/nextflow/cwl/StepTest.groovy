@@ -260,4 +260,22 @@ class StepTest extends Specification {
         thrown IllegalArgumentException
     }
 
+    def 'test hints processing' () {
+        given:
+        def stepdata = [hints:[[class:'ResourceRequirement', coresMin:2, outdirMin:1024, ramMin:4096]]]
+        def stepdata2 = [hints:[[class:'ResourceRequirement', coresMax:4, outdirMin:1024, ramMin:4096]]]
+        def stepdata3 = [hints:[[class:'ResourceRequirement', coresMax:4, coresMin:2, outdirMin:1024, ramMin:4096]]]
+
+        def step = new Step()
+
+        when:
+        def tst = step.extractHints(stepdata)
+        def tst2 = step.extractHints(stepdata2)
+        def tst3 = step.extractHints(stepdata3)
+        then:
+        tst == ["disk '1024 MB'", "memory '1024 MB'", "cpus 2"]
+        tst2 == ["disk '1024 MB'", "memory '1024 MB'", "cpus 4"]
+        tst3 == ["disk '1024 MB'", "memory '1024 MB'", "cpus 4"]
+    }
+
 }
