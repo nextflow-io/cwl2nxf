@@ -87,10 +87,10 @@ class Cwl2nxfJS {
 
 
         //String testreg = 'sentinel_runtime=cores,$(runtime[\'cores\']),ram,$(runtime[\'ram\'])'
-/*        String testreg = '$(runtime.cores)'
-        println(test.evaluateJSExpression(testreg))*/
-        String jsString = '$(runtime[\'cores\'])'
-        println(test.checkForJSPattern(jsString))
+        String testreg = '$(runtime.cores)'
+        println(test.evaluateJSExpression(testreg))
+/*        String jsString = '$(runtime[\'cores\'])'
+        println(test.checkForJSPattern(jsString))*/
 
 
 

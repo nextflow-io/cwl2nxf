@@ -90,5 +90,15 @@ class Cwl2nxfJSTest extends Specification {
         then:
         newaccess == correct
     }
+    def 'test error throwing from evaluateJSExpression' (){
+        given:
+        def jsevaluator = new Cwl2nxfJS()
+
+        when:
+        jsevaluator.evaluateJS("\$(runtime.not a valid JS expression)")
+
+        then:
+        thrown Exception
+    }
 
 }
