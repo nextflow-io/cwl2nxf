@@ -69,31 +69,38 @@ class Step{
         def hintsReturn = []
 
         stepdata['hints'].each{
-            println(it.getClass())
-            def keys = it.keySet()
-            if(it['class'] == 'ResourceRequirement'){
-                this.jsEvaluator.setJS(['runtime':it])
-                if('outdirMin' in keys){
-                    hintsReturn.add("disk \'${this.jsEvaluator.evaluateJS('runtime.outdirMin')} MB\'")
-                }
-                if('ramMin' in keys){
-                    hintsReturn.add("memory \'${this.jsEvaluator.evaluateJS('runtime.outdirMin')} MB\'")
-                }
-				if('coresMin' in keys && !('coresMax' in keys)){
-					hintsReturn.add("cpus ${this.jsEvaluator.evaluateJS('runtime.coresMin')}")
-				}
-				if('coresMax' in keys && !('coresMin' in keys)){
-					hintsReturn.add("cpus ${this.jsEvaluator.evaluateJS('runtime.coresMax')}")
-				}
-				if('coresMin' in keys && 'coresMax' in keys){
-					hintsReturn.add("cpus ${this.jsEvaluator.evaluateJS('runtime.coresMax')}")
-				}
-            } else if (it['class'] == 'DockerRequirement'){
-                hintsReturn.add("container ${it['dockerPull']}")
+            if(it.getClass() == LinkedHashMap){
+                def keys = it.keySet()
+                if(it['class'] == 'ResourceRequirement'){
+                    this.jsEvaluator.setJS(['runtime':it])
+                    if('outdirMin' in keys){
+                        hintsReturn.add("disk \'${this.jsEvaluator.evaluateJS('runtime.outdirMin')} MB\'")
+                    }
+                    if('ramMin' in keys){
+                        hintsReturn.add("memory \'${this.jsEvaluator.evaluateJS('runtime.outdirMin')} MB\'")
+                    }
+                    if('coresMin' in keys && !('coresMax' in keys)){
+                        hintsReturn.add("cpus ${this.jsEvaluator.evaluateJS('runtime.coresMin')}")
+                    }
+                    if('coresMax' in keys && !('coresMin' in keys)){
+                        hintsReturn.add("cpus ${this.jsEvaluator.evaluateJS('runtime.coresMax')}")
+                    }
+                    if('coresMin' in keys && 'coresMax' in keys){
+                        hintsReturn.add("cpus ${this.jsEvaluator.evaluateJS('runtime.coresMax')}")
+                    }
+                } else if (it['class'] == 'DockerRequirement'){
+                    hintsReturn.add("container ${it['dockerPull']}")
 
-            } else{
-                throw new IllegalArgumentException("An unsupported hint is present in the ${this.id} step")
+                } else{
+                    throw new IllegalArgumentException("An unsupported hint is present in the ${this.id} step")
+                }
             }
+            if(it.getClass() == LinkedHashMap$Entry){
+                if(it.key == 'DockerRequirement'){
+                    hintsReturn.add("container ${it.value['dockerPull']}")
+                }
+            }
+
         }
 
 
@@ -186,7 +193,6 @@ class Step{
 
 	}
 	def extractArguments(cwldata){
-		println (cwldata)
 		def tmplist = ['',]
 		if ('arguments' in cwldata.keySet()){
 			cwldata['arguments'].each{

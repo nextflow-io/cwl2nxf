@@ -277,5 +277,18 @@ class StepTest extends Specification {
         tst2 == ["disk '1024 MB'", "memory '1024 MB'", "cpus 4"]
         tst3 == ["disk '1024 MB'", "memory '1024 MB'", "cpus 4"]
     }
+    def 'test hints for non class version' (){
+        given:
+        def stepdata = [hints:[DockerRequirement:[dockerPull:'combinelab/salmon']]]
+        def step = new Step()
+
+        when:
+        def testresult = step.extractHints(stepdata)
+
+        then:
+        testresult == ['container combinelab/salmon']
+
+
+    }
 
 }
