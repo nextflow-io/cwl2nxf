@@ -51,7 +51,8 @@ class Step{
 
 		this.cmdString = extractCommandString(stepdata, stepins)
 		this.id = id
-        println(stepdata.keySet())
+        this.jsEvaluator.setJSInputs(stepdata, wfdata, stepins, ymldata)
+
         if('hints' in stepdata.keySet()){
             this.hints = extractHints(stepdata)
         }
@@ -250,9 +251,6 @@ class Step{
 		def secondaryFiles = []
 		int counter = 0
 
-
-/*		stepins.keySet()
-		println(cwldata['inputs'])*/
 		cwldata['inputs'].keySet().each{
 			def intype = null
 
@@ -400,8 +398,6 @@ class Step{
             println(glob)
         }*/
 			if (glob.contains('$(inputs')){
-				println(ymldata)
-				println(stepins)
 				glob = glob.replace("\$(inputs.",'')
 				glob = glob.replace(")",'')
 				glob = ymldata[stepins[glob]]

@@ -1,4 +1,7 @@
 package io.nextflow.cwl
+
+import org.yaml.snakeyaml.Yaml
+
 /*
  * Copyright (c) 2013-2017, Centre for Genomic Regulation (CRG).
  * Copyright (c) 2013-2017, Paolo Di Tommaso and the respective authors.
@@ -73,6 +76,22 @@ class Cwl2nxfJS {
             }
         }
         return results
+    }
+
+    def setJSInputs(cwldata, wfdata, stepins, ymldata){
+
+        println(wfdata['inputs'])
+        println(cwldata['inputs'])
+        println(stepins)
+        println(ymldata)
+
+/*        cwldata['inputs'].keySet().each{
+
+            if(stepins[it] in wfdata['inputs'].keySet()){
+                println(ymlmapping[stepins[it]])
+
+            }
+        }*/
 
 
 
