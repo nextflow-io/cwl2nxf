@@ -23,6 +23,7 @@ Unsupported features
 * Record types
 * outputBinding only supports 'glob'. outputEval and loadContents are unsupported.
 * import statements do not work.
+* JS expressions for File type with checksum, size, format, contents are all not supported at this time
 
 Building cwl2nxf
 -----------

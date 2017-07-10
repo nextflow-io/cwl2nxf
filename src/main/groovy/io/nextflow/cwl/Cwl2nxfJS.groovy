@@ -1,6 +1,7 @@
 package io.nextflow.cwl
 
 import org.yaml.snakeyaml.Yaml
+import sun.awt.image.ImageWatched
 
 /*
  * Copyright (c) 2013-2017, Centre for Genomic Regulation (CRG).
@@ -28,6 +29,7 @@ import org.yaml.snakeyaml.Yaml
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager
 import javax.script.*
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 class Cwl2nxfJS {
     ScriptEngineManager factory = new ScriptEngineManager();
@@ -79,20 +81,40 @@ class Cwl2nxfJS {
     }
 
     def setJSInputs(cwldata, wfdata, stepins, ymldata){
+        Map inputsTemp = [:]
+        ObjectMapper mapper = new ObjectMapper()
+        Map<String, Object> converted = mapper.convertValue(ymldata, Map.class)
 
-        println(wfdata['inputs'])
-        println(cwldata['inputs'])
-        println(stepins)
-        println(ymldata)
 
-/*        cwldata['inputs'].keySet().each{
-
+        cwldata['inputs'].keySet().each{
             if(stepins[it] in wfdata['inputs'].keySet()){
-                println(ymlmapping[stepins[it]])
-
+                if(converted[stepins[it]].getClass() != LinkedHashMap){
+                    inputsTemp.put(it, converted[stepins[it]])
+                }
+                if(converted[stepins[it]].getClass() == LinkedHashMap){
+                    if(converted[stepins[it]]['class'] == 'File'){
+                        inputsTemp.put(it, parseFileObject(converted[stepins[it]]))
+                    }
+                }
             }
-        }*/
 
+
+        }
+        if(inputsTemp){
+            this.bindings.putAll([inputs: inputsTemp])
+        }
+    }
+
+    def parseFileObject(fileMap){
+        Map tempMap = [:]
+        String tempPath = fileMap['path']
+        tempMap.put('path', tempPath)
+        tempMap.put('location', tempPath)
+        tempMap.put('basename', tempPath.split('/')[-1])
+        tempMap.put('nameext', tempPath.split(/\./)[-1])
+        tempMap.put('nameroot', tempPath.split('/')[-1].split(/\./)[0])
+
+        return tempMap
 
 
     }

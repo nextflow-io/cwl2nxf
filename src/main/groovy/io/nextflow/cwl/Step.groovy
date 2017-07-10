@@ -427,7 +427,6 @@ class Step{
 
 	def secondaryFilesProcessing(returns,into){
 		String newChannel = "${into} = Channel.create()"
-		println(into)
 		return returns
 
 	}

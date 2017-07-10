@@ -72,6 +72,8 @@ class Workflow{
         this.channels = extractChannels()
         this.docker = extractDocker()
 
+
+
     }
 
     private JsonNode parseYml(String ymlData){
