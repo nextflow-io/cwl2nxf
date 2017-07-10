@@ -394,14 +394,16 @@ class Step{
 			if(glob == '.'){
 				glob = '*'
 			}
-/*        if(this.jsEvaluator.checkForJSPattern(glob, into)){
-            println(glob)
-        }*/
-			if (glob.contains('$(inputs')){
+            if(this.jsEvaluator.checkForJSPattern(glob)){
+                //get the map back from the JSExpression then assign the glob based on the key in the map
+                glob = this.jsEvaluator.evaluateJSExpression(glob)[glob]
+
+            }
+/*			if (glob.contains('$(inputs')){
 				glob = glob.replace("\$(inputs.",'')
 				glob = glob.replace(")",'')
 				glob = ymldata[stepins[glob]]
-			}
+			}*/
 			returns.add("${outType} \"${glob}\" into ${into}")
 			if('secondaryFiles' in cwldata['outputs'][out].keySet()) {
 				secondaryFilesFound = true
