@@ -286,7 +286,7 @@ class StepTest extends Specification {
         def testresult = step.extractHints(stepdata)
 
         then:
-        testresult == ['container combinelab/salmon']
+        testresult == ['container \'combinelab/salmon\'']
 
 
     }

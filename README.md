@@ -7,7 +7,7 @@ Supported features
 -----------
 * Parsing of CWL v1.0 documents. 
 * Basic scatter support
-* Support of 'runtime' JS evaluation
+* Support of 'runtime' and limited supported for 'inputs' JS evaluation
 * secondaryFiles
 * Conditional commandline inclusion.
 	* In CWL if an input is null it is excluded from the commandline
@@ -22,6 +22,7 @@ Unsupported features
 * JS expressions are currently not implemented
 * Record types
 * outputBinding only supports 'glob'. outputEval and loadContents are unsupported.
+	* limited support for outputEval is now functional
 * import statements do not work.
 * JS expressions for File type with checksum, size, format, contents are all not supported at this time
 
