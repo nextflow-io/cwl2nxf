@@ -90,7 +90,7 @@ class Step{
                         hintsReturn.add("cpus ${this.jsEvaluator.evaluateJS('runtime.coresMax')}")
                     }
                 } else if (it['class'] == 'DockerRequirement'){
-                    hintsReturn.add("container ${it['dockerPull']}")
+                    hintsReturn.add("container '${it['dockerPull']}'")
 
                 } else{
                     throw new IllegalArgumentException("An unsupported hint is present in the ${this.id} step")
@@ -98,7 +98,7 @@ class Step{
             }
             if(it.getClass() == LinkedHashMap$Entry){
                 if(it.key == 'DockerRequirement'){
-                    hintsReturn.add("container ${it.value['dockerPull']}")
+                    hintsReturn.add("container '${it.value['dockerPull']}'")
                 }
             }
 
@@ -417,6 +417,12 @@ class Step{
 
 				}
 			}
+		}
+		else if('outputEval' in cwldata['outputs'][out]['outputBinding'].keySet()){
+            //This needs a test case and is unevaluated currently
+			def evaledOutput = this.jsEvaluator.evaluateJSExpression(cwldata['outputs'][out]['outputBinding']['outputEval'])
+            println("${outType} \"${evaledOutput}\" into ${into}")
+            returns.add("${outType} \"${evaledOutput}\" into ${into}")
 		}
 		else{
 			throw new IllegalArgumentException("outputBinding can only be of type 'glob'")

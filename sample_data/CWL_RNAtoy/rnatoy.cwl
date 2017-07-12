@@ -1,5 +1,10 @@
 cwlVersion: v1.0
 class: Workflow
+
+hints:
+  DockerRequirement:
+    dockerPull: nextflow/rnatoy
+    
 inputs:
   infile: File
   act: string
