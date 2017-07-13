@@ -12,8 +12,6 @@ requirements:
       - $(inputs.indexs[3])
       - $(inputs.indexs[4])
       - $(inputs.indexs[5])
-
-
 inputs:
   indexs:
     type: File[]
@@ -34,8 +32,6 @@ inputs:
     type: File
     inputBinding:
       position: 4
-
-
 outputs: 
   tophatout:
     type: File
