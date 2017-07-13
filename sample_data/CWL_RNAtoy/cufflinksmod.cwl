@@ -3,7 +3,6 @@ class: CommandLineTool
 baseCommand: cufflinks
 
 arguments: ["--no-update-check","-q"]
-
 inputs:
   gtf:
     type: File
@@ -14,8 +13,6 @@ inputs:
     type: File
     inputBinding:
       position: 2
-
-
 outputs: 
   cuffout:
     type: File
