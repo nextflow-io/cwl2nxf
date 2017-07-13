@@ -11,8 +11,6 @@ inputs:
     type: string
     inputBinding:
       position: 2
-
-
 outputs: 
   indexout:
     type: File[]
