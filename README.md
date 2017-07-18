@@ -84,5 +84,5 @@ Nextflow graph after conversion:
 
 License
 -----------
-The cwl2nxf is released under the GNU GPLv3 License.
+The cwl2nxf is released under the Apache 2.0 License.
  
