@@ -3,6 +3,9 @@ cwl2nxf
 
 This is a prototype conversion tool from Common Workflow Language (CWL) to Nextflow. This project is still under active development, with a number of common CWL features implemented currently. Example workflows to demonstrate the conversion are included in the 'sample_data' folder with additional information on how to convert and run each exmaple. 
 
+[![CircleCI status](https://circleci.com/gh/nextflow-io/cwl2nxf.png?style=shield)](https://circleci.com/gh/nextflow-io/cwl2nxf/tree/master)
+
+
 Supported features
 -----------
 * Parsing of CWL v1.0 documents. 
