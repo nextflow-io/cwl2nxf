@@ -32,16 +32,32 @@ Unsupported features
 Building cwl2nxf
 -----------
 
-The converter can be built using the following Gradle command. 
+Note: Make sure to have Java 8 installed.
+
+Clone this repository with the following command: 
+
+```
+git clone https://github.com/nextflow-io/cwl2nxf.git && cwl2nxf && export CWL2NXF_HOME=$PWD
+```
+
+Then build the project by using the following command:
+
 ```
 ./gradlew uberjar
 ```
 
-Then the below command will execute the newly created jar and process the provided sample data.
+Finally you can execute the `cwl2nxf` application as shown below:
+
 ```
-java -jar build/libs/cwl2nxf-*.jar -o NXFout.nf sample_data/tutorial_tar_test/wf.cwl sample_data/tutorial_tar_test/wf.yml 
+cd sample_data/tutorial_tar_test
+java -jar $CWL2NXF_HOME/build/libs/cwl2nxf-*.jar -o sample.nf wf.cwl wf.yml 
 ```
-Upon execution NXFout.nf file will be created in the base folder. This file will then be runnable using Nextflow
+
+Upon execution `sample.nf` file will be created in the base folder. This file will then be runnable using Nextflow: 
+
+```
+nextflow run sample.nf
+```
 
 
 Development 
