@@ -27,6 +27,7 @@ class Step{
 	def wfouts //These are the final files which are kept
 	def jsEvaluator = new Cwl2nxfJS()
     def hints
+	def requirements
 
 
 
@@ -49,9 +50,13 @@ class Step{
 		this.id = id
         this.jsEvaluator.setJSInputs(stepdata, wfdata, stepins, ymldata)
 
+
         if('hints' in stepdata.keySet()){
             this.hints = extractHints(stepdata)
         }
+		if('requirements' in stepdata.keySet()){
+			this.requirements = (extractRequirements(stepdata))
+		}
 
 		this.inputs = extractInputs(stepdata, wfdata, stepins, ymldata)
 		this.outputs = extractOutputs(stepdata,wfdata, stepins, ymldata)
@@ -61,9 +66,21 @@ class Step{
 
 	}
 
+	def extractRequirements(stepdata){
+		def requirements = []
+		stepdata['requirements'].each{
+			if('dockerPull' in it.keySet()){
+				requirements.add("container '${it['dockerPull']}'")
+			}
+		}
+		return requirements
+
+
+	}
 
     def extractHints(stepdata){
         def hintsReturn = []
+
 
         stepdata['hints'].each{
             if(it.getClass() == LinkedHashMap){
@@ -475,6 +492,11 @@ class Step{
                 processString += "\t${it}\n"
             }
         }
+		if(this.requirements){
+			this.requirements.each{
+				processString += "\t${it}\n"
+			}
+		}
 		if(this.outputs.size() > 0 && this.outputs != [null]){
 			this.outputs.each{
 				if(this.wfouts.contains(it.split(' ')[-1])){

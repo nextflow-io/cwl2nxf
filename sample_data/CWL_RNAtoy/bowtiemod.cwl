@@ -1,6 +1,5 @@
 cwlVersion: v1.0
 class: CommandLineTool
-baseCommand: bowtie2-build
 
 inputs:
   indexfile:
@@ -16,3 +15,4 @@ outputs:
     type: File[]
     outputBinding:
       glob: "*"
+baseCommand: bowtie2-build
